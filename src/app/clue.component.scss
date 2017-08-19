@@ -1,0 +1,10 @@
+﻿
+.clue {
+  display: flex;
+  flex-flow: column wrap;
+
+  main {
+    flex: 1 1 auto;
+    padding: 1rem;
+  }
+}

@@ -1,0 +1,17 @@
+﻿
+
+@import '~@angular/material/theming';
+
+@include mat-core();
+
+
+$clue-primary: mat-palette($mat-blue);
+$clue-accent: mat-palette($mat-orange, A200, A100, A400);
+
+$clue-warn: mat-palette($mat-red);
+
+
+$clue-theme: mat-light-theme($clue-primary, $clue-accent, $clue-warn);
+
+
+@include angular-material-theme($clue-theme);
