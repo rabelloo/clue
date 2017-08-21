@@ -1,19 +1,13 @@
 ﻿
 <div class="clue">
   <nav>
-    <md-toolbar color="primary">
-      <a>Clue</a>
-    </md-toolbar>
+    <clue-nav-bar></clue-nav-bar>
   </nav>
   <main>
     <h1 style="text-align:center">
       Welcome to {{title}}!
     </h1>
-    <h2>Here are some links to help you start: </h2>
     <ul>
-      <li>
-        <h2><a target="_blank" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-      </li>
       <li>
         <h2><a target="_blank" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
       </li>
@@ -21,4 +15,8 @@
 
     <router-outlet></router-outlet>
   </main>
+
+  <footer>
+    <clue-footer></clue-footer>
+  </footer>
 </div>

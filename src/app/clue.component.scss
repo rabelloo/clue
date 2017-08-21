@@ -2,9 +2,10 @@
 .clue {
   display: flex;
   flex-flow: column wrap;
+  height: 100vh;
 
   main {
-    flex: 1 1 auto;
+    flex: 1 0 auto;
     padding: 1rem;
   }
 }

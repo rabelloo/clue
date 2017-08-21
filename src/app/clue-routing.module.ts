@@ -1,18 +1,16 @@
 ﻿import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { PlayerComponent } from './player/player.component';
-import { HistoryComponent } from './history/history.component';
+import { PlayerRoutingModule } from './player/player-routing.module';
 
-const clueRoutes: Routes = [
-    { path: 'players', component: PlayerComponent },
-    { path: 'history', component: HistoryComponent },
+const routes: Routes = [
     { path: '', redirectTo: '/players', pathMatch: 'full' }
 ];
 
 @NgModule({
     imports: [
-        RouterModule.forRoot(clueRoutes)
+        RouterModule.forRoot(routes),
+        PlayerRoutingModule
     ],
     exports: [
         RouterModule
