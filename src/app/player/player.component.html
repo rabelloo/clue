@@ -1,3 +1,6 @@
-<p>
-  player works!
-</p>
+
+<md-card>
+  <md-input-container *ngFor="let player of players">
+    <input mdInput #player [value]="player.name" />
+  </md-input-container>
+</md-card>
