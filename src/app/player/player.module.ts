@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MdCardModule, MdInputModule } from "@angular/material";
+import { MdCardModule, MdInputModule } from '@angular/material';
 
 import { PlayerComponent } from './player.component';
 import { PlayerService } from './player.service';
+import { ApiService } from '../api/api.service';
 
 @NgModule({
   imports: [
@@ -14,6 +15,9 @@ import { PlayerService } from './player.service';
   declarations: [
     PlayerComponent
   ],
-  providers: [PlayerService]
+  providers: [
+    ApiService,
+    PlayerService
+  ]
 })
 export class PlayerModule { }
