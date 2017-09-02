@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
 
 import { Player } from './player';
 import { LocalForageTable } from '../local-forage/local-forage-table';
@@ -15,14 +14,16 @@ export class PlayerService {
   constructor(private localForage: LocalForageService) {
     this.players = localForage.getTable<Player>(this.tableName);
   }
+  
+  getAll(): Observable<Player[]> {
+    return this.players.getAll();
+  }
 
-  get(id?: number): Observable<Player> {
-    return this.players
-            .get(id);
+  get(id: number): Observable<Player> {
+    return this.players.get(id);
   }
 
   save(player: Player): Observable<Player> {
-    return this.players
-            .set(player.id, player);
+    return this.players.save(player);
   }
 }

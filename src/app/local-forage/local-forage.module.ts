@@ -1,13 +1,9 @@
-import { NgModule, ModuleWithProviders } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 
 import { LocalForageService } from './local-forage.service';
 import { LocalForageTable } from './local-forage-table';
 
 @NgModule({
-  imports: [
-    CommonModule
-  ],
   providers: [
     LocalForageService
   ]

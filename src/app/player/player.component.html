@@ -1,18 +1,17 @@
 <md-card>
-  <div *ngFor="let player of players | async"
-        (ngSubmit)="savePlayer(player)">
+  <div *ngFor="let player of players | async">
+      {{ player  | json }}
   </div>
-
-
-  <form [formGroup]="form" (ngSubmit)="savePlayer()">
+  
+  <form [formGroup]="form" *ngFor="let player of players | async">
     <md-form-field>
-      <input mdInput formControlName="name" placeholder="Name" />
+      <input mdInput formControlName="name" placeholder="Name" [value]="form.name" />
     </md-form-field>
     <md-select formControlName="character" placeholder="Character">
       <md-option *ngFor="let suspect of suspects | async" [value]="suspect.id">{{ suspect.name }}</md-option>
     </md-select>
-    <button md-icon-button color="primary">
-      <md-icon>favorite</md-icon>
+    <button md-icon-button color="primary" *ngIf="formSaved">
+      <md-icon>done</md-icon>
     </button>
   </form>
 </md-card>
