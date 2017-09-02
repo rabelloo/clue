@@ -3,24 +3,26 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
 import { Player } from './player';
+import { LocalForageTable } from '../local-forage/local-forage-table';
 import { LocalForageService } from '../local-forage/local-forage.service';
 
 @Injectable()
 export class PlayerService {
 
-  constructor(private localForage: LocalForageService) { }
+  private readonly tableName = 'Players';
+  players: LocalForageTable<Player>
+
+  constructor(private localForage: LocalForageService) {
+    this.players = localForage.getTable<Player>(this.tableName);
+  }
 
   get(id?: number): Observable<Player> {
-    return this.localForage
-            .get(id)
-            .map(this.cast);
+    return this.players
+            .get(id);
   }
 
   save(player: Player): Observable<Player> {
-    return this.localForage
-            .set(player.id, player)
-            .map(this.cast);
+    return this.players
+            .set(player.id, player);
   }
-
-  private cast = player => player as Player;
 }

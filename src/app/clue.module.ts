@@ -9,9 +9,6 @@ import { PlayerModule } from './player/player.module';
 import { NavBarModule } from './nav-bar/nav-bar.module';
 
 @NgModule({
-  declarations: [
-    ClueComponent
-  ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -19,6 +16,9 @@ import { NavBarModule } from './nav-bar/nav-bar.module';
     FooterModule,
     NavBarModule,
     PlayerModule,
+  ],
+  declarations: [
+    ClueComponent,
   ],
   providers: [],
   bootstrap: [ClueComponent]

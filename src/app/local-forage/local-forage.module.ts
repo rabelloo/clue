@@ -8,22 +8,8 @@ import { LocalForageTable } from './local-forage-table';
   imports: [
     CommonModule
   ],
-  exports: [
+  providers: [
     LocalForageService
-  ],
-  declarations: []
+  ]
 })
-export class LocalForageModule {
-  static forRoot(): ModuleWithProviders {
-    return {
-        ngModule: LocalForageModule,
-        providers: [
-          {
-              provide: LocalForageTable,
-              useValue: LocalForageTable
-          },
-          LocalForageService
-        ]
-    };
-  }
-}
+export class LocalForageModule { }

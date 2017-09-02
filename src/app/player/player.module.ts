@@ -1,22 +1,27 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MdCardModule, MdInputModule } from '@angular/material';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MdButtonModule, MdCardModule, MdInputModule, MdIconModule, MdSelectModule } from '@angular/material';
 
+import { LocalForageModule } from '../local-forage/local-forage.module';
 import { PlayerComponent } from './player.component';
 import { PlayerService } from './player.service';
-import { ApiService } from '../api/api.service';
 
 @NgModule({
   imports: [
     CommonModule,
+    LocalForageModule,
+    MdButtonModule,
     MdCardModule,
-    MdInputModule
+    MdInputModule,
+    MdIconModule,
+    MdSelectModule,
+    ReactiveFormsModule,
   ],
   declarations: [
     PlayerComponent
   ],
   providers: [
-    ApiService,
     PlayerService
   ]
 })
