@@ -2,25 +2,25 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 
-import { ClueComponent } from './clue.component';
-import { ClueRoutingModule } from './clue-routing.module';
-import { FooterModule } from "./footer/footer.module";
+import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
+import { CoreModule } from './core/core.module';
 import { PlayerModule } from './player/player.module';
-import { NavBarModule } from './nav-bar/nav-bar.module';
+import { HistoryModule } from './history/history.module';
 
 @NgModule({
   imports: [
+    AppRoutingModule,
     BrowserModule,
     BrowserAnimationsModule,
-    ClueRoutingModule,
-    FooterModule,
-    NavBarModule,
+    CoreModule,
     PlayerModule,
+    HistoryModule,
   ],
   declarations: [
-    ClueComponent,
+    AppComponent,
   ],
   providers: [],
-  bootstrap: [ClueComponent]
+  bootstrap: [AppComponent]
 })
-export class ClueModule { }
+export class AppModule { }

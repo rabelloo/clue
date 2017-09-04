@@ -16,4 +16,4 @@ const routes: Routes = [
         RouterModule
     ]
 })
-export class ClueRoutingModule { }
+export class AppRoutingModule { }

@@ -1,0 +1,14 @@
+<form [formGroup]="form">
+  <input formControlName="name" type="hidden" [value]="player.id">
+  <md-form-field>
+    <input mdInput formControlName="name" placeholder="Name" [value]="player.name" />
+  </md-form-field>
+  <md-select formControlName="character" placeholder="Character" [value]="player.character">
+    <md-option *ngFor="let suspect of suspects" [value]="suspect.id">{{ suspect.name }}</md-option>
+  </md-select>
+  <md-icon color="primary" *ngIf="player.valid" title="Saved">done</md-icon>
+  
+  <button md-icon-button color="warn" (click)="removePlayer()">
+    <md-icon>delete</md-icon>
+  </button>
+</form>

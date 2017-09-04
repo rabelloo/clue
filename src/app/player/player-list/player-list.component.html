@@ -1,0 +1,15 @@
+<md-card>
+  <clue-player-form *ngFor="let player of players"
+                    [player]="player"
+                    [suspects]="suspects"
+                    (remove)="onRemove($event)">
+    Loading players...
+  </clue-player-form>
+
+  <button md-raised-button
+          color="primary"
+          (click)="addPlayer()"
+          *ngIf="players?.length < 6">
+    <md-icon>add</md-icon> Player
+  </button>
+</md-card>
