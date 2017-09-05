@@ -4,8 +4,34 @@
     <input mdInput formControlName="name" placeholder="Name" [value]="player.name" />
   </md-form-field>
   <md-select formControlName="character" placeholder="Character" [value]="player.character">
-    <md-option *ngFor="let suspect of suspects" [value]="suspect.id">{{ suspect.name }}</md-option>
+    <md-select-trigger>{{ 'TODO' }}</md-select-trigger>
+    <md-option *ngFor="let suspect of suspects" [value]="suspect.id">
+      <div fxLayout fxLayoutAlign="default center">
+        <md-icon class="{{suspect.color}}">person</md-icon>
+        <md-icon class="outline {{suspect.color}}">person_outline</md-icon>
+        <span>{{ suspect.name }}</span>
+      </div>
+    </md-option>
   </md-select>
+  <md-select multiple formControlName="cards" placeholder="Cards" [value]="player.cards">
+    <md-optgroup label="Suspects">
+      <md-option *ngFor="let suspect of suspects" [value]="suspect.id">
+          <span>{{ suspect.name }}</span>
+      </md-option>
+    </md-optgroup>
+    <md-optgroup label="Weapons">
+      <md-option *ngFor="let weapon of weapons" [value]="weapon.id">
+          <span>{{ weapon.name }}</span>
+      </md-option>
+    </md-optgroup>
+    <md-optgroup label="Rooms">
+      <md-option *ngFor="let room of rooms" [value]="room.id">
+          <span>{{ room.name }}</span>
+      </md-option>
+    </md-optgroup>
+  </md-select>
+  <md-hint *ngIf="form.controls.cards.valid">Test</md-hint>
+  
   <md-icon color="primary" *ngIf="player.valid" title="Saved">done</md-icon>
   
   <button md-icon-button color="warn" (click)="removePlayer()">

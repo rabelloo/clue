@@ -2,27 +2,27 @@ import { Weapon } from "./weapon";
 
 export const Weapons = [ // TODO: fetch from somewhere else
   new Weapon({
-    id: 1,
+    id: 7,
     name: 'Candlestick'
   }),
   new Weapon({
-    id: 2,
+    id: 8,
     name: 'Knife'
   }),
   new Weapon({
-    id: 3,
+    id: 9,
     name: 'Lead pipe'
   }),
   new Weapon({
-    id: 4,
+    id: 10,
     name: 'Revolver'
   }),
   new Weapon({
-    id: 5,
+    id: 11,
     name: 'Rope'
   }),
   new Weapon({
-    id: 6,
+    id: 12,
     name: 'Wrench'
   })
 ]

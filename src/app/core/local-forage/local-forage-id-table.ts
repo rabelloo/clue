@@ -7,7 +7,7 @@ import { LocalForageTable } from './local-forage-table';
 
 export class LocalForageIdTable<T extends ILocalForageEntity> extends LocalForageTable {
     
-  private idMap: LocalForage;
+  private idMap: LocalForageTable;
   private currentId: number;
 
   /**
@@ -25,9 +25,7 @@ export class LocalForageIdTable<T extends ILocalForageEntity> extends LocalForag
   constructor(name: string, constructor: Type<T>)
   constructor(name: string, private constructor?: Type<T>) {
     super(name);
-    this.idMap = localforage.createInstance({
-        name: 'PrimaryKeys'
-    });
+    this.idMap = new LocalForageTable('PrimaryKeys');
     this.getCurrentId();
 
     if (constructor)
@@ -67,17 +65,17 @@ export class LocalForageIdTable<T extends ILocalForageEntity> extends LocalForag
 
   private getCurrentId(): void {
     this.idMap
-    .getItem(this.name)
-    .then(id => {
-        if (!id)
-            this.idMap.setItem(this.name, 0);
+        .get(this.name)
+        .subscribe(id => {
+            if (!id)
+                this.idMap.set(this.name, 0);
 
-        this.currentId = id as number || 0;
-    });
+            this.currentId = id as number || 0;
+        });
   }
 
   private incrementId(): number {
-    this.idMap.setItem(this.name, ++this.currentId);
+    this.idMap.set(this.name, ++this.currentId);
     return this.currentId;
   }
 }

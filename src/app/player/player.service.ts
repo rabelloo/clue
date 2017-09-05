@@ -16,7 +16,7 @@ export class PlayerService {
   }
   
   getAll(): Observable<Player[]> {
-    return this.players.getAll();
+    return this.players.getAll().map(players => players.sortBy(player => player.name));
   }
 
   get(id: number): Observable<Player> {
@@ -30,4 +30,5 @@ export class PlayerService {
   delete(player: Player): Observable<void> {
     return this.players.delete(player);
   }
+
 }

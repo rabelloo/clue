@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { ApiService } from './api/api.service';
 import { FooterComponent } from './footer/footer.component';
 import { LocalForageService } from './local-forage/local-forage.service';
-import { MaterialModule } from '../shared/material.module';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { Notifier } from './notifier/notifier.service';
 import { RxJSModule } from './rx-js/rx-js.module';
+import { SharedModule } from '../shared/shared.module';
+import './array-extensions'
 
 const coreComponents = [
   FooterComponent,
@@ -16,15 +16,14 @@ const coreComponents = [
 
 @NgModule({
   imports: [
-    CommonModule,
-    FlexLayoutModule,
-    MaterialModule,
+    SharedModule,
   ],
   exports: [RxJSModule].concat(coreComponents),
   declarations: coreComponents,
   providers: [
     ApiService,
-    LocalForageService
+    LocalForageService,
+    Notifier
   ]
 })
 export class CoreModule { }

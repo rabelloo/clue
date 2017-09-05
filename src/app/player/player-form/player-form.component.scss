@@ -1,0 +1,34 @@
+@import '~@angular/material/theming';
+
+.mat-select { 
+    ::ng-deep .mat-select-trigger {
+        height: 32px;
+    }
+}
+
+.mat-icon {
+    $size: 32px;
+
+    font-size: $size;
+    height: $size;
+    width: $size;
+
+    &.outline {
+        color: $black-87-opacity;
+        position: absolute;
+        transform: scale(1.2);
+    }
+}
+
+@mixin color($class, $palette, $hue: 500) {
+    &.#{$class} {
+        color: mat-color($palette, $hue);
+    }
+}
+
+@include color('blue', $mat-blue);
+@include color('green', $mat-green);
+@include color('grey-A100', $mat-grey, A100); // this is white
+@include color('purple', $mat-purple);
+@include color('red', $mat-red);
+@include color('yellow', $mat-yellow);
