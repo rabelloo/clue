@@ -7,7 +7,9 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { Notifier } from './notifier/notifier.service';
 import { RxJSModule } from './rx-js/rx-js.module';
 import { SharedModule } from '../shared/shared.module';
-import './array-extensions'
+
+import './prototype-extensions/array-extensions';
+import './prototype-extensions/string-extensions';
 
 const coreComponents = [
   FooterComponent,

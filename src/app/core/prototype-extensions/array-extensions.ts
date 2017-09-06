@@ -41,7 +41,7 @@ interface Array<T> {
 
 // Functions ==================================================
 
-    function isNative(func) {
+    function isNative(func: string): boolean {
         return /.*\[native code\].*/g.test( Array.prototype[func].toString() );
     }
 

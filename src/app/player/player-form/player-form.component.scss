@@ -6,29 +6,58 @@
     }
 }
 
-.mat-icon {
-    $size: 32px;
-
-    font-size: $size;
-    height: $size;
-    width: $size;
-
-    &.outline {
-        color: $black-87-opacity;
-        position: absolute;
-        transform: scale(1.2);
+md-option {
+    .mat-icon {
+        $size: 32px;
+    
+        font-size: $size;
+        height: $size;
+        width: $size;
+        
+        @mixin color($class, $palette, $hue: 500) {
+            &.#{$class} {
+                color: mat-color($palette, $hue);
+            }
+        }
+        
+        @include color('blue', $mat-blue);
+        @include color('green', $mat-green);
+        @include color('grey-A100', $mat-grey, A100); // this is white
+        @include color('purple', $mat-purple);
+        @include color('red', $mat-red);
+        @include color('yellow', $mat-yellow);
+        
+        &.outline {
+            color: $black-87-opacity;
+            position: absolute;
+            transform: scale(1.2);
+        }
     }
 }
 
-@mixin color($class, $palette, $hue: 500) {
-    &.#{$class} {
-        color: mat-color($palette, $hue);
+// TODO: remove this fix when md-form-field supports md-selects
+.mat-form-field-type-mat-select ::ng-deep {
+
+    .mat-form-field-flex {
+        cursor: pointer;
+    }
+
+    .mat-form-field-infix {
+        min-width: 0;
+        
+        .mat-select {
+            padding-top: 0;
+            width: 100%;
+
+            .mat-select-trigger {
+                min-width: unset;
+                height: 1.125em;
+                cursor: pointer;
+            }
+
+            .mat-select-underline {
+                height: 0;
+            }
+        }
     }
 }
-
-@include color('blue', $mat-blue);
-@include color('green', $mat-green);
-@include color('grey-A100', $mat-grey, A100); // this is white
-@include color('purple', $mat-purple);
-@include color('red', $mat-red);
-@include color('yellow', $mat-yellow);
