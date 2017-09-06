@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 import { ApiService } from './api/api.service';
 import { FooterComponent } from './footer/footer.component';
@@ -19,6 +20,7 @@ const coreComponents = [
 @NgModule({
   imports: [
     SharedModule,
+    RouterModule,
   ],
   exports: [RxJSModule].concat(coreComponents),
   declarations: coreComponents,
