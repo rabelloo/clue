@@ -2,8 +2,8 @@
   <clue-player-form *ngFor="let player of players"
                     [player]="player"
                     [playerCount]="players.length"
-                    [suspects]="suspects"
                     [rooms]="rooms"
+                    [suspects]="suspects"
                     [weapons]="weapons"
                     (remove)="onRemove($event)">
     Loading player...

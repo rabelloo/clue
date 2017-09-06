@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
+import { HistoryService } from './history.service';
+import { Round } from './round/round';
+
 @Component({
   selector: 'clue-history',
   templateUrl: './history.component.html',
@@ -7,9 +10,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HistoryComponent implements OnInit {
 
-  constructor() { }
+  private rounds: Round[];
+
+  constructor(private historyService: HistoryService) { }
 
   ngOnInit() {
+  }
+
+  private addTurn() {
+
+  }
+
+  private loadRounds() {
+    this.historyService.getRounds()
+        .subscribe(rounds => this.rounds = rounds);
   }
 
 }

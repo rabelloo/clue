@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
+import { CardCollection } from '../../card/card-collection';
 import { Player } from '.././player';
 import { PlayerService } from '.././player.service';
 import { Suspect } from '../../card/suspect/suspect';
-import { SuspectService } from '../../card/suspect/suspect.service';
 import { Room } from '../../card/room/room';
-import { RoomService } from '../../card/room/room.service';
 import { Weapon } from '../../card/weapon/weapon';
-import { WeaponService } from '../../card/weapon/weapon.service';
 
 @Component({
   selector: 'clue-player-list',
@@ -18,47 +17,31 @@ export class PlayerListComponent implements OnInit {
   
   forms = {};
   players: Player[] = [];
-  suspects: Suspect[];
   rooms: Room[];
+  suspects: Suspect[];
   weapons: Weapon[];
 
   constructor(private playerService: PlayerService,
-              private suspectService: SuspectService,
-              private roomService: RoomService,
-              private weaponService: WeaponService) {
-      //
+              route: ActivatedRoute) {
+      var cards = route.snapshot.data.cards as CardCollection;
+
+      this.rooms = cards.rooms;
+      this.suspects = cards.suspects;
+      this.weapons = cards.weapons;      
   }
 
   ngOnInit(): void {
     this.loadPlayers();
-    this.loadSuspects();
-    this.loadRooms();
-    this.loadWeapons();
   }
 
   private addPlayer(): void {
-    this.playerService.save(new Player())
+    this.playerService.save(new Player({ order: this.players.length + 1 }))
         .subscribe(player => this.players.push(player));
   }
 
   private loadPlayers(): void {
     this.playerService.getAll()
         .subscribe(players => this.players = players);
-  }
-
-  private loadSuspects(): void {
-    this.suspectService.get()
-        .subscribe(suspects => this.suspects = suspects);
-  }
-  
-  private loadRooms(): void {
-    this.roomService.get()
-        .subscribe(rooms => this.rooms = rooms);
-  }
-  
-  private loadWeapons(): void {
-    this.weaponService.get()
-        .subscribe(weapons => this.weapons = weapons);
   }
 
   private onRemove(player: Player): void {

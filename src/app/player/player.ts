@@ -1,6 +1,11 @@
 export class Player {
     id: number
     name: string = ''
-    character: number
-    cards: number[]
+    order: number
+    characterId: number
+    cardIds: number[] = []
+
+    constructor(init?: Partial<Player>) {
+        Object.assign(this, init);
+    }
 }

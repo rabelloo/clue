@@ -1,45 +1,72 @@
 <form [formGroup]="form">
-  <input formControlName="id" type="hidden" [value]="player.id">
+  <input formControlName="id" type="hidden" [value]="player.id" />
+
+  <md-form-field style="max-width: 40px">
+    <input mdInput formControlName="order" type="number" min="1" max="6" placeholder="Order" [value]="player.order" />
+  </md-form-field>
+
   <md-form-field>
     <input mdInput formControlName="name" placeholder="Name" [value]="player.name" />
     <md-error clueErrorMessages="name"></md-error>
   </md-form-field>
-  <md-select formControlName="character" placeholder="Character" [value]="player.character">
-    <md-select-trigger>{{ 'TODO' }}</md-select-trigger>
-    <md-option *ngFor="let suspect of suspects" [value]="suspect.id">
-      <div fxLayout fxLayoutAlign="default center">
-        <md-icon class="{{suspect.color}}">person</md-icon>
-        <md-icon class="outline {{suspect.color}}">person_outline</md-icon>
-        <span>{{ suspect.name }}</span>
-      </div>
-    </md-option>
-  </md-select>
+
   <!-- TODO: remove class and styles when md-form-field supports md-selects -->
   <md-form-field class="mat-form-field-type-mat-select">
-    <md-select #cards multiple formControlName="cards" placeholder="Cards" [value]="player.cards">
+    <div mdPrefix>
+      <md-icon class="{{character.color}}">person</md-icon>
+      <md-icon class="outline {{character.color}}">person_outline</md-icon>
+    </div>
+    <md-select formControlName="characterId" placeholder="Character" [value]="player.characterId" (change)="onSelect($event)">
+      <md-select-trigger>{{ character.name }}</md-select-trigger>
+      <md-option *ngFor="let suspect of suspects" [value]="suspect.id">
+        <div fxLayout fxLayoutAlign="default center">
+          <md-icon class="{{suspect.color}}">person</md-icon>
+          <md-icon class="outline {{suspect.color}}">person_outline</md-icon>
+          <span>{{ suspect.name }}</span>
+        </div>
+      </md-option>
+    </md-select>
+    <!-- TODO: remove input when md-form-field supports md-selects -->
+    <input mdInput formControlName="characterId" hidden id="temporary fix" />
+
+    <md-error clueErrorMessages="characterId"></md-error>
+  </md-form-field>
+
+  <!-- TODO: remove class and styles when md-form-field supports md-selects -->
+  <md-form-field class="mat-form-field-type-mat-select">
+    <md-select #cards multiple formControlName="cardIds" placeholder="Cards" [value]="player.cardIds">
       <md-optgroup label="Suspects">
         <md-option *ngFor="let suspect of suspects" [value]="suspect.id">
             <span>{{ suspect.name }}</span>
         </md-option>
       </md-optgroup>
+
       <md-optgroup label="Weapons">
         <md-option *ngFor="let weapon of weapons" [value]="weapon.id">
             <span>{{ weapon.name }}</span>
         </md-option>
       </md-optgroup>
+
       <md-optgroup label="Rooms">
         <md-option *ngFor="let room of rooms" [value]="room.id">
             <span>{{ room.name }}</span>
         </md-option>
       </md-optgroup>
     </md-select>
+
     <!-- TODO: remove input when md-form-field supports md-selects -->
-    <input mdInput hidden id="temporary fix">
+    <input mdInput formControlName="cardIds" hidden id="temporary fix" />
+
     <!-- TODO md-error instead of hint.mat-error when md-form-field supports md-selects -->
-    <md-hint align="end" [class.mat-error]="cards.value?.length > maxCards">{{ cards.value?.length || 0 }} / {{ maxCards }}</md-hint>
+    <md-hint align="end">{{ cards.value?.length || 0 }} / {{ maxCards }}</md-hint>
+
+    <md-error fxLayoutAlign="space-between">
+      <span>Maximum exceeded</span>
+      <span>{{ cards.value?.length || 0 }} / {{ maxCards }}</span>
+    </md-error>
   </md-form-field>
 
-  <button md-icon-button color="warn" (click)="removePlayer()">
+  <button md-icon-button type="button" color="warn" (click)="removePlayer()">
     <md-icon>delete</md-icon>
   </button>
   

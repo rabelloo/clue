@@ -13,25 +13,38 @@ md-option {
         font-size: $size;
         height: $size;
         width: $size;
-        
-        @mixin color($class, $palette, $hue: 500) {
-            &.#{$class} {
-                color: mat-color($palette, $hue);
-            }
+    }
+}
+
+[fxlayout],
+[mdprefix] {
+    position: relative;
+}
+
+[mdprefix] {
+    top: 2px;
+    margin-right: 0.5rem;
+}
+
+.mat-icon {
+    @mixin color($class, $palette, $hue: 500) {
+        &.#{$class} {
+            color: mat-color($palette, $hue);
         }
-        
-        @include color('blue', $mat-blue);
-        @include color('green', $mat-green);
-        @include color('grey-A100', $mat-grey, A100); // this is white
-        @include color('purple', $mat-purple);
-        @include color('red', $mat-red);
-        @include color('yellow', $mat-yellow);
-        
-        &.outline {
-            color: $black-87-opacity;
-            position: absolute;
-            transform: scale(1.2);
-        }
+    }
+    
+    @include color('blue', $mat-blue);
+    @include color('green', $mat-green);
+    @include color('grey-A100', $mat-grey, A100); // this is white
+    @include color('purple', $mat-purple);
+    @include color('red', $mat-red);
+    @include color('yellow', $mat-yellow);
+
+    &.outline {
+        color: $black-87-opacity;
+        position: absolute;
+        left: 0;
+        transform: scale(1.2);
     }
 }
 

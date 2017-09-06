@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PlayerFormComponent } from './player-form.component';
+import { RoundComponent } from './round.component';
 
-describe('PlayerFormComponent', () => {
-  let component: PlayerFormComponent;
-  let fixture: ComponentFixture<PlayerFormComponent>;
+describe('RoundComponent', () => {
+  let component: RoundComponent;
+  let fixture: ComponentFixture<RoundComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PlayerFormComponent ]
+      declarations: [ RoundComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PlayerFormComponent);
+    fixture = TestBed.createComponent(RoundComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PlayerFormComponent } from './player-form.component';
+import { TurnComponent } from './turn.component';
 
-describe('PlayerFormComponent', () => {
-  let component: PlayerFormComponent;
-  let fixture: ComponentFixture<PlayerFormComponent>;
+describe('TurnComponent', () => {
+  let component: TurnComponent;
+  let fixture: ComponentFixture<TurnComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PlayerFormComponent ]
+      declarations: [ TurnComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PlayerFormComponent);
+    fixture = TestBed.createComponent(TurnComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

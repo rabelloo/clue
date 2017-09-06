@@ -1,4 +1,4 @@
-import { Directive, Input, Host, ElementRef, Renderer2 } from '@angular/core';
+import { Directive, Input, HostBinding } from '@angular/core';
 import { FormControl, FormGroupDirective } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 
@@ -9,16 +9,13 @@ import { errorMessages } from './error-messages';
 })
 export class ErrorMessagesDirective {
 
+  @HostBinding('innerHtml') private html: string;
   @Input() private clueErrorMessages: string;
+
   private formControl: FormControl;
+  private setErrorMessage = errorMessage => this.html = errorMessage;
 
-  private set errorMessage(value: string) {
-    this.renderer.setProperty(this.elementRef.nativeElement, 'innerHTML', value);
-  }
-
-  constructor(@Host() private formGroup: FormGroupDirective,
-                      private elementRef: ElementRef,
-                      private renderer: Renderer2) {
+  constructor(private formGroup: FormGroupDirective) {
   }
 
   ngOnInit() {
@@ -44,7 +41,7 @@ export class ErrorMessagesDirective {
   private initError() {
     this.firstErrorMessageOf(
       Observable.of(this.formControl.errors))
-          .subscribe(errorMessage => this.errorMessage = errorMessage);
+          .subscribe(this.setErrorMessage);
   }
 
   private subscribeToForm(): void {
@@ -53,7 +50,7 @@ export class ErrorMessagesDirective {
                       .distinctUntilChanged()
                       .debounceTime(300)
                       .map(values => this.formControl.errors))
-          .subscribe(errorMessage => this.errorMessage = errorMessage);
+          .subscribe(this.setErrorMessage);
   }
 
 }

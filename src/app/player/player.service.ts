@@ -9,14 +9,14 @@ import { LocalForageService } from '../core/local-forage/local-forage.service';
 export class PlayerService {
 
   private readonly tableName = 'Players';
-  players: LocalForageIdTable<Player>
+  players: LocalForageIdTable<Player>;
 
-  constructor(private localForage: LocalForageService) {
-    this.players = localForage.getIdTable<Player>(this.tableName, Player);
+  constructor(private localForageService: LocalForageService) {
+    this.players = localForageService.getIdTable<Player>(this.tableName, Player);
   }
   
   getAll(): Observable<Player[]> {
-    return this.players.getAll().map(players => players.sortBy(player => player.name));
+    return this.players.getAll().map(players => players.sortBy(p => p.order));
   }
 
   get(id: number): Observable<Player> {
