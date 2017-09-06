@@ -14,8 +14,9 @@ import { Weapon } from '../../card/weapon/weapon';
   styleUrls: ['./player-form.component.scss']
 })
 export class PlayerFormComponent implements OnInit {
-  
+
   form: FormGroup;
+  saved: boolean;
   @Input() player: Player;
   @Input() playerCount: number = 0;
   @Input() suspects: Suspect[] = [];
@@ -53,6 +54,7 @@ export class PlayerFormComponent implements OnInit {
   
   private listenForChanges() {
     this.form.valueChanges
+        .do(values => this.saved = false)
         .distinctUntilChanged()
         .debounceTime(300)
         // .filter((player) => form.valid)
@@ -61,7 +63,10 @@ export class PlayerFormComponent implements OnInit {
 
   private savePlayer(player: Player): void {
     this.playerService.save(player)
-        .subscribe(player => this.player = player);
+        .subscribe(player => {
+          this.saved = true;
+          this.player = player;
+        });
   }
 
   private removePlayer(): void {

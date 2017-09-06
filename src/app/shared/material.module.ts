@@ -5,7 +5,9 @@ import { MdButtonModule,
          MdIconModule,
          MdInputModule,
          MdSelectModule,
-         MdToolbarModule } from '@angular/material';
+         MdToolbarModule, 
+         MdTooltipModule,
+        } from '@angular/material';
 
 const materialModules = [
   MdButtonModule,
@@ -15,6 +17,7 @@ const materialModules = [
   MdInputModule,
   MdSelectModule,
   MdToolbarModule,
+  MdTooltipModule,
 ];
 
 @NgModule({

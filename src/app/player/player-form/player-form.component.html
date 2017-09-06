@@ -38,12 +38,12 @@
     <!-- TODO md-error instead of hint.mat-error when md-form-field supports md-selects -->
     <md-hint align="end" [class.mat-error]="cards.value?.length > maxCards">{{ cards.value?.length || 0 }} / {{ maxCards }}</md-hint>
   </md-form-field>
-  
-  <button md-icon-button disabled title="Saved">
-    <md-icon color="primary" *ngIf="player.saved">done</md-icon>
-  </button>
 
   <button md-icon-button color="warn" (click)="removePlayer()">
     <md-icon>delete</md-icon>
+  </button>
+  
+  <button md-icon-button mdTooltip="Saved" mdTooltipPosition="after" *ngIf="saved">
+    <md-icon color="primary">done</md-icon>
   </button>
 </form>
