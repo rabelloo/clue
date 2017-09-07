@@ -2,7 +2,7 @@
   <input formControlName="id" type="hidden" [value]="player.id" />
 
   <md-form-field style="max-width: 40px">
-    <input mdInput formControlName="order" type="number" min="1" max="6" placeholder="Order" [value]="player.order" />
+    <input mdInput formControlName="order" type="number" min="1" [max]="playerCount" placeholder="Order" [value]="player.order" />
   </md-form-field>
 
   <md-form-field>
@@ -70,7 +70,7 @@
     <md-icon>delete</md-icon>
   </button>
   
-  <button md-icon-button mdTooltip="Saved" mdTooltipPosition="after" *ngIf="saved">
+  <button md-icon-button type="button" mdTooltip="Saved" mdTooltipPosition="after" *ngIf="saved">
     <md-icon color="primary">done</md-icon>
   </button>
 </form>

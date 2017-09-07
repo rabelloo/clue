@@ -33,7 +33,7 @@ export class PlayerFormComponent implements OnInit, OnChanges {
     return (this.cardCount - 3) / (this.playerCount < 3 ? 3 : this.playerCount);
   }
 
-  constructor(private fb: FormBuilder,
+  constructor(private formBuilder: FormBuilder,
               private notifier: Notifier,
               private playerService: PlayerService) {
       //
@@ -55,7 +55,7 @@ export class PlayerFormComponent implements OnInit, OnChanges {
   }
 
   private createForm() {
-    this.form = this.fb.group({
+    this.form = this.formBuilder.group({
       id: this.player.id,
       name: [this.player.name, Validators.required],
       order: [this.player.order, Validators.compose([Validators.min(1), Validators.max(6)])],

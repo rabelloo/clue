@@ -9,11 +9,11 @@ import { errorMessages } from './error-messages';
 })
 export class ErrorMessagesDirective {
 
-  @HostBinding('innerHtml') private html: string;
-  @Input() private clueErrorMessages: string;
+  @HostBinding('innerHtml') private html: string
+  @Input() private clueErrorMessages: string
+  @Input() private clueReplacements: object
 
   private formControl: FormControl;
-  private setErrorMessage = errorMessage => this.html = errorMessage;
 
   constructor(private formGroup: FormGroupDirective) {
   }
@@ -25,32 +25,21 @@ export class ErrorMessagesDirective {
 
     this.formControl = this.formGroup.form.controls[this.clueErrorMessages] as FormControl;
     this.subscribeToForm();
-    this.initError();
-  }
-
-  private firstErrorMessageOf(observable: Observable<{[key: string]: string}>): Observable<string> {
-    return observable
-            .filter(errors => errors != null)
-            .switchMap(errors => Object.keys(errors))
-            .map(key => errorMessages[key])
-            .filter(errorMessage => errorMessage != null)
-            .defaultIfEmpty(undefined)
-            .first();
-  }
-
-  private initError() {
-    this.firstErrorMessageOf(
-      Observable.of(this.formControl.errors))
-          .subscribe(this.setErrorMessage);
   }
 
   private subscribeToForm(): void {
-    this.firstErrorMessageOf(
-      this.formControl.valueChanges
-                      .distinctUntilChanged()
-                      .debounceTime(300)
-                      .map(values => this.formControl.errors))
-          .subscribe(this.setErrorMessage);
+    this.formControl.valueChanges
+        .distinctUntilChanged()
+        .debounceTime(300)
+        .map(values => this.formControl.errors)
+        .startWith(this.formControl.errors)
+        .filter(errors => errors != null)
+        .switchMap(errors => Object.keys(errors))
+        .map(key => errorMessages[key])
+        .filter(errorMessage => errorMessage != null)
+        .defaultIfEmpty(undefined)
+        .first()
+        .subscribe(errorMessage => this.html = errorMessage.format(this.clueReplacements))
   }
 
 }

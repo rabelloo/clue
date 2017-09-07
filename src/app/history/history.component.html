@@ -1,12 +1,14 @@
-<md-card>
+<button md-raised-button
+        color="primary"
+        (click)="addTurn()">
+  <md-icon>add</md-icon> Turn
+</button>
+
+<md-accordion>
   <clue-round *ngFor="let round of rounds"
-              [round]="round">
+              [round]="round"
+              [players]="players"
+              (remove)="onRemove($event)">
     Loading round...
   </clue-round>
-
-  <button md-raised-button
-          color="primary"
-          (click)="addTurn()">
-    <md-icon>add</md-icon> Turn
-  </button>
-</md-card>
+</md-accordion>

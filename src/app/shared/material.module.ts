@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { MdButtonModule,
          MdCardModule,
+         MdExpansionModule,
          MdFormFieldModule,
          MdIconModule,
          MdInputModule,
@@ -12,6 +13,7 @@ import { MdButtonModule,
 const materialModules = [
   MdButtonModule,
   MdCardModule,
+  MdExpansionModule,
   MdFormFieldModule,
   MdIconModule,
   MdInputModule,

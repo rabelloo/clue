@@ -1,0 +1,25 @@
+.mat-expansion-panel {
+
+    ::ng-deep .mat-expansion-panel-content {
+        font-size: 1rem;
+    }
+
+    .mat-expansion-panel-header {
+        transition: background-color .2s;
+    
+        &.mat-expanded {
+            
+            &, &:focus {
+                background-color: rgba(0, 0, 0, .04);
+            }
+    
+            &:hover {
+                background-color: rgba(0, 0, 0, .06);
+            }
+        }
+    }
+
+    ::ng-deep .mat-expansion-panel-body {
+        padding: 16px 24px;
+    }
+}
