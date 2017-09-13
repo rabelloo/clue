@@ -21,9 +21,18 @@ export class ErrorMessagesDirective {
   ngOnInit() {
     if (!this.clueErrorMessages)
       throw new TypeError('clue-error-messages requires the FormControl name for Observable error access. '
-                        + 'Please provide the the [formControlName] of your targeted FormControl');
+                        + 'Please provide the [formControlName] of your target FormControl');
 
-    this.formControl = this.formGroup.form.controls[this.clueErrorMessages] as FormControl;
+    if (!this.formGroup)
+      throw new TypeError('clue-error-messages requires a FormGroup as a parent for .valueChanges subscription. '
+                        + 'Please use it only when nested inside a FormControl');
+
+    this.formControl = this.formGroup.form.get(this.clueErrorMessages) as FormControl;
+
+    if (!this.formControl)
+      throw new TypeError(`clue-error-messages was unable to find a FormControl with name "${this.clueErrorMessages}". `
+                        + 'Please make sure your FormGroup has a FormControl with that name');
+
     this.subscribeToForm();
   }
 

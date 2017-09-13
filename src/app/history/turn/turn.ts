@@ -17,7 +17,7 @@ export class Turn {
         Object.assign(this, init);
     }
 
-    toString() {
+    toString() { // TODO: testing with short description version
         if (!this.playerId
          || !this.suggestion.suspectId
          || !this.suggestion.weaponId
@@ -26,7 +26,7 @@ export class Turn {
 
         var player = this.player.name || `Player #${this.playerId}`;
 
-        var suggestionOrDefault = type => this.suggestion[type] || `${type}  #${this.suggestion[type + 'Id']}`;
+        var suggestionOrDefault = type => this.suggestion[type].name || `${type}  #${this.suggestion[type + 'Id']}`;
 
         var suspect = suggestionOrDefault('suspect');
         var weapon = suggestionOrDefault('weapon');
@@ -38,9 +38,11 @@ export class Turn {
             var disprovedBy = this.disprove.player.name || `player #${this.disprove.playerId}`;
             var card = this.disprove.card.name || `card #${this.disprove.cardId}`
 
-            disproved = ` but was disproved by ${disprovedBy} with ${card}`;
+            // disproved = ` but was disproved by ${disprovedBy} with ${card}`;
+            disproved = ` ! => ${disprovedBy} -> ${card}`;
         }
 
-        return `${player} suggested ${suspect} with the ${weapon} at ${room}${disproved}`;
+        // return `${player} suggested ${suspect} with the ${weapon} at ${room}${disproved}`;
+        return `${player} ? -> { ${suspect} + ${weapon} @ ${room} }${disproved}`;
     }
 }

@@ -5,7 +5,7 @@ import { SharedModule } from '../shared/shared.module';
 import { HistoryComponent } from './history.component';
 import { HistoryService } from './history.service';
 import { RoundComponent } from './round/round.component';
-import { TurnComponent } from './turn/turn.component';
+import { TurnFormComponent } from './turn-form/turn-form.component';
 import { TurnService } from './turn/turn.service';
 
 @NgModule({
@@ -15,7 +15,7 @@ import { TurnService } from './turn/turn.service';
   declarations: [
     HistoryComponent,
     RoundComponent,
-    TurnComponent
+    TurnFormComponent
   ],
   providers: [
     HistoryService,

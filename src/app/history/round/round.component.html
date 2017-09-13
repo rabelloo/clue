@@ -3,16 +3,22 @@
   <md-expansion-panel-header>
     <mat-panel-title><h4>Round {{ round.number }}</h4></mat-panel-title>
     <mat-panel-description>
-      <div *ngFor="let turn of round.turns">
-        {{ turn }}
+      <div class="turn-description" *ngFor="let turn of round.turns; let i = index">
+        {{ turn.toString() ? 'Turn ' + (i+1) + '. ' + turn : '' }}
       </div>
     </mat-panel-description>
   </md-expansion-panel-header>
 
-  <div *ngFor="let turn of round.turns">
-    {{ turn }}
-    <clue-turn [turn]="turn" [players]="players" (remove)="onRemove($event)"></clue-turn>
-  </div>
+  <md-accordion>
+    <md-expansion-panel *ngFor="let turn of round.turns; let i = index">
+      <md-expansion-panel-header>
+        <mat-panel-title>Turn {{ i }}</mat-panel-title>
+        <mat-panel-description>{{ turn }}</mat-panel-description>
+      </md-expansion-panel-header>
+
+      <clue-turn-form  [turn]="turn" [players]="players" (remove)="onRemove($event)"></clue-turn-form>
+    </md-expansion-panel>
+  </md-accordion>
 
   <button md-raised-button color="primary" (click)="addTurn()" *ngIf="canAdd">
     <md-icon>add</md-icon> Turn

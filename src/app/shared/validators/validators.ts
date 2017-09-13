@@ -12,7 +12,7 @@ function inValidator(container: any[]): ValidatorFn {
         if (!container.includes(control.value))
             return {
                 in: false
-            }
+            };
     }
 }
 
@@ -35,6 +35,6 @@ function uniqueValidator(container: any[]): ValidatorFn {
         if (container.includes(control.value))
             return {
                 unique: false
-            }
+            };
     }
 }

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TurnComponent } from './turn.component';
+import { TurnFormComponent } from './turn-form.component';
 
 describe('TurnComponent', () => {
-  let component: TurnComponent;
-  let fixture: ComponentFixture<TurnComponent>;
+  let component: TurnFormComponent;
+  let fixture: ComponentFixture<TurnFormComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TurnComponent ]
+      declarations: [ TurnFormComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TurnComponent);
+    fixture = TestBed.createComponent(TurnFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

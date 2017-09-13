@@ -7,18 +7,18 @@ import { Notifier } from '../../core/notifier/notifier.service';
 import { Player } from '../../player/player';
 import { Room } from '../../card/room/room';
 import { Suspect } from '../../card/suspect/suspect';
-import { Turn } from './turn';
-import { TurnService } from './turn.service';
+import { Turn } from '../turn/turn';
+import { TurnService } from '../turn/turn.service';
 import { Weapon } from '../../card/weapon/weapon';
 import { ClueValidators } from "../../shared/validators/validators";
 import { Card } from "../../card/card";
 
 @Component({
-  selector: 'clue-turn',
-  templateUrl: './turn.component.html',
-  styleUrls: ['./turn.component.scss']
+  selector: 'clue-turn-form',
+  templateUrl: './turn-form.component.html',
+  styleUrls: ['./turn-form.component.scss']
 })
-export class TurnComponent implements OnInit {
+export class TurnFormComponent implements OnInit {
 
   @Input() private turn: Turn
   @Input() private players: Player[]
@@ -37,23 +37,24 @@ export class TurnComponent implements OnInit {
     
     this.rooms = cards.rooms;
     this.suspects = cards.suspects;
-    this.weapons = cards.weapons;  
+    this.weapons = cards.weapons;
   }
 
   ngOnInit() {
     var playerIds = this.players.map(p => p.id);
-    var cardIds = new Array<Card>()
-                    .concat(this.rooms, this.suspects, this.weapons)
-                    .map(c => c.id);
+    var suspectIds = this.suspects.map(s => s.id);
+    var weaponIds = this.weapons.map(w => w.id);
+    var roomIds = this.rooms.map(r => r.id);
+    var cardIds = [].concat(suspectIds, weaponIds, roomIds);
 
     this.form = this.formBuilder.group({
       id: this.turn.id,
       order: [this.turn.order, ClueValidators.range(1, this.players.length)],
       playerId: [this.turn.playerId, ClueValidators.in(playerIds)],
       suggestion: this.formBuilder.group({
-        suspectId: [this.turn.suggestion.suspectId, ClueValidators.in(cardIds)],
-        weaponId: [this.turn.suggestion.weaponId, ClueValidators.in(cardIds)],
-        roomId: [this.turn.suggestion.roomId, ClueValidators.in(cardIds)],
+        suspectId: [this.turn.suggestion.suspectId, ClueValidators.in(suspectIds)],
+        weaponId: [this.turn.suggestion.weaponId, ClueValidators.in(weaponIds)],
+        roomId: [this.turn.suggestion.roomId, ClueValidators.in(roomIds)],
       }),
       disprove: this.formBuilder.group({
         playerId: [this.turn.disprove.playerId, ClueValidators.in(playerIds)],

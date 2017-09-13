@@ -17,9 +17,30 @@
                 background-color: rgba(0, 0, 0, .06);
             }
         }
+
+        .mat-expansion-panel-header-title {
+            flex-shrink: 0;
+            max-width: 4rem;
+        }
+
+        .mat-expansion-panel-header-description {
+            flex-direction: column;
+            justify-content: center;
+            overflow: hidden;
+
+            .turn-description {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+            }
+        }
     }
 
     ::ng-deep .mat-expansion-panel-body {
         padding: 16px 24px;
+    }
+
+    button {
+        margin-top: 1rem;
     }
 }
