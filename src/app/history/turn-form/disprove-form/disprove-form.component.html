@@ -1,0 +1,43 @@
+<form [formGroup]="form">
+  <label>Disproved</label>
+
+  <!-- TODO: remove class and styles when md-form-field supports md-selects -->
+  <md-form-field class="mat-form-field-type-mat-select">
+    <md-select formControlName="playerId" placeholder="By" [value]="disprove.playerId">
+      <md-option *ngFor="let player of players" [value]="player.id">{{ player.name }}</md-option>
+    </md-select>
+
+    <!-- TODO: remove input when md-form-field supports md-selects -->
+    <input mdInput formControlName="playerId" hidden id="temporary fix" />
+    
+    <md-error clueErrorMessages="playerId" [clueReplacements]="{ container: 'the players' }"></md-error>
+  </md-form-field>
+
+  <!-- TODO: remove class and styles when md-form-field supports md-selects -->
+  <md-form-field class="mat-form-field-type-mat-select">
+    <md-select formControlName="cardId" placeholder="With" [value]="disprove.cardId">
+      <md-optgroup label="Suspects">
+        <md-option *ngFor="let suspect of suspects" [value]="suspect.id">
+            <span>{{ suspect.name }}</span>
+        </md-option>
+      </md-optgroup>
+
+      <md-optgroup label="Weapons">
+        <md-option *ngFor="let weapon of weapons" [value]="weapon.id">
+            <span>{{ weapon.name }}</span>
+        </md-option>
+      </md-optgroup>
+
+      <md-optgroup label="Rooms">
+        <md-option *ngFor="let room of rooms" [value]="room.id">
+            <span>{{ room.name }}</span>
+        </md-option>
+      </md-optgroup>
+    </md-select>
+
+    <!-- TODO: remove input when md-form-field supports md-selects -->
+    <input mdInput formControlName="cardId" hidden id="temporary fix" />
+    
+    <md-error clueErrorMessages="cardId" [clueReplacements]="{ container: 'the cards' }"></md-error>
+  </md-form-field>
+</form>

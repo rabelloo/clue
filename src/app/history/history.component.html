@@ -5,10 +5,15 @@
 </button>
 
 <md-accordion>
-  <clue-round *ngFor="let round of rounds"
-              [round]="round"
-              [players]="players"
-              (remove)="onRemove($event)">
-    Loading round...
-  </clue-round>
+  <md-expansion-panel *ngFor="let round of rounds">
+    <md-expansion-panel-header>
+      <mat-panel-title><h4>Round {{ round.number }}</h4></mat-panel-title>
+    </md-expansion-panel-header>
+
+    <clue-round [round]="round"
+                [players]="players"
+                (remove)="onRemove($event)">
+      Loading round...
+    </clue-round>
+  </md-expansion-panel>
 </md-accordion>

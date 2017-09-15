@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 
 import { CardCollection } from '../../card/card-collection';
 import { Notifier } from '../../core/notifier/notifier.service';
@@ -10,8 +10,8 @@ import { Suspect } from '../../card/suspect/suspect';
 import { Turn } from '../turn/turn';
 import { TurnService } from '../turn/turn.service';
 import { Weapon } from '../../card/weapon/weapon';
-import { ClueValidators } from "../../shared/validators/validators";
-import { Card } from "../../card/card";
+import { ClueValidators } from '../../shared/validators/validators';
+import { Card } from '../../card/card';
 
 @Component({
   selector: 'clue-turn-form',
@@ -25,44 +25,27 @@ export class TurnFormComponent implements OnInit {
   @Output() private remove = new EventEmitter<Turn>()
   private saved: boolean
   private form: FormGroup
-  private rooms: Room[]
-  private suspects: Suspect[]
-  private weapons: Weapon[]
   
   constructor(private formBuilder: FormBuilder,
-              private route: ActivatedRoute,
               private turnService: TurnService,
               private notifier: Notifier) {
-    var cards = route.snapshot.data.cards as CardCollection;
-    
-    this.rooms = cards.rooms;
-    this.suspects = cards.suspects;
-    this.weapons = cards.weapons;
+    //
   }
 
   ngOnInit() {
-    var playerIds = this.players.map(p => p.id);
-    var suspectIds = this.suspects.map(s => s.id);
-    var weaponIds = this.weapons.map(w => w.id);
-    var roomIds = this.rooms.map(r => r.id);
-    var cardIds = [].concat(suspectIds, weaponIds, roomIds);
+    let playerIds = this.players.map(p => p.id);
 
     this.form = this.formBuilder.group({
       id: this.turn.id,
       order: [this.turn.order, ClueValidators.range(1, this.players.length)],
-      playerId: [this.turn.playerId, ClueValidators.in(playerIds)],
-      suggestion: this.formBuilder.group({
-        suspectId: [this.turn.suggestion.suspectId, ClueValidators.in(suspectIds)],
-        weaponId: [this.turn.suggestion.weaponId, ClueValidators.in(weaponIds)],
-        roomId: [this.turn.suggestion.roomId, ClueValidators.in(roomIds)],
-      }),
-      disprove: this.formBuilder.group({
-        playerId: [this.turn.disprove.playerId, ClueValidators.in(playerIds)],
-        cardId: [this.turn.disprove.cardId, ClueValidators.in(cardIds)],
-      })
+      playerId: [this.turn.playerId, ClueValidators.in(playerIds)]
     });
 
     this.listenForChanges();
+  }
+
+  addControl(name: string, control: AbstractControl): void {
+    this.form.addControl(name, control);
   }
 
   private saveTurn(turn: Turn): void {

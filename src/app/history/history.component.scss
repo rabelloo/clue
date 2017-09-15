@@ -1,3 +1,26 @@
 button {
     margin-bottom: 1rem;
 }
+
+.mat-expansion-panel ::ng-deep  {
+    
+    .mat-expansion-panel-content {
+        font-size: 1rem;
+    }
+
+    .mat-expansion-panel-header {
+        transition: background-color .2s;
+        overflow: hidden;
+
+        .mat-expansion-panel-header-title {
+            flex-grow: 0;
+            flex-shrink: 0;
+        }
+
+        .mat-expansion-panel-header-description {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    }
+}
