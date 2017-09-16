@@ -17,6 +17,8 @@
 
 interface Array<T> {
     sortBy(propertyFn: (item: T) => any): T[];
+    flatMap<U>(propertyFn: (item: T, index: number, array: T[]) => U[], thisArg?: any): U[];
+    map<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): U[];
 }
 
 
@@ -36,6 +38,10 @@ interface Array<T> {
     }
     // -----
 
+    if (!Array.prototype.flatMap) {
+        Array.prototype.flatMap = flatMap;
+    }
+
     if (!Array.prototype.sortBy) {
         Array.prototype.sortBy = sortBy;
     }
@@ -46,6 +52,13 @@ interface Array<T> {
 
     function isNative(func: string): boolean {
         return /.*\[native code\].*/g.test( Array.prototype[func].toString() );
+    }
+
+    function flatMap<U, T>(propertyFn: (item: T, index: number, array: T[]) => U[], thisArg?: any): U[] {
+        return this.reduce(
+            (flatten, item, index, array) =>
+                flatten.concat(
+                    propertyFn(item, index, array)), []);
     }
 
     function reverse<T>(): T[] {

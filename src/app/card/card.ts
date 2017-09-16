@@ -1,6 +1,6 @@
 
 export abstract class Card {
-    id: Number;
+    id: number;
     name: string;
     picture: string;
 

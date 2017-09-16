@@ -15,22 +15,26 @@ import { Weapon } from '../../card/weapon/weapon';
 })
 export class PlayerFormComponent implements OnInit, OnChanges {
 
+  character: Suspect;
   form: FormGroup;
   saved: boolean;
-  character: Suspect;
   @Input() player: Player;
-  @Input() playerCount = 0;
+  @Input() private players: Player[];
   @Input() rooms: Room[] = [];
   @Input() suspects: Suspect[] = [];
   @Input() weapons: Weapon[] = [];
   @Output() private remove: EventEmitter<Player> = new EventEmitter<Player>();
 
+  get maxCards(): number {
+    return (this.cardCount - 3) / (this.playerCount < 3 ? 3 : this.playerCount);
+  }
+
   private get cardCount(): number {
     return this.rooms.length + this.suspects.length + this.weapons.length;
   }
 
-  get maxCards(): number {
-    return (this.cardCount - 3) / (this.playerCount < 3 ? 3 : this.playerCount);
+  private get playerCount() {
+    return this.players.length;
   }
 
   constructor(private formBuilder: FormBuilder,
@@ -45,17 +49,17 @@ export class PlayerFormComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes.playerCount.isFirstChange()) {
+    if (!changes.players || changes.players.isFirstChange()) {
       return;
     }
 
-    if (changes.playerCount.currentValue !== changes.playerCount.previousValue) {
+    if (changes.players.currentValue !== changes.players.previousValue) {
       this.form.controls.cardIds.setValidators(Validators.maxLength(this.maxCards));
       this.form.controls.cardIds.updateValueAndValidity();
     }
   }
 
-  onSelect(event: {value: number}): void {
+  onSelectCharacter(event: {value: number}): void {
     this.character = this.suspectFor(event.value);
   }
 

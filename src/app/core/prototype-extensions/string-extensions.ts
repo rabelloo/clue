@@ -50,13 +50,17 @@ interface String {
         let formattedString = this.toString();
 
         if (replacements.length) {
-            const type = typeof replacements[0];
-            const args = (type === 'string' || type === 'number')
-                       ? Array.prototype.slice.call(replacements)
-                       : replacements[0];
+            let args: any = replacements;
+
+            if (replacements[0] instanceof Array) {
+                args = replacements.reduce((args, r) => args.concat(r), []);
+            }
+            else if (replacements[0] instanceof Object) {
+                args = replacements.reduce((args, r) => Object.assign(args, r), {});
+            }
 
             Object.keys(args)
-                .map(key =>
+                .forEach(key =>
                     formattedString = formattedString.replace(new RegExp(`\\{${key}\\}`, 'gi'), args[key]));
         }
 

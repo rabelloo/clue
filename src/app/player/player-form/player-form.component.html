@@ -16,7 +16,7 @@
       <md-icon class="{{character.color}}">person</md-icon>
       <md-icon class="outline {{character.color}}">person_outline</md-icon>
     </div>
-    <md-select formControlName="characterId" placeholder="Character" [value]="player.characterId" (change)="onSelect($event)">
+    <md-select formControlName="characterId" placeholder="Character" [value]="player.characterId" (change)="onSelectCharacter($event)">
       <md-select-trigger>{{ character.name }}</md-select-trigger>
       <md-option *ngFor="let suspect of suspects" [value]="suspect.id">
         <div fxLayout fxLayoutAlign="default center">
