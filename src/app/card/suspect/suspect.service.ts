@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Observable } from "rxjs/Observable";
+import { Observable } from 'rxjs/Observable';
 
-import { Suspect } from "./suspect";
-import { Suspects } from "./suspects";
+import { Suspect } from './suspect';
+import { Suspects } from './suspects';
 
 @Injectable()
 export class SuspectService {

@@ -18,19 +18,19 @@ import { Weapon } from '../card/weapon/weapon';
 })
 export class HistoryComponent implements OnInit {
 
-  private rounds: Round[] = [];
-  private players: Player[] = [];
-  private rooms: Room[]
-  private suspects: Suspect[]
-  private weapons: Weapon[]
-  
+  rounds: Round[] = [];
+  players: Player[] = [];
+  private rooms: Room[];
+  private suspects: Suspect[];
+  private weapons: Weapon[];
+
   constructor(private historyService: HistoryService,
               private playerService: PlayerService,
               private route: ActivatedRoute) {
     this.players = route.snapshot.data.players as Player[];
 
-    var cards = route.snapshot.data.cards as CardCollection;
-    
+    const cards = route.snapshot.data.cards as CardCollection;
+
     this.rooms = cards.rooms;
     this.suspects = cards.suspects;
     this.weapons = cards.weapons;
@@ -40,29 +40,36 @@ export class HistoryComponent implements OnInit {
     this.loadRounds();
   }
 
-  private addTurn() {
+  addTurn() {
     this.historyService.addTurn(this.getCurrentRound(), this.players)
         .subscribe(this.appendTurn);
   }
 
-  private appendTurn = (turn: Turn) => {
-    var round = this.rounds.find(r => r.number == turn.round);
+  onRemove(round: Round): void {
+    this.rounds = this.rounds.filter(r => r.number !== round.number);
+  }
 
-    if (round)
+  private appendTurn = (turn: Turn) => {
+    const round = this.rounds.find(r => r.number === turn.round);
+
+    if (round) {
       round.turns.push(turn);
-    else
+    }
+    else {
       this.rounds.push(
         new Round({
           number: turn.round,
           turns: [turn]
         })
       );
+    }
   }
 
   private getCurrentRound(): Round {
-    if (!this.rounds.length)
+    if (!this.rounds.length) {
       return new Round();
-    
+    }
+
     return this.rounds[this.rounds.length - 1];
   }
 
@@ -76,10 +83,6 @@ export class HistoryComponent implements OnInit {
     this.playerService.getAll()
         .defaultIfEmpty([])
         .subscribe(players => this.players = players);
-  }
-
-  private onRemove(round: Round): void {
-    this.rounds = this.rounds.filter(r => r.number !== round.number);
   }
 
 }

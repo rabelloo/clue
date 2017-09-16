@@ -7,7 +7,7 @@ import { Turn } from './turn';
 
 @Injectable()
 export class TurnService {
-  
+
   private readonly tableName = 'Turns';
   turns: LocalForageIdTable<Turn>;
 
@@ -26,13 +26,13 @@ export class TurnService {
   save(turn: Turn): Observable<Turn> {
     return this.turns.save(this.getSavePreparedTurn(turn));
   }
-  
+
   delete(turn: Turn): Observable<void> {
     return this.turns.delete(turn);
   }
 
   private getSavePreparedTurn(turn: Turn): Turn {
-    var turnForSave = new Turn(turn);
+    const turnForSave = new Turn(turn);
 
     delete turnForSave.disprove.card;
     delete turnForSave.disprove.player;

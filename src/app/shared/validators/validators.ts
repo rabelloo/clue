@@ -5,15 +5,16 @@ export const ClueValidators = {
     range: rangeValidator,
     rangeRequired: rangeRequiredValidator,
     unique: uniqueValidator
-}
+};
 
 function inValidator(container: any[]): ValidatorFn {
     return function (control: AbstractControl): ValidationErrors {
-        if (!container.includes(control.value))
+        if (!container.includes(control.value)) {
             return {
                 in: false
             };
-    }
+        }
+    };
 }
 
 function rangeValidator(min: number, max: number): ValidatorFn {
@@ -32,9 +33,10 @@ function rangeRequiredValidator(min: number, max: number): ValidatorFn {
 
 function uniqueValidator(container: any[]): ValidatorFn {
     return function (control: AbstractControl): ValidationErrors {
-        if (container.includes(control.value))
+        if (container.includes(control.value)) {
             return {
                 unique: false
             };
-    }
+        }
+    };
 }

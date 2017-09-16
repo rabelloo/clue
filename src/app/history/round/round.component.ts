@@ -12,11 +12,11 @@ import { Turn } from '../turn/turn';
 })
 export class RoundComponent implements OnInit {
 
-  @Input() private round: Round;
-  @Input() private players: Player[] = [];
-  @Output() private remove = new EventEmitter<Round>()
+  @Input() round: Round;
+  @Input() players: Player[] = [];
+  @Output() remove = new EventEmitter<Round>();
 
-  private get canAdd() {
+  get canAdd() {
     return this.round.turns.length < this.players.length;
   }
 
@@ -24,17 +24,18 @@ export class RoundComponent implements OnInit {
 
   ngOnInit() {
   }
-  
-  private addTurn(): void {
+
+  addTurn(): void {
     this.historyService.addTurn(this.round, this.players)
         .subscribe(turn => this.round.turns.push(turn));
   }
 
-  private onRemove(turn: Turn): void {
+  onRemove(turn: Turn): void {
     this.round.turns = this.round.turns.filter(t => t.id !== turn.id);
-    
-    if (!this.round.turns.length)
+
+    if (!this.round.turns.length) {
       this.remove.emit(this.round);
+    }
   }
 
 }

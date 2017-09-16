@@ -6,7 +6,7 @@ import { MdButtonModule,
          MdIconModule,
          MdInputModule,
          MdSelectModule,
-         MdToolbarModule, 
+         MdToolbarModule,
          MdTooltipModule,
         } from '@angular/material';
 

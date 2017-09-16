@@ -8,4 +8,4 @@ export const errorMessages = {
     max: 'Must be < {max}',
     in: 'Must be one of {container}',
     unique: 'Cannot repeat in {container}',
-}
+};

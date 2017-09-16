@@ -31,4 +31,4 @@ export const Suspects = [ // TODO: fetch from somewhere else
     name: 'Colonel Mustard',
     color: 'yellow'
   })
-]
+];

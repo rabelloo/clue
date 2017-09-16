@@ -18,7 +18,7 @@ export class CardResolver implements Resolve<CardCollection> {
               private weaponService: WeaponService) {
       //
   }
-  
+
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     return Observable.forkJoin(
                         this.roomService.get(),

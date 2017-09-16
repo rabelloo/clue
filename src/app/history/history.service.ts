@@ -45,15 +45,16 @@ export class HistoryService {
   }
 
   private getNextTurn(currentRound: Round, players: Player[]): Turn {
-    var currentTurn = currentRound.turns.length + 1;
-    var nextRound = currentRound.number;
-    var playerCount = players.length || 6;
+    let currentTurn = currentRound.turns.length + 1;
+    let nextRound = currentRound.number;
+    const playerCount = players.length || 6;
 
-    if (currentTurn > playerCount)
-      ++nextRound
-      , currentTurn = 1;
+    if (currentTurn > playerCount) {
+      ++nextRound;
+      currentTurn = 1;
+    }
 
-    var nextPlayer = players.find(p => p.order === currentTurn);
+    const nextPlayer = players.find(p => p.order === currentTurn);
 
     return new Turn({
       round: nextRound,
@@ -89,14 +90,14 @@ export class HistoryService {
 
   private disprovedFor = (turn: Turn, players: Player[]) =>
   this.findPlayer(turn.disprove.playerId, players)
-    || turn.disprove.player;
+    || turn.disprove.player
 
   private playerFor = (turn: Turn, players: Player[]) =>
     this.findPlayer(turn.playerId, players)
-    || turn.player;
+    || turn.player
 
   private findPlayer = (playerId: number, players: Player[]) =>
-    (players || []).find(p => p.id === playerId);
+    (players || []).find(p => p.id === playerId)
 
   private suggestionFor = (turn: Turn,
                            suspects: Suspect[],
@@ -111,25 +112,25 @@ export class HistoryService {
       room: this.roomFor(turn, rooms),
       roomId: turn.suggestion.roomId,
     }
-    
+
   private suspectFor = (turn: Turn, suspects: Suspect[]): Suspect =>
-    this.suggestionCardFor(turn, suspects, 'suspect');
+    this.suggestionCardFor(turn, suspects, 'suspect')
 
   private weaponFor = (turn: Turn, weapons: Weapon[]): Weapon =>
-    this.suggestionCardFor(turn, weapons, 'weapon');
+    this.suggestionCardFor(turn, weapons, 'weapon')
 
   private roomFor = (turn: Turn, rooms: Room[]): Room =>
-    this.suggestionCardFor(turn, rooms, 'room');
-    
+    this.suggestionCardFor(turn, rooms, 'room')
+
   private disproveCardFor = (turn: Turn, cards: Card[]) =>
     this.findCard(turn.disprove.cardId, cards)
-    || turn.disprove.card;
-    
+    || turn.disprove.card
+
   private suggestionCardFor = (turn: Turn, cards: Card[], type: string) =>
     this.findCard(turn.suggestion[type + 'Id'], cards)
-    || turn.suggestion[type];
+    || turn.suggestion[type]
 
   private findCard = (cardId: number, cards: Card[]) =>
-    (cards || []).find(c => c.id === cardId);
+    (cards || []).find(c => c.id === cardId)
 
 }

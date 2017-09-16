@@ -1,4 +1,4 @@
-import { Weapon } from "./weapon";
+import { Weapon } from './weapon';
 
 export const Weapons = [ // TODO: fetch from somewhere else
   new Weapon({
@@ -25,4 +25,4 @@ export const Weapons = [ // TODO: fetch from somewhere else
     id: 12,
     name: 'Wrench'
   })
-]
+];

@@ -11,9 +11,9 @@ export class ApiService {
 
   /**
    * Performs a request with `get` http method.
-   * 
+   *
    * Uses the app environment's base api url.
-   * 
+   *
    * Returns the data unwrapped from the response.
    */
   get(resource: string, query?: object): Observable<any> {
@@ -33,11 +33,12 @@ export class ApiService {
   /**
    * Gets an `URLSearchParams` from an object
    */
-  private getUrlParams(query: object) : URLSearchParams {
-    let params = new URLSearchParams();
+  private getUrlParams(query: object): URLSearchParams {
+    const params = new URLSearchParams();
 
-    for(let key in query)
-      params.set(key, query[key]);
+    Object.keys(query)
+      .map(key =>
+        params.set(key, query[key]));
 
     return params;
   }

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Observable } from "rxjs/Observable";
+import { Observable } from 'rxjs/Observable';
 
-import { Room } from "./room";
-import { Rooms } from "./rooms";
+import { Room } from './room';
+import { Rooms } from './rooms';
 
 @Injectable()
 export class RoomService {

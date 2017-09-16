@@ -20,12 +20,12 @@ import { Card } from '../../card/card';
 })
 export class TurnFormComponent implements OnInit {
 
-  @Input() private turn: Turn
-  @Input() private players: Player[]
-  @Output() private remove = new EventEmitter<Turn>()
-  private saved: boolean
-  private form: FormGroup
-  
+  @Input() turn: Turn;
+  @Input() players: Player[];
+  @Output() remove = new EventEmitter<Turn>();
+  saved: boolean;
+  form: FormGroup;
+
   constructor(private formBuilder: FormBuilder,
               private turnService: TurnService,
               private notifier: Notifier) {
@@ -33,7 +33,7 @@ export class TurnFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    let playerIds = this.players.map(p => p.id);
+    const playerIds = this.players.map(p => p.id);
 
     this.form = this.formBuilder.group({
       id: this.turn.id,
@@ -46,6 +46,16 @@ export class TurnFormComponent implements OnInit {
 
   addControl(name: string, control: AbstractControl): void {
     this.form.addControl(name, control);
+  }
+
+  removeTurn(): void {
+    const player = this.turn.player.name || `Player #${this.turn.playerId}`;
+    const message = `Are you sure you want to delete ${player}'s turn in round ${this.turn.round}?`;
+
+    if (this.notifier.confirm(message)) {
+      this.turnService.delete(this.turn)
+          .subscribe(() => this.remove.emit(this.turn));
+    }
   }
 
   private saveTurn(turn: Turn): void {
@@ -63,15 +73,6 @@ export class TurnFormComponent implements OnInit {
           .debounceTime(300)
           // .filter((turn) => form.valid)
           .subscribe(turn => this.saveTurn(turn));
-  }
-
-  private removeTurn(): void {
-    var player = this.turn.player.name || `Player #${this.turn.playerId}`;
-    var message = `Are you sure you want to delete ${player}'s turn in round ${this.turn.round}?`;
-
-    if (this.notifier.confirm(message))
-      this.turnService.delete(this.turn)
-          .subscribe(() => this.remove.emit(this.turn));
   }
 
 }

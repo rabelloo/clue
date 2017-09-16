@@ -14,7 +14,7 @@ export class PlayerService {
   constructor(private localForageService: LocalForageService) {
     this.players = localForageService.getIdTable<Player>(this.tableName, Player);
   }
-  
+
   getAll(): Observable<Player[]> {
     return this.players.getAll().map(players => players.sortBy(p => p.order));
   }

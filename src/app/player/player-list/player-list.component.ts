@@ -14,7 +14,7 @@ import { Weapon } from '../../card/weapon/weapon';
   styleUrls: ['./player-list.component.scss']
 })
 export class PlayerListComponent implements OnInit {
-  
+
   forms = {};
   players: Player[] = [];
   rooms: Room[];
@@ -23,28 +23,28 @@ export class PlayerListComponent implements OnInit {
 
   constructor(private playerService: PlayerService,
               route: ActivatedRoute) {
-      var cards = route.snapshot.data.cards as CardCollection;
+      const cards = route.snapshot.data.cards as CardCollection;
 
       this.rooms = cards.rooms;
       this.suspects = cards.suspects;
-      this.weapons = cards.weapons;      
+      this.weapons = cards.weapons;
   }
 
   ngOnInit(): void {
     this.loadPlayers();
   }
 
-  private addPlayer(): void {
+  addPlayer(): void {
     this.playerService.save(new Player({ order: this.players.length + 1 }))
         .subscribe(player => this.players.push(player));
+  }
+
+  onRemove(player: Player): void {
+    this.players = this.players.filter(p => p.id !== player.id);
   }
 
   private loadPlayers(): void {
     this.playerService.getAll()
         .subscribe(players => this.players = players);
-  }
-
-  private onRemove(player: Player): void {
-    this.players = this.players.filter(p => p.id !== player.id);
   }
 }

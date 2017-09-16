@@ -1,9 +1,9 @@
 import { Card } from '../card';
 
 export class Suspect extends Card {
-    color: string
+    color: string;
 
-    constructor(init?:Partial<Suspect>) {
+    constructor(init?: Partial<Suspect>) {
         super();
         Object.assign(this, init);
     }

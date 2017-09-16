@@ -6,7 +6,7 @@ import { playerRoutes } from './player/player-routes';
 import { historyRoutes } from './history/history-routes';
 
 const routes: Routes = [
-    { 
+    {
         path: '',
         resolve: {
             cards: CardResolver

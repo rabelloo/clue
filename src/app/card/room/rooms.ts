@@ -37,4 +37,4 @@ export const Rooms = [ // TODO: fetch from somewhere else
     id: 21,
     name: 'Study'
   })
-]
+];

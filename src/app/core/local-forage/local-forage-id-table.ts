@@ -6,7 +6,7 @@ import { ILocalForageEntity } from './ilocal-forage-entity';
 import { LocalForageTable } from './local-forage-table';
 
 export class LocalForageIdTable<T extends ILocalForageEntity> extends LocalForageTable {
-    
+
   private idMap: LocalForageTable;
   private currentId: number;
 
@@ -18,25 +18,26 @@ export class LocalForageIdTable<T extends ILocalForageEntity> extends LocalForag
   /**
    * Creates a new instance of a `LocalForageIdTable`,
    * which has auto incremental Ids for its entities.
-   * 
+   *
    * Additionally, all entities fetched will be
    * `Object.assign()`'ed to a new instance of `Type<T>`
    */
-  constructor(name: string, constructor: Type<T>)
-  constructor(name: string, private constructor?: Type<T>) {
+  constructor(name: string, type: Type<T>)
+  constructor(name: string, private type?: Type<T>) {
     super(name);
     this.idMap = new LocalForageTable('PrimaryKeys');
     this.getCurrentId();
 
-    if (constructor)
-      this.cast = entity => Object.assign(new this.constructor(), entity);
+    if (type) {
+      this.cast = entity => Object.assign(new this.type(), entity);
+    }
   }
 
   /**
    * Gets all entities
    */
   getAll(): Observable<T[]> {
-    return super.getAll()
+    return super.getAll();
   }
 
   /**
@@ -50,8 +51,9 @@ export class LocalForageIdTable<T extends ILocalForageEntity> extends LocalForag
    * Stores an entity with its id or an auto generated one
    */
   save(entity: T): Observable<T> {
-    if (!entity.id)
-        entity.id = this.incrementId();
+    if (!entity.id) {
+      entity.id = this.incrementId();
+    }
 
     return super.set(entity.id, entity);
   }
@@ -67,8 +69,9 @@ export class LocalForageIdTable<T extends ILocalForageEntity> extends LocalForag
     this.idMap
         .get(this.name)
         .subscribe(id => {
-            if (!id)
-                this.idMap.set(this.name, 0);
+            if (!id) {
+              this.idMap.set(this.name, 0);
+            }
 
             this.currentId = id as number || 0;
         });

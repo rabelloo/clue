@@ -7,7 +7,10 @@ import { CardCollection } from '../../../card/card-collection';
 import { ClueValidators } from '../../../shared/validators/validators';
 import { Disprove } from '../../turn/disprove';
 import { Player } from '../../../player/player';
+import { Room } from '../../../card/room/room';
+import { Suspect } from '../../../card/suspect/suspect';
 import { TurnFormComponent } from '../turn-form.component';
+import { Weapon } from '../../../card/weapon/weapon';
 
 @Component({
   selector: 'clue-disprove-form',
@@ -16,22 +19,27 @@ import { TurnFormComponent } from '../turn-form.component';
 })
 export class DisproveFormComponent implements OnInit {
 
-  @Input() private disprove: Disprove
-  @Input() private players: Player[]
-  private form: FormGroup
-  private cards: Card[]
-  
+  @Input() disprove: Disprove;
+  @Input() players: Player[];
+  form: FormGroup;
+  rooms: Room[];
+  suspects: Suspect[];
+  weapons: Weapon[];
+
   constructor(private formBuilder: FormBuilder,
               private route: ActivatedRoute,
               private turnForm: TurnFormComponent) {
-    let cards = route.snapshot.data.cards as CardCollection;
-    
-    this.cards = [].concat(cards.rooms, cards.suspects, cards.weapons);
+    const cards = route.snapshot.data.cards as CardCollection;
+
+    this.rooms = cards.rooms;
+    this.suspects = cards.suspects;
+    this.weapons = cards.weapons;
   }
 
   ngOnInit() {
-    let playerIds = this.players.map(p => p.id)
-    let cardIds = this.cards.map(s => s.id);
+    const playerIds = this.players.map(p => p.id);
+    const cardIds = [].concat(this.rooms, this.suspects, this.weapons)
+                      .map(s => s.id);
 
     this.form = this.formBuilder.group({
       playerId: [this.disprove.playerId, ClueValidators.in(playerIds)],

@@ -32,7 +32,7 @@ export class LocalForageTable {
   }
 
   /**
-   * Stores a value with the specified key 
+   * Stores a value with the specified key
    */
   set(key: string | number, value: any): Observable<any> {
     return Observable.fromPromise(this.table.setItem('' + key, value))

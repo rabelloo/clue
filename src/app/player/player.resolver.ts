@@ -7,13 +7,13 @@ import { PlayerService } from './player.service';
 
 @Injectable()
 export class PlayerResolver implements Resolve<Player[]> {
-  
+
     constructor(private playerService: PlayerService) {
         //
     }
-    
+
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
       return this.playerService.getAll();
     }
-  
-  }
+
+}

@@ -6,7 +6,7 @@ import { LocalForageIdTable } from './local-forage-id-table';
 
 @Injectable()
 export class LocalForageService {
-    
+
   constructor() { }
 
   getTable(name: string) {
