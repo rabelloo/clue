@@ -21,7 +21,7 @@
 
   <clue-suggestion-form [suggestion]="turn.suggestion"></clue-suggestion-form>
 
-  <clue-disprove-form [disprove]="turn.disprove" [players]="players"></clue-disprove-form>
+  <clue-disprove-form [turn]="turn" [players]="players"></clue-disprove-form>
   
   <button md-icon-button type="button" color="warn" (click)="removeTurn()">
     <md-icon>delete</md-icon>
