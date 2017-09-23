@@ -5,8 +5,9 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './core/core.module';
-import { PlayerModule } from './player/player.module';
 import { HistoryModule } from './history/history.module';
+import { PlayerModule } from './player/player.module';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   imports: [
@@ -14,8 +15,9 @@ import { HistoryModule } from './history/history.module';
     BrowserModule,
     BrowserAnimationsModule,
     CoreModule,
-    PlayerModule,
     HistoryModule,
+    PlayerModule,
+    SharedModule,
   ],
   declarations: [
     AppComponent,
