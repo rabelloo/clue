@@ -62,6 +62,7 @@ export class TurnFormComponent implements OnInit {
     this.turnService.save(turn)
         .subscribe(turn => {
           this.saved = true;
+          turn.player = this.turn.player;
           this.turn = turn;
         });
   }

@@ -1,10 +1,13 @@
-
-export abstract class Card {
+export interface Card {
     id: number;
     name: string;
+    type: CardType;
     picture: string;
+    disabled: boolean;
+}
 
-    constructor(init?: Partial<Card>) {
-        Object.assign(this, init);
-    }
+export enum CardType {
+    room = 'Room',
+    suspect = 'Suspect',
+    weapon = 'Weapon'
 }

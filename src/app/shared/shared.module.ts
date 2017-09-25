@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 import { DebugPipe } from './debug/debug.pipe';
 import { ErrorMessagesDirective } from './error-messages/error-messages.directive';
@@ -18,6 +19,7 @@ const declarations: any[] = [
     FlexLayoutModule,
     MaterialModule,
     ReactiveFormsModule,
+    RouterModule,
   ]),
   declarations: declarations
 })

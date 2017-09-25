@@ -14,23 +14,12 @@ export class LocalForageIdTable<T extends ILocalForageEntity> extends LocalForag
    * Creates a new instance of a `LocalForageIdTable`,
    * which has auto incremental Ids for its entities
    */
-  constructor(name: string)
-  /**
-   * Creates a new instance of a `LocalForageIdTable`,
-   * which has auto incremental Ids for its entities.
-   *
-   * Additionally, all entities fetched will be
-   * `Object.assign()`'ed to a new instance of `Type<T>`
-   */
-  constructor(name: string, type: Type<T>)
-  constructor(name: string, private type?: Type<T>) {
+  constructor(name: string) {
     super(name);
     this.idMap = new LocalForageTable('PrimaryKeys');
     this.getCurrentId();
 
-    if (type) {
-      this.cast = entity => Object.assign(new this.type(), entity);
-    }
+    this.cast = entity => entity as T;
   }
 
   /**
@@ -51,11 +40,16 @@ export class LocalForageIdTable<T extends ILocalForageEntity> extends LocalForag
    * Stores an entity with its id or an auto generated one
    */
   save(entity: T): Observable<T> {
-    if (!entity.id) {
-      entity.id = this.incrementId();
+    let insertingEntity = entity;
+
+    if (!insertingEntity.id) {
+      // Can't use spread operator here because TS doesn't support
+      // the type inference for generics as objects yet
+      // TODO: replace it with spread when it does
+      insertingEntity = Object.assign({}, entity, { id: this.incrementId() });
     }
 
-    return super.set(entity.id, entity);
+    return super.set(insertingEntity.id, insertingEntity);
   }
 
   /**

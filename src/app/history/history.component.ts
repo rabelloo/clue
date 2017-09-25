@@ -24,6 +24,14 @@ export class HistoryComponent implements OnInit {
   private suspects: Suspect[];
   private weapons: Weapon[];
 
+  get cardCount(): number {
+    return this.rooms.length + this.suspects.length + this.weapons.length;
+  }
+
+  get ready(): boolean {
+    return this.players.flatMap(p => p.cardIds).length === this.cardCount;
+  }
+
   constructor(private historyService: HistoryService,
               private playerService: PlayerService,
               private route: ActivatedRoute) {
@@ -77,12 +85,6 @@ export class HistoryComponent implements OnInit {
     this.historyService.getRounds(this.players, this.suspects, this.weapons, this.rooms)
         .defaultIfEmpty([])
         .subscribe(rounds => this.rounds = this.rounds.concat(rounds));
-  }
-
-  private loadPlayers(): void {
-    this.playerService.getAll()
-        .defaultIfEmpty([])
-        .subscribe(players => this.players = players);
   }
 
 }

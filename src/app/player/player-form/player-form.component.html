@@ -13,11 +13,11 @@
   <!-- TODO: remove class and styles when md-form-field supports md-selects -->
   <md-form-field class="mat-form-field-type-mat-select">
     <div mdPrefix>
-      <md-icon class="{{character.color}}">person</md-icon>
-      <md-icon class="outline {{character.color}}">person_outline</md-icon>
+      <md-icon class="{{player.character.color}}">person</md-icon>
+      <md-icon class="outline {{player.character.color}}">person_outline</md-icon>
     </div>
-    <md-select formControlName="characterId" placeholder="Character" [value]="player.characterId" (change)="onSelectCharacter($event)">
-      <md-select-trigger>{{ character.name }}</md-select-trigger>
+    <md-select formControlName="characterId" placeholder="Character" [value]="player.characterId" (change)="onSelect($event)">
+      <md-select-trigger>{{ player.character.name }}</md-select-trigger>
       <md-option *ngFor="let suspect of suspects" [value]="suspect.id">
         <div fxLayout fxLayoutAlign="default center">
           <md-icon class="{{suspect.color}}">person</md-icon>
@@ -34,9 +34,9 @@
 
   <!-- TODO: remove class and styles when md-form-field supports md-selects -->
   <md-form-field class="mat-form-field-type-mat-select">
-    <md-select #cards multiple formControlName="cardIds" placeholder="Cards" [value]="player.cardIds">
+    <md-select #cards multiple formControlName="cardIds" placeholder="Cards" [value]="player.cardIds" (change)="onSelect($event)">
       <md-optgroup label="Suspects">
-        <md-option *ngFor="let suspect of suspects" [value]="suspect.id">
+        <md-option *ngFor="let suspect of suspects" [value]="suspect.id" [disabled]="suspect.disabled">
             <span>{{ suspect.name }}</span>
         </md-option>
       </md-optgroup>

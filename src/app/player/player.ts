@@ -1,11 +1,10 @@
-export class Player {
-    id: number;
-    name = '';
-    order: number;
-    characterId: number;
-    cardIds: number[] = [];
+import { Suspect } from '../card/suspect/suspect';
 
-    constructor(init?: Partial<Player>) {
-        Object.assign(this, init);
-    }
+export interface Player {
+    id?: number;
+    name: string;
+    order: number;
+    characterId?: number;
+    character?: Suspect;
+    cardIds?: number[];
 }

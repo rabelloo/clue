@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
 import { Room } from './room';
-import { Rooms } from './rooms';
+import { rooms } from './rooms';
 
 @Injectable()
 export class RoomService {
@@ -10,7 +10,7 @@ export class RoomService {
   constructor() { }
 
   get(): Observable<Room[]> {
-    return Observable.of(Rooms);
+    return Observable.of(rooms);
   }
 
 }

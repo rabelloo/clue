@@ -13,7 +13,7 @@ export class LocalForageService {
     return new LocalForageTable(name);
   }
 
-  getIdTable<T extends ILocalForageEntity>(name: string, constructor: Type<T>) {
-    return new LocalForageIdTable(name, constructor);
+  getIdTable<T extends ILocalForageEntity>(name: string) {
+    return new LocalForageIdTable<T>(name);
   }
 }

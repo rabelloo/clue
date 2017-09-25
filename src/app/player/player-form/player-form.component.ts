@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output, OnChanges, SimpleChanges } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { MdSelectChange } from '@angular/material';
 
-import { Notifier } from '../../core/notifier/notifier.service';
+import { CardCollection } from '../../card/card-collection';
 import { Player } from '../player';
 import { PlayerService } from '../player.service';
 import { Suspect } from '../../card/suspect/suspect';
@@ -11,41 +12,37 @@ import { Weapon } from '../../card/weapon/weapon';
 @Component({
   selector: 'clue-player-form',
   templateUrl: './player-form.component.html',
-  styleUrls: ['./player-form.component.scss']
+  styleUrls: ['./player-form.component.scss'],
 })
 export class PlayerFormComponent implements OnInit, OnChanges {
 
-  character: Suspect;
   form: FormGroup;
   saved: boolean;
+  @Input() cards: CardCollection;
+  @Input() maxCards: number;
   @Input() player: Player;
-  @Input() private players: Player[];
-  @Input() rooms: Room[] = [];
-  @Input() suspects: Suspect[] = [];
-  @Input() weapons: Weapon[] = [];
+  @Output() private change: EventEmitter<Player> = new EventEmitter<Player>();
   @Output() private remove: EventEmitter<Player> = new EventEmitter<Player>();
 
-  get maxCards(): number {
-    return (this.cardCount - 3) / (this.playerCount < 3 ? 3 : this.playerCount);
+  get rooms() {
+    return this.cards.rooms;
   }
 
-  private get cardCount(): number {
-    return this.rooms.length + this.suspects.length + this.weapons.length;
+  get suspects() {
+    return this.cards.suspects;
   }
 
-  private get playerCount() {
-    return this.players.length;
+  get weapons() {
+    return this.cards.weapons;
   }
 
   constructor(private formBuilder: FormBuilder,
-              private notifier: Notifier,
               private playerService: PlayerService) {
       //
   }
 
   ngOnInit(): void {
     this.createForm();
-    this.character = this.suspectFor(this.player.characterId);
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -58,18 +55,15 @@ export class PlayerFormComponent implements OnInit, OnChanges {
       this.form.controls.cardIds.updateValueAndValidity();
     }
   }
-
-  onSelectCharacter(event: {value: number}): void {
-    this.character = this.suspectFor(event.value);
+  
+  onSelect(event: MdSelectChange) {
+    console.log(`Selecting ${event} for ${this.player.name}`);
+    this.change.emit(this.player);
   }
 
   removePlayer(): void {
-    const message = `Are you sure you want to delete player ${this.player.name || '"Unnamed"'}?`;
-
-    if (this.notifier.confirm(message)) {
-      this.playerService.delete(this.player)
-          .subscribe(() => this.remove.emit(this.player));
-    }
+    this.playerService.delete(this.player)
+        .subscribe(() => this.remove.emit(this.player));
   }
 
   private createForm() {
@@ -96,12 +90,9 @@ export class PlayerFormComponent implements OnInit, OnChanges {
     this.playerService.save(player)
         .subscribe(player => {
           this.saved = true;
+          player.character = this.player.character;
           this.player = player;
         });
-  }
-
-  private suspectFor(id: number): Suspect {
-    return this.suspects.find(s => s.id === id) || new Suspect();
   }
 
 }

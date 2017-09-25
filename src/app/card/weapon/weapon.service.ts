@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
 import { Weapon } from './weapon';
-import { Weapons } from './weapons';
+import { weapons } from './weapons';
 
 @Injectable()
 export class WeaponService {
@@ -10,7 +10,7 @@ export class WeaponService {
   constructor() { }
 
   get(): Observable<Weapon[]> {
-    return Observable.of(Weapons);
+    return Observable.of(weapons);
   }
 
 }

@@ -17,8 +17,8 @@
 
 interface Array<T> {
     sortBy(propertyFn: (item: T) => any): T[];
-    flatMap<U>(propertyFn: (item: T, index: number, array: T[]) => U[], thisArg?: any): U[];
-    map<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): U[];
+    flatMap<T, U>(propertyFn: (item: T, index: number, array: T[]) => U[], thisArg?: any): U[];
+    toHashMap<T>(propertyFn: (item: T, index: number) => string): {};
 }
 
 
@@ -46,6 +46,10 @@ interface Array<T> {
         Array.prototype.sortBy = sortBy;
     }
 
+    if (!Array.prototype.toHashMap) {
+        Array.prototype.toHashMap = toHashMap;
+    }
+
 
 
 // Functions ==================================================
@@ -54,7 +58,7 @@ interface Array<T> {
         return /.*\[native code\].*/g.test( Array.prototype[func].toString() );
     }
 
-    function flatMap<U, T>(propertyFn: (item: T, index: number, array: T[]) => U[], thisArg?: any): U[] {
+    function flatMap<T, U>(propertyFn: (item: T, index: number, array: T[]) => U[], thisArg?: any): U[] {
         return this.reduce(
             (flatten, item, index, array) =>
                 flatten.concat(
@@ -90,5 +94,13 @@ interface Array<T> {
         });
     }
 
+    function toHashMap<T>(propertyFn: (item: T, index: number) => string) {
+        return this.reduce((hashMap, item, index) => {
+            return {
+                ...hashMap,
+                [propertyFn(item, index)]: item
+            };
+        }, {});
+    }
 
 })();

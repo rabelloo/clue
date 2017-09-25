@@ -1,3 +1,7 @@
+<md-error *ngIf="!ready" class="not-ready-message">
+  Looks like you still need a little setup to get ready. Please go back to <a routerLink="/players">Players</a> and assign all cards to players
+</md-error>
+
 <button md-raised-button
         color="primary"
         (click)="addTurn()">

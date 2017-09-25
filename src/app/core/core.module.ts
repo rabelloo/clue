@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
 
 import { ApiService } from './api/api.service';
 import { FooterComponent } from './footer/footer.component';
@@ -8,6 +9,9 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { Notifier } from './notifier/notifier.service';
 import { RxJSModule } from './rx-js/rx-js.module';
 import { SharedModule } from '../shared/shared.module';
+
+import { effects } from './store/effects';
+import { reducers } from './store/reducers';
 
 import './prototype-extensions/array-extensions';
 import './prototype-extensions/string-extensions';
@@ -20,7 +24,8 @@ const coreComponents = [
 @NgModule({
   imports: [
     SharedModule,
-    RouterModule,
+    EffectsModule.forRoot(effects),
+    StoreModule.forRoot(reducers),
   ],
   exports: [RxJSModule].concat(coreComponents),
   declarations: coreComponents,
