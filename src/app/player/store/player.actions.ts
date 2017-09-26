@@ -2,12 +2,17 @@ import { Action } from '@ngrx/store';
 
 import { Player } from '../player';
 
+export const addPlayer     = '[Players] Add';
 export const deletePlayer  = '[Players] Delete';
 export const deletedPlayer = '[Players] Deleted';
 export const loadPlayers   = '[Players] Load';
 export const loadedPlayers = '[Players] Loaded';
 export const savePlayer    = '[Players] Save';
 export const savedPlayer   = '[Players] Saved';
+
+export class AddPlayer implements Action {
+    readonly type = addPlayer;
+}
 
 export class DeletePlayer implements Action {
     readonly type = deletePlayer;
@@ -44,7 +49,8 @@ export class SavedPlayer implements Action {
 }
 
 export type PlayerAction
-    = DeletePlayer
+    = AddPlayer
+    | DeletePlayer
     | DeletedPlayer
     | LoadPlayers
     | LoadedPlayers

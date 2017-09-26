@@ -12,7 +12,7 @@ export class TurnService {
   turns: LocalForageIdTable<Turn>;
 
   constructor(private localForageService: LocalForageService) {
-    this.turns = localForageService.getIdTable<Turn>(this.tableName, Turn);
+    this.turns = localForageService.getIdTable<Turn>(this.tableName);
   }
 
   getAll(): Observable<Turn[]> {
@@ -24,24 +24,16 @@ export class TurnService {
   }
 
   save(turn: Turn): Observable<Turn> {
-    return this.turns.save(this.getSavePreparedTurn(turn));
+    return this.turns.save(this.getSavableTurn(turn));
   }
 
   delete(turn: Turn): Observable<void> {
     return this.turns.delete(turn);
   }
 
-  private getSavePreparedTurn(turn: Turn): Turn {
-    const turnForSave = new Turn(turn);
-
-    delete turnForSave.disprove.card;
-    delete turnForSave.disprove.player;
-    delete turnForSave.suggestion.suspect;
-    delete turnForSave.suggestion.room;
-    delete turnForSave.suggestion.weapon;
-    delete turnForSave.player;
-
-    return turnForSave;
+  private getSavableTurn(turn: Turn): Turn {
+    const { disprove, suggestion, player, ...rest } = turn;
+    return <Turn>rest;
   }
 
 }

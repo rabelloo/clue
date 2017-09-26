@@ -1,8 +1,11 @@
 <md-card>
   <clue-player-form *ngFor="let player of players"
                     [player]="player"
-                    [cards]="cardsFor(player)"
-                    [maxCards]="maxCards"
+                    [maxCards]="maxCards | async"
+                    [characters]="charactersFor(player) | async"
+                    [rooms]="roomsFor(player) | async"
+                    [suspects]="suspectsFor(player) | async"
+                    [weapons]="weaponsFor(player) | async"
                     (change)="onChange($event)"
                     (remove)="onRemove($event)">
     Loading player...

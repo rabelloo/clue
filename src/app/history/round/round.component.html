@@ -2,7 +2,7 @@
   <md-expansion-panel *ngFor="let turn of round.turns">
     <md-expansion-panel-header>
       <mat-panel-title>Turn {{ turn.order }}</mat-panel-title>
-      <mat-panel-description>{{ turn }}</mat-panel-description>
+      <mat-panel-description>{{ descriptionFor(turn) }}</mat-panel-description>
     </md-expansion-panel-header>
 
     <clue-turn-form [turn]="turn" [players]="players" (remove)="onRemove($event)"></clue-turn-form>

@@ -6,10 +6,18 @@ import { Effect, Actions } from '@ngrx/effects';
 import { ClueState } from '../../core/store/state';
 import { PlayerService } from '../player.service';
 import { Suspect } from '../../card/suspect/suspect';
-import { deletePlayer, DeletePlayer, DeletedPlayer, loadPlayers, LoadedPlayers, savePlayer, SavePlayer, SavedPlayer } from './player.actions';
+import { addPlayer, deletePlayer, DeletePlayer, DeletedPlayer, loadPlayers, LoadedPlayers, savePlayer, SavePlayer, SavedPlayer } from './player.actions';
 
 @Injectable()
 export class PlayerEffects {
+
+  @Effect() addPlayer: Observable<Action> =
+    this.actions.ofType(addPlayer)
+        .withLatestFrom(this.store.select(s => s.players))
+        .map(([action, playerMap]) => playerMap)
+        .map(playerMap => Object.keys(playerMap).length)        
+        .map(playerCount => ({ name: '', order: playerCount + 1 }))
+        .map(player => new SavePlayer(player));
 
   @Effect() deletePlayer: Observable<Action> =
     this.actions.ofType(deletePlayer)
