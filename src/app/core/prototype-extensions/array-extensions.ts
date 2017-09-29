@@ -16,8 +16,24 @@
 // Interface ==================================================
 
 interface Array<T> {
-    sortBy(propertyFn: (item: T) => any): T[];
+
+    /**
+     * Flattens an array property defined on the function parameter
+     */
     flatMap<T, U>(propertyFn: (item: T, index: number, array: T[]) => U[], thisArg?: any): U[];
+    /**
+     * Sorts an array by the property defined on the function parameter
+     */
+    sortBy(propertyFn: (item: T) => any): T[];
+    /**
+     * Transforms an array into a HashMap object using the specified property as an index
+     * 
+     * Example:
+     * `[{ id: 4, name: 'John'}, {id: 1, name: 'Mary'}].toHashMap(x => x.id)`
+     * 
+     * =>
+     * `{ 1: {id: 1, name: 'Mary'}, 4: { id: 4, name: 'John'}}`
+     */
     toHashMap<T>(propertyFn: (item: T, index: number) => string): {};
 }
 

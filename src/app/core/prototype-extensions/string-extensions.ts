@@ -28,7 +28,7 @@ interface String {
      *
      * In the case of object maps, you can interpolate any key with any value.
      *
-     * Inspired from StackOverflow's String.prototype.formatUnicorn()
+     * Inspired by StackOverflow's String.prototype.formatUnicorn()
      */
     format(): string;
 }

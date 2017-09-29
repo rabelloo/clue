@@ -17,9 +17,10 @@ export class CardGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot,
               state: RouterStateSnapshot): Observable<boolean> {
+    this.store.dispatch(new LoadCards());
+
     return this.store.select(cardsLoaded)
-                .filter(can => !can)
-                .do(() => this.store.dispatch(new LoadCards()));
+                .filter(can => can);
   }
 
 }

@@ -24,9 +24,15 @@ export class PlayerListComponent implements OnInit {
   private cards: Observable<Card[]>;
 
   get maxCards(): Observable<number> {
-    return Observable.forkJoin(this.cards, this.players)
-                     .map(([c, p]) => [c.length, p.length])
-                     .map(([cardCount, playerCount]) => (cardCount - 3) / (playerCount < 3 ? 3 : playerCount));
+    return this.cards
+              .map(c => c.length)
+              .withLatestFrom(this.playerCount)
+              .map(([cardCount, playerCount]) => (cardCount - 3) / (playerCount < 3 ? 3 : playerCount));
+  }
+
+  get playerCount(): Observable<number> {
+    return this.players
+              .map(p => p.length);
   }
 
   constructor(private store: Store<ClueState>) {
@@ -49,14 +55,14 @@ export class PlayerListComponent implements OnInit {
   onRemove(player: Player): void {
     this.store.dispatch(new DeletePlayer(player));
   }
-  
+
   charactersFor(player: Player): Observable<Suspect[]> {
     return this.cardsOf(CardType.suspect)
               .withLatestFrom(this.otherPlayersCharacterIds(player))
               .filter(([card, characterIds]) => !characterIds.includes(card.id))
               .zip();
   }
-  
+
   roomsFor(player: Player): Observable<Room[]> {
     const cards = this.cardsOf(CardType.room);
     return this.validFor(cards, player);
@@ -84,7 +90,7 @@ export class PlayerListComponent implements OnInit {
             .filter(([card, cardIds]) => !cardIds.includes(card.id))
             .zip();
   }
-  
+
   private otherPlayers(player: Player): Observable<Player> {
     return this.players
             .flatMap(p => p)
@@ -95,7 +101,7 @@ export class PlayerListComponent implements OnInit {
     return this.otherPlayers(player)
             .map(p => p.cardIds);
   }
-  
+
   private otherPlayersCharacterIds(player: Player): Observable<number[]> {
     return this.otherPlayers(player)
             .map(p => p.characterId)

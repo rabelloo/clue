@@ -18,3 +18,4 @@ export class LoadedCards implements Action {
 export type CardAction
     = LoadCards
     | LoadedCards
+    ;

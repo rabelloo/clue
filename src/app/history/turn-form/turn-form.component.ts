@@ -60,10 +60,10 @@ export class TurnFormComponent implements OnInit {
 
   private saveTurn(turn: Turn): void {
     this.turnService.save(turn)
-        .subscribe(turn => {
+        .subscribe(t => {
           this.saved = true;
-          turn.player = this.turn.player;
-          this.turn = turn;
+          t.player = this.turn.player;
+          this.turn = t;
         });
   }
 

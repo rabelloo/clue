@@ -7,7 +7,7 @@ export interface Card {
 }
 
 export enum CardType {
-    room = 'Room',
-    suspect = 'Suspect',
-    weapon = 'Weapon',
+    room,
+    suspect,
+    weapon,
 }

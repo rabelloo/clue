@@ -1,6 +1,7 @@
 <md-card>
   <clue-player-form *ngFor="let player of players"
                     [player]="player"
+                    [playerCount]="playerCount | async"
                     [maxCards]="maxCards | async"
                     [characters]="charactersFor(player) | async"
                     [rooms]="roomsFor(player) | async"

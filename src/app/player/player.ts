@@ -1,7 +1,7 @@
 import { Suspect } from '../card/suspect/suspect';
 
 export interface Player {
-    id?: number;
+    id: number;
     name: string;
     order: number;
     characterId?: number;

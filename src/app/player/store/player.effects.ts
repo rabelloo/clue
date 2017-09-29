@@ -6,7 +6,9 @@ import { Effect, Actions } from '@ngrx/effects';
 import { ClueState } from '../../core/store/state';
 import { PlayerService } from '../player.service';
 import { Suspect } from '../../card/suspect/suspect';
-import { addPlayer, deletePlayer, DeletePlayer, DeletedPlayer, loadPlayers, LoadedPlayers, savePlayer, SavePlayer, SavedPlayer } from './player.actions';
+import { addPlayer, deletePlayer, DeletePlayer, DeletedPlayer,
+         loadPlayers, LoadedPlayers, savePlayer, SavePlayer, SavedPlayer } from './player.actions';
+import { LoadCards } from '../../card/store/card.actions';
 
 @Injectable()
 export class PlayerEffects {
@@ -14,9 +16,10 @@ export class PlayerEffects {
   @Effect() addPlayer: Observable<Action> =
     this.actions.ofType(addPlayer)
         .withLatestFrom(this.store.select(s => s.players))
+        .do(([a, b]) => console.log(b))
         .map(([action, playerMap]) => playerMap)
-        .map(playerMap => Object.keys(playerMap).length)        
-        .map(playerCount => ({ name: '', order: playerCount + 1 }))
+        .map(playerMap => Object.keys(playerMap).length)
+        .map(playerCount => ({ id: undefined, name: '', order: playerCount + 1 }))
         .map(player => new SavePlayer(player));
 
   @Effect() deletePlayer: Observable<Action> =
@@ -34,8 +37,10 @@ export class PlayerEffects {
         .switchMap(() => this.store.select(s => s.cards))
         .map(cards => Object.values(cards)
                             .filter(c => c as Suspect !== null) as Suspect[])
+        .do(suspects => suspects.length ? undefined : this.store.dispatch(new LoadCards()))
         .filter(suspects => !!suspects.length)
         .switchMap(suspects => this.playerService.getAll(suspects))
+        .do(a => console.log(a))
         .map(players => new LoadedPlayers(players));
 
   @Effect() savePlayer: Observable<Action> =

@@ -32,19 +32,19 @@ export class LoadPlayers implements Action {
 
 export class LoadedPlayers implements Action {
     readonly type = loadedPlayers;
-    
+
     constructor(public players: Player[]) { }
 }
 
 export class SavePlayer implements Action {
     readonly type = savePlayer;
-    
+
     constructor(public player: Player) { }
 }
 
 export class SavedPlayer implements Action {
     readonly type = savedPlayer;
-    
+
     constructor(public player: Player) { }
 }
 
@@ -56,3 +56,4 @@ export type PlayerAction
     | LoadedPlayers
     | SavePlayer
     | SavedPlayer
+    ;

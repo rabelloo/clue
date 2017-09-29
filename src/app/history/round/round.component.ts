@@ -28,7 +28,7 @@ export class RoundComponent implements OnInit {
   addTurn(): void {
     this.change.emit(this.round);
   }
-  
+
   descriptionFor(turn: Turn) {
     if (!turn.playerId
      || !turn.suggestion.suspectId

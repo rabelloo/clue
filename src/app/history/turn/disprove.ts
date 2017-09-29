@@ -1,9 +1,9 @@
 import { Card } from '../../card/card';
 import { Player } from '../../player/player';
 
-export class Disprove {
+export interface Disprove {
     playerId: number;
-    player = new Player();
+    player: Player;
 
     cardId: number;
     card: Card;

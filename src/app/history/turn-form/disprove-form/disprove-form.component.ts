@@ -27,11 +27,11 @@ export class DisproveFormComponent implements OnInit {
   private rooms: Room[];
   private suspects: Suspect[];
   private weapons: Weapon[];
-  
+
   get disprove(): Disprove { return this.turn.disprove; }
-  
+
   get suspect(): Suspect {
-    return this.suspects.find(s => s.id === this.suggestion.suspectId) || new Suspect();
+    return this.suspects.find(s => s.id === this.suggestion.suspectId) || {} as Suspect;
   }
 
   get validPlayers(): Player[] {
@@ -41,17 +41,17 @@ export class DisproveFormComponent implements OnInit {
   get validRooms(): Room[] {
     return this.rooms.filter(r => r.id === this.suggestion.roomId);
   }
-  
+
   get validSuspects(): Suspect[] {
     return this.suspects.filter(s => s.id === this.suggestion.suspectId);
   }
-  
+
   get validWeapons(): Weapon[] {
     return this.weapons.filter(w => w.id === this.suggestion.weaponId);
   }
 
   private get suggestion(): Suggestion { return this.turn.suggestion; }
-  
+
   constructor(private formBuilder: FormBuilder,
               private route: ActivatedRoute,
               private turnForm: TurnFormComponent) {

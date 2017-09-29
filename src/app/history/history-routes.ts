@@ -1,14 +1,12 @@
 ﻿import { Routes } from '@angular/router';
 
 import { HistoryComponent } from './history.component';
-import { PlayerResolver } from '../player/player.resolver';
+import { PlayerGuard } from '../player/player.guard';
 
 export const historyRoutes: Routes = [
     {
         path: 'history',
         component: HistoryComponent,
-        resolve: {
-            players: PlayerResolver
-        }
+        canActivate: [PlayerGuard]
     }
 ];

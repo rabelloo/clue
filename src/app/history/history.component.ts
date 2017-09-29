@@ -18,8 +18,8 @@ import { Weapon } from '../card/weapon/weapon';
 })
 export class HistoryComponent implements OnInit {
 
-  rounds: Round[] = [];
-  players: Player[] = [];
+  rounds: Round[];
+  players: Player[];
   private rooms: Room[];
   private suspects: Suspect[];
   private weapons: Weapon[];
@@ -29,7 +29,7 @@ export class HistoryComponent implements OnInit {
   }
 
   get ready(): boolean {
-    return this.players.flatMap(p => p.cardIds).length === this.cardCount;
+    return this.players.flatMap((p: Player) => p.cardIds).length === this.cardCount;
   }
 
   constructor(private historyService: HistoryService,

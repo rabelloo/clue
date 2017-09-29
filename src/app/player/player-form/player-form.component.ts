@@ -19,6 +19,7 @@ export class PlayerFormComponent implements OnInit, OnChanges {
   @Input() characters: Suspect[];
   @Input() maxCards: number;
   @Input() player: Player;
+  @Input() playerCount: number;
   @Input() rooms: Room[];
   @Input() suspects: Suspect[];
   @Input() weapons: Weapon[];
@@ -49,7 +50,7 @@ export class PlayerFormComponent implements OnInit, OnChanges {
           && input.currentValue !== input.previousValue;
     }
   }
-  
+
   onSelect(event: MdSelectChange) {
     this.change.emit(this.player);
   }

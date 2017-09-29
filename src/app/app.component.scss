@@ -8,4 +8,17 @@
     flex: 1 0 auto;
     padding: 40px;
   }
+
+  md-spinner {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+    opacity: 0;
+    transition: opacity .35s;
+  }
+  router-outlet + md-spinner {
+    opacity: 1;
+  }
 }

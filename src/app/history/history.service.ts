@@ -56,11 +56,15 @@ export class HistoryService {
 
     const nextPlayer = players.find(p => p.order === currentTurn);
 
-    return new Turn({
+    return {
+      id: undefined,
       round: nextRound,
       order: currentTurn,
-      playerId: nextPlayer.id
-    });
+      playerId: nextPlayer.id,
+      player: undefined,
+      suggestion: undefined,
+      disprove: undefined,
+    };
   }
 
   private turnFor = (turn: Turn,
