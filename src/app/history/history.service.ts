@@ -73,7 +73,7 @@ export class HistoryService {
                      weapons: Weapon[],
                      rooms: Room[]
                     ): Turn =>
-    Object.assign(turn, {
+    Object.assign({}, turn, {
       disprove: this.disproveFor(turn, players, suspects, weapons, rooms),
       player: this.playerFor(turn, players),
       suggestion: this.suggestionFor(turn, suspects, weapons, rooms)

@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output, OnChanges, SimpleChanges, ElementRef, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { MdSelectChange } from '@angular/material';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 
@@ -66,11 +65,6 @@ export class PlayerFormComponent implements OnInit, OnChanges {
     this.hasFocusedInput.next(true);
   }
 
-  onSelect(event: MdSelectChange) {
-    console.log('select emitted');
-    this.save.emit(this.player);
-  }
-
   removePlayer(): void {
     this.remove.emit(this.player);
   }
@@ -92,14 +86,12 @@ export class PlayerFormComponent implements OnInit, OnChanges {
         .subscribe(() => this.saved.next(false));
 
     this.hasFocusedInput
-        .debounceTime(50)
+        .debounceTime(1) // prevents trigger when tabbing between inputs
         .distinctUntilChanged()
         .filter(hasFocus => !hasFocus)
         .withLatestFrom(this.form.valueChanges)
         .map(([h, p]) => p)
-        .debounceTime(300)
         .distinctUntilChanged()
-        .do(() => this.saved.next(true))
         .subscribe(player => this.save.emit(player));
   }
 

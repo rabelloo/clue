@@ -1,13 +1,19 @@
 import { NgModule } from '@angular/core';
 
-import { BlurDetectorDirective } from '../shared/blur-detector/blur-detector.directive';
 import { CardModule } from '../card/card.module';
-import { FocusDetectorDirective } from '../shared/focus-detector/focus-detector.directive';
+import { SharedModule } from '../shared/shared.module';
+
 import { PlayerFormComponent } from './player-form/player-form.component';
 import { PlayerListComponent } from './player-list/player-list.component';
+
+import { BlurDetectorDirective } from '../shared/detectors/blur-detector/blur-detector.directive';
+import { CloseDetectorDirective } from '../shared/detectors/close-detector/close-detector.directive';
+import { FocusDetectorDirective } from '../shared/detectors/focus-detector/focus-detector.directive';
+import { OpenDetectorDirective } from '../shared/detectors/open-detector/open-detector.directive';
+
 import { PlayerGuard } from './player.guard';
+
 import { PlayerService } from './player.service';
-import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   imports: [
@@ -16,7 +22,9 @@ import { SharedModule } from '../shared/shared.module';
   ],
   declarations: [
     BlurDetectorDirective,
+    CloseDetectorDirective,
     FocusDetectorDirective,
+    OpenDetectorDirective,
     PlayerFormComponent,
     PlayerListComponent,
   ],

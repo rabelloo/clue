@@ -5,7 +5,6 @@ import { LocalForageIdTable } from '../core/local-forage/local-forage-id-table';
 import { LocalForageService } from '../core/local-forage/local-forage.service';
 import { Notifier } from '../core/notifier/notifier.service';
 import { Player } from './player';
-import { Suspect } from '../card/suspect/suspect';
 
 @Injectable()
 export class PlayerService {
@@ -18,13 +17,8 @@ export class PlayerService {
     this.players = localForageService.getIdTable<Player>(this.tableName);
   }
 
-  getAll(suspects: Suspect[]): Observable<Player[]> {
-    return this.players.getAll()
-                .defaultIfEmpty([])
-                .map(players => players
-                                .sortBy(p => p.order)
-                                .map(p => ({ ...p, character: suspects.find(s => s.id === p.characterId) }))
-                );
+  getAll(): Observable<Player[]> {
+    return this.players.getAll();
   }
 
   get(id: number): Observable<Player> {

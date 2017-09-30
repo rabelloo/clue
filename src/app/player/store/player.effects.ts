@@ -8,15 +8,14 @@ import { PlayerService } from '../player.service';
 import { Suspect } from '../../card/suspect/suspect';
 import { addPlayer, deletePlayer, DeletePlayer, DeletedPlayer,
          loadPlayers, LoadedPlayers, savePlayer, SavePlayer, SavedPlayer } from './player.actions';
-import { LoadCards } from '../../card/store/card.actions';
+import { playerCountSelector } from './player.selectors';
 
 @Injectable()
 export class PlayerEffects {
 
   @Effect() addPlayer: Observable<Action> =
     this.actions.ofType(addPlayer)
-        .withLatestFrom(this.store.select(s => s.playerCount))
-        .map(([action, playerCount]) => playerCount)
+        .switchMap(() => this.store.select(playerCountSelector))
         .map(playerCount => ({ id: undefined, name: '', order: playerCount + 1 }))
         .map(player => new SavePlayer(player));
 
@@ -32,12 +31,8 @@ export class PlayerEffects {
 
   @Effect() loadPlayers: Observable<Action> =
     this.actions.ofType(loadPlayers)
-        .switchMap(() => this.store.select(s => s.cards))
-        .map(cards => Object.values(cards)
-                            .filter(c => c as Suspect !== null) as Suspect[])
-        .do(suspects => suspects.length ? undefined : this.store.dispatch(new LoadCards()))
-        .filter(suspects => !!suspects.length)
-        .switchMap(suspects => this.playerService.getAll(suspects))
+        .switchMap(() => this.playerService.getAll())
+        .defaultIfEmpty([])
         .map(players => new LoadedPlayers(players));
 
   @Effect() savePlayer: Observable<Action> =

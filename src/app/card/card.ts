@@ -6,8 +6,7 @@ export interface Card {
     disabled: boolean;
 }
 
-export enum CardType {
-    room,
-    suspect,
-    weapon,
-}
+export type CardType
+    = 'room'
+    | 'suspect'
+    | 'weapon';

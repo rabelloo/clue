@@ -1,7 +1,7 @@
 import { ActionReducer } from '@ngrx/store';
 
 import { Player } from '../player';
-import { PlayerAction, deletedPlayer, loadedPlayers, savedPlayer } from './player.actions';
+import { PlayerAction, deletedPlayer, loadedPlayers, savePlayer, savedPlayer } from './player.actions';
 import { PlayerMap } from './player-map';
 
 const initialState: PlayerMap = {};
