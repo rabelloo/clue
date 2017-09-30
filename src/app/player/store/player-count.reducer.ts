@@ -1,13 +1,13 @@
 import { ActionReducer } from '@ngrx/store';
 
-import { playerCount, PlayerCountAction } from './player-count.actions';
+import { loadedPlayers, PlayerAction } from './player.actions';
 
 const initialState = 0;
 
-export function PlayerCountReducer(state = initialState, action: PlayerCountAction): number {
+export function PlayerCountReducer(state = initialState, action: PlayerAction): number {
     switch (action.type) {
-        case playerCount:
-            return action.count;
+        case loadedPlayers:
+            return action.players.length;
 
         default:
             return state;

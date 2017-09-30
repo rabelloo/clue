@@ -1,6 +1,6 @@
 <form [formGroup]="form">
   <input formControlName="id" type="hidden" [value]="player.id" />
-
+  
   <md-form-field style="max-width: 40px">
     <input mdInput formControlName="order" type="number" min="1" [max]="playerCount" placeholder="Order" [value]="player.order" />
   </md-form-field>
@@ -13,11 +13,11 @@
   <!-- TODO: remove class and styles when md-form-field supports md-selects -->
   <md-form-field class="mat-form-field-type-mat-select">
     <div mdPrefix>
-      <md-icon class="{{player.character.color}}">person</md-icon>
-      <md-icon class="outline {{player.character.color}}">person_outline</md-icon>
+      <md-icon class="{{player.character?.color}}">person</md-icon>
+      <md-icon class="outline {{player.character?.color}}">person_outline</md-icon>
     </div>
     <md-select formControlName="characterId" placeholder="Character" [value]="player.characterId" (change)="onSelect($event)">
-      <md-select-trigger>{{ player.character.name }}</md-select-trigger>
+      <md-select-trigger>{{ player.character?.name }}</md-select-trigger>
       <md-option *ngFor="let suspect of suspects" [value]="suspect.id">
         <div fxLayout fxLayoutAlign="default center">
           <md-icon class="{{suspect.color}}">person</md-icon>
@@ -70,7 +70,7 @@
     <md-icon>delete</md-icon>
   </button>
   
-  <button md-icon-button type="button" mdTooltip="Saved" mdTooltipPosition="after" *ngIf="saved">
+  <button md-icon-button type="button" mdTooltip="Saved" mdTooltipPosition="after" *ngIf="saved | async">
     <md-icon color="primary">done</md-icon>
   </button>
 </form>

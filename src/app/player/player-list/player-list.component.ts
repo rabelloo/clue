@@ -5,11 +5,14 @@ import { Store } from '@ngrx/store';
 
 import { AddPlayer, DeletePlayer, SavePlayer } from '../store/player.actions';
 import { Card, CardType } from '../../card/card';
+import { cardsSelector } from '../../card/store/card.selectors';
 import { ClueState } from '../../core/store/state';
 import { Player } from '.././player';
+import { playersSelector } from '../store/player.selectors';
 import { Suspect } from '../../card/suspect/suspect';
 import { Room } from '../../card/room/room';
 import { Weapon } from '../../card/weapon/weapon';
+import { BlurForwarder } from './blur-forwarder';
 
 @Component({
   selector: 'clue-player-list',
@@ -19,7 +22,6 @@ import { Weapon } from '../../card/weapon/weapon';
 })
 export class PlayerListComponent implements OnInit {
 
-  forms = {};
   players: Observable<Player[]>;
   private cards: Observable<Card[]>;
 
@@ -36,8 +38,8 @@ export class PlayerListComponent implements OnInit {
   }
 
   constructor(private store: Store<ClueState>) {
-      this.cards = this.store.select(s => s.cards)
-                             .map(cm => Object.values(cm));
+    this.cards = this.store.select(cardsSelector);
+    this.players = this.store.select(playersSelector);
   }
 
   ngOnInit(): void {
@@ -48,7 +50,7 @@ export class PlayerListComponent implements OnInit {
     this.store.dispatch(new AddPlayer());
   }
 
-  onChange(player: Player): void {
+  onSave(player: Player): void {
     this.store.dispatch(new SavePlayer(player));
   }
 

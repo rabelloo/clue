@@ -3,7 +3,7 @@ import { ActivatedRouteSnapshot, RouterStateSnapshot, CanActivate } from '@angul
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 
-import { cardsLoaded } from './store/card.selectors';
+import { cardsLoadedSelector } from './store/card.selectors';
 import { ClueState } from '../core/store/state';
 import { LoadCards } from './store/card.actions';
 
@@ -19,8 +19,7 @@ export class CardGuard implements CanActivate {
               state: RouterStateSnapshot): Observable<boolean> {
     this.store.dispatch(new LoadCards());
 
-    return this.store.select(cardsLoaded)
-                .filter(can => can);
+    return this.store.select(cardsLoadedSelector);
   }
 
 }

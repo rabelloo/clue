@@ -1,6 +1,8 @@
-import { Component, EventEmitter, Input, OnInit, Output, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, OnChanges, SimpleChanges, ElementRef, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { MdSelectChange } from '@angular/material';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs/Observable';
 
 import { Player } from '../player';
 import { Suspect } from '../../card/suspect/suspect';
@@ -11,11 +13,16 @@ import { Weapon } from '../../card/weapon/weapon';
   selector: 'clue-player-form',
   templateUrl: './player-form.component.html',
   styleUrls: ['./player-form.component.scss'],
+  host: {
+    '(input-blur)':'onInputBlur($event)',
+    '(input-focus)':'onInputFocus($event)'
+  },
 })
 export class PlayerFormComponent implements OnInit, OnChanges {
 
   form: FormGroup;
-  saved: boolean;
+  saved = new BehaviorSubject<boolean>(true);
+  private hasFocusedInput = new BehaviorSubject<boolean>(false);
   @Input() characters: Suspect[];
   @Input() maxCards: number;
   @Input() player: Player;
@@ -23,11 +30,11 @@ export class PlayerFormComponent implements OnInit, OnChanges {
   @Input() rooms: Room[];
   @Input() suspects: Suspect[];
   @Input() weapons: Weapon[];
-  @Output() private change: EventEmitter<Player> = new EventEmitter<Player>();
+  @Output() private save: EventEmitter<Player> = new EventEmitter<Player>();
   @Output() private remove: EventEmitter<Player> = new EventEmitter<Player>();
 
   constructor(private formBuilder: FormBuilder) {
-      //
+    //
   }
 
   ngOnInit(): void {
@@ -35,7 +42,7 @@ export class PlayerFormComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    this.saved = true;
+    this.saved.next(true);
 
     if (valueChanged('maxCards')
      || valueChanged('players')) {
@@ -50,9 +57,18 @@ export class PlayerFormComponent implements OnInit, OnChanges {
           && input.currentValue !== input.previousValue;
     }
   }
+  
+  onInputBlur() {
+    this.hasFocusedInput.next(false);
+  }
+  
+  onInputFocus() {
+    this.hasFocusedInput.next(true);
+  }
 
   onSelect(event: MdSelectChange) {
-    this.change.emit(this.player);
+    console.log('select emitted');
+    this.save.emit(this.player);
   }
 
   removePlayer(): void {
@@ -73,10 +89,18 @@ export class PlayerFormComponent implements OnInit, OnChanges {
   private listenForChanges() {
     this.form.valueChanges
         .distinctUntilChanged()
-        .do(values => this.saved = false)
+        .subscribe(() => this.saved.next(false));
+
+    this.hasFocusedInput
+        .debounceTime(50)
+        .distinctUntilChanged()
+        .filter(hasFocus => !hasFocus)
+        .withLatestFrom(this.form.valueChanges)
+        .map(([h, p]) => p)
         .debounceTime(300)
-        // .filter((player) => form.valid)
-        .subscribe(player => this.change.emit(player));
+        .distinctUntilChanged()
+        .do(() => this.saved.next(true))
+        .subscribe(player => this.save.emit(player));
   }
 
 }

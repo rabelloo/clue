@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 
+import { BlurDetectorDirective } from '../shared/blur-detector/blur-detector.directive';
 import { CardModule } from '../card/card.module';
+import { FocusDetectorDirective } from '../shared/focus-detector/focus-detector.directive';
 import { PlayerFormComponent } from './player-form/player-form.component';
 import { PlayerListComponent } from './player-list/player-list.component';
 import { PlayerGuard } from './player.guard';
@@ -13,6 +15,8 @@ import { SharedModule } from '../shared/shared.module';
     SharedModule,
   ],
   declarations: [
+    BlurDetectorDirective,
+    FocusDetectorDirective,
     PlayerFormComponent,
     PlayerListComponent,
   ],

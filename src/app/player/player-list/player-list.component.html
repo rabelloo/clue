@@ -1,5 +1,5 @@
 <md-card>
-  <clue-player-form *ngFor="let player of players"
+  <clue-player-form *ngFor="let player of players | async"
                     [player]="player"
                     [playerCount]="playerCount | async"
                     [maxCards]="maxCards | async"
@@ -7,7 +7,7 @@
                     [rooms]="roomsFor(player) | async"
                     [suspects]="suspectsFor(player) | async"
                     [weapons]="weaponsFor(player) | async"
-                    (change)="onChange($event)"
+                    (save)="onSave($event)"
                     (remove)="onRemove($event)">
     Loading player...
   </clue-player-form>
@@ -15,7 +15,7 @@
   <button md-raised-button
           color="primary"
           (click)="addPlayer()"
-          *ngIf="players?.length < 6">
+          *ngIf="(playerCount | async) < 6">
     <md-icon>add</md-icon> Player
   </button>
 </md-card>

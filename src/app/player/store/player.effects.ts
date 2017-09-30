@@ -15,10 +15,8 @@ export class PlayerEffects {
 
   @Effect() addPlayer: Observable<Action> =
     this.actions.ofType(addPlayer)
-        .withLatestFrom(this.store.select(s => s.players))
-        .do(([a, b]) => console.log(b))
-        .map(([action, playerMap]) => playerMap)
-        .map(playerMap => Object.keys(playerMap).length)
+        .withLatestFrom(this.store.select(s => s.playerCount))
+        .map(([action, playerCount]) => playerCount)
         .map(playerCount => ({ id: undefined, name: '', order: playerCount + 1 }))
         .map(player => new SavePlayer(player));
 
@@ -40,7 +38,6 @@ export class PlayerEffects {
         .do(suspects => suspects.length ? undefined : this.store.dispatch(new LoadCards()))
         .filter(suspects => !!suspects.length)
         .switchMap(suspects => this.playerService.getAll(suspects))
-        .do(a => console.log(a))
         .map(players => new LoadedPlayers(players));
 
   @Effect() savePlayer: Observable<Action> =

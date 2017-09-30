@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 
 import { ClueState } from '../core/store/state';
 import { LoadPlayers } from './store/player.actions';
-import { playersLoaded } from './store/player.selectors';
+import { playersLoadedSelector } from './store/player.selectors';
 
 @Injectable()
 export class PlayerGuard implements CanActivate {
@@ -18,8 +18,7 @@ export class PlayerGuard implements CanActivate {
                 state: RouterStateSnapshot): Observable<boolean> {
       this.store.dispatch(new LoadPlayers());
       
-      return this.store.select(playersLoaded)
-                .filter(can => can);
+      return this.store.select(playersLoadedSelector);
     }
 
 }
