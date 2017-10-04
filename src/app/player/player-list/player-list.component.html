@@ -15,7 +15,7 @@
   <button md-raised-button
           color="primary"
           (click)="addPlayer()"
-          *ngIf="(playerCount | async) < 6">
+          *ngIf="canAdd | async">
     <md-icon>add</md-icon> Player
   </button>
 </md-card>

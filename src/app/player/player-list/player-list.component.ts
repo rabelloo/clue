@@ -4,10 +4,10 @@ import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 
 import { AddPlayer, DeletePlayer, SavePlayer } from '../store/player.actions';
-import { cardCountSelector, roomsSelector, suspectsSelector, weaponsSelector } from '../../card/store/card.selectors';
+import { CardSelectors } from '../../card/store/card.selectors';
 import { ClueState } from '../../core/store/state';
 import { Player } from '.././player';
-import { playersSelector } from '../store/player.selectors';
+import { PlayerSelectors } from '../store/player.selectors';
 import { Room } from '../../card/room/room';
 import { Suspect } from '../../card/suspect/suspect';
 import { Weapon } from '../../card/weapon/weapon';
@@ -20,29 +20,20 @@ import { Weapon } from '../../card/weapon/weapon';
 })
 export class PlayerListComponent implements OnInit {
 
-  cardCount: Observable<number>;
+  maxCards: Observable<number>;
+  playerCount: Observable<number>;
   players: Observable<Player[]>;
-  private rooms: Observable<Room[]>;
-  private suspects: Observable<Suspect[]>;
-  private weapons: Observable<Weapon[]>;
+  private maxPlayers = 6;
 
-  get maxCards(): Observable<number> {
-    return this.cardCount
-              .withLatestFrom(this.playerCount)
-              .map(([cardCount, playerCount]) => (cardCount - 3) / (playerCount < 3 ? 3 : playerCount));
-  }
-
-  get playerCount(): Observable<number> {
-    return this.players
-              .map(p => p.length);
+  get canAdd(): Observable<boolean> {
+    return this.playerCount
+              .map(p => p < this.maxPlayers);
   }
 
   constructor(private store: Store<ClueState>) {
-    this.cardCount = this.store.select(cardCountSelector);
-    this.players = this.store.select(playersSelector);
-    this.rooms = this.store.select(roomsSelector);
-    this.suspects = this.store.select(suspectsSelector);
-    this.weapons = this.store.select(weaponsSelector);
+    this.maxCards = this.store.select(CardSelectors.maxCards);
+    this.playerCount = this.store.select(PlayerSelectors.playerCount);
+    this.players = this.store.select(PlayerSelectors.players);
   }
 
   ngOnInit(): void {
@@ -62,43 +53,19 @@ export class PlayerListComponent implements OnInit {
   }
 
   charactersFor(player: Player): Observable<Suspect[]> {
-    return  this.suspects
-              .withLatestFrom(this.otherPlayersCharacterIds(player))
-              .map(([suspects, characterIds]) => suspects.filter(s => !characterIds.includes(s.id)));             
+    return this.store.select(CardSelectors.validCharactersFor(player));
   }
 
   roomsFor(player: Player): Observable<Room[]> {
-    return this.validFor(this.rooms, player);
+    return this.store.select(CardSelectors.validRoomsFor(player));
   }
 
   suspectsFor(player: Player): Observable<Suspect[]> {
-    return this.validFor(this.suspects, player);
+    return this.store.select(CardSelectors.validSuspectsFor(player));
   }
 
   weaponsFor(player: Player): Observable<Weapon[]> {
-    return this.validFor(this.weapons, player);
-  }
-
-  private validFor<T>(cards: Observable<T[]>, player: Player): Observable<T[]> {
-    return cards
-            // .withLatestFrom(this.otherPlayersCardIds(player))
-            // .map(([cards, cardIds]) => cards.filter(c => !cardIds.includes(c.id)));
-  }
-
-  private otherPlayers(player: Player): Observable<Player[]> {
-    return this.players
-            .map(p => p.filter(p => p.id !== player.id));
-  }
-
-  private otherPlayersCardIds(player: Player): Observable<number[]> {
-    return this.otherPlayers(player)
-            .flatMap(p => p)
-            .map(p => p.cardIds || []);
-  }
-
-  private otherPlayersCharacterIds(player: Player): Observable<number[]> {
-    return this.otherPlayers(player)
-            .map(p => p.map(p => p.characterId));
+    return this.store.select(CardSelectors.validWeaponsFor(player));
   }
 
 }

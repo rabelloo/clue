@@ -1,7 +1,7 @@
 <form [formGroup]="form">
   <input formControlName="id" type="hidden" [value]="player.id" />
-  
-  <md-form-field style="max-width: 40px">
+
+  <md-form-field class="small">
     <input mdInput formControlName="order" type="number" min="1" [max]="playerCount" placeholder="Order" [value]="player.order" />
   </md-form-field>
 
@@ -36,7 +36,7 @@
   <md-form-field class="mat-form-field-type-mat-select">
     <md-select #cards multiple formControlName="cardIds" placeholder="Cards" [value]="player.cardIds">
       <md-optgroup label="Suspects">
-        <md-option *ngFor="let suspect of suspects" [value]="suspect.id" [disabled]="suspect.disabled">
+        <md-option *ngFor="let suspect of suspects" [value]="suspect.id">
             <span>{{ suspect.name }}</span>
         </md-option>
       </md-optgroup>
