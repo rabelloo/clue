@@ -2,13 +2,15 @@
 import { RouterModule, Routes } from '@angular/router';
 
 import { CardGuard } from './card/card.guard';
-import { playerRoutes } from './player/player-routes';
 import { historyRoutes } from './history/history-routes';
+import { PlayerGuard } from './player/player.guard';
+import { playerRoutes } from './player/player-routes';
 
 const routes: Routes = [
-    { path: '**', redirectTo: 'players' },
+    { path: '', redirectTo: 'players', pathMatch: 'full' },
     {
         path: '',
+        canActivate: [CardGuard, PlayerGuard],
         children: [
             ...playerRoutes,
             ...historyRoutes,

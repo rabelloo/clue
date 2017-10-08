@@ -1,12 +1,11 @@
 import { ClueState } from '../../core/store/state';
 import { Player } from '../player';
-import { CardSelectors } from '../../card/store/card.selectors';
-
+import { Suspect } from '../../card/suspect/suspect';
 
 export const PlayerSelectors = {
-  playerCount: playerCountSelector,
-  players: playersSelector,
-  playersLoaded: playersLoadedSelector,
+  all: playersSelector,
+  count: playerCountSelector,
+  loaded: playersLoadedSelector,
 }
 
 export function playerCountSelector(state: ClueState): number {
@@ -15,12 +14,11 @@ export function playerCountSelector(state: ClueState): number {
 
 export function playersSelector(state: ClueState): Player[] {
   return Object.values(state.players)
-              .sortBy((p: Player) => p.order)
-              .map((p: Player) => ({
-                  ...p,
-                  character: CardSelectors.suspects(state)
-                                .find(s => s.id === p.characterId)
-              }));
+               .sortBy((p: Player) => p.order)
+               .map((p: Player) => ({
+                   ...p,
+                   character: state.cards[p.characterId] as Suspect
+               }));
 }
 
 export function playersLoadedSelector(state: ClueState): boolean {

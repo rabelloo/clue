@@ -1,19 +1,16 @@
 import { Card } from '../card';
-import { CardMap } from './card-map';
 import { ClueState } from '../../core/store/state';
+import { Player } from '../../player/player';
+import { PlayerSelectors } from '../../player/store/player.selectors';
 import { Room } from '../room/room';
 import { Suspect } from '../suspect/suspect';
 import { Weapon } from '../weapon/weapon';
-import { Player } from '../../player/player';
-import { Store } from '@ngrx/store';
-import { PlayerSelectors } from '../../player/store/player.selectors';
-
 
 export const CardSelectors = {
-  cardCount: cardCountSelector,
-  cards: cardsSelector,
-  cardsLoaded: cardsLoadedSelector,
-  maxCards: maxCardsSelector,
+  all: cardsSelector,
+  count: cardCountSelector,
+  loaded: cardsLoadedSelector,
+  max: maxCardsSelector,
   rooms: roomsSelector,
   suspects: suspectsSelector,
   weapons: weaponsSelector,
@@ -22,7 +19,6 @@ export const CardSelectors = {
   validSuspectsFor: (player: Player) => validSuspectsForSelector(player),
   validWeaponsFor: (player: Player) => validWeaponsForSelector(player),
 }
-
 
 export function cardCountSelector(state: ClueState): number {
   return Object.keys(state.cards).length;
@@ -38,7 +34,7 @@ export function cardsLoadedSelector(state: ClueState): boolean {
 
 export function maxCardsSelector(state: ClueState): number {
   const cardCount = cardCountSelector(state);
-  const playerCount = PlayerSelectors.playerCount(state);
+  const playerCount = PlayerSelectors.count(state);
 
   return (cardCount - 3) / (playerCount < 3 ? 3 : playerCount);
 }

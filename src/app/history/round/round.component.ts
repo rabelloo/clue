@@ -1,9 +1,13 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
-import { HistoryService } from '../history.service';
+import { Disprove } from '../turn-form/disprove-form/disprove';
 import { Player } from '../../player/player';
+import { Room } from '../../card/room/room';
 import { Round } from './round';
-import { Turn } from '../turn/turn';
+import { Suggestion } from '../turn-form/suggestion-form/suggestion';
+import { Suspect } from '../../card/suspect/suspect';
+import { Turn } from '../turn-form/turn';
+import { Weapon } from '../../card/weapon/weapon';
 
 @Component({
   selector: 'clue-round',
@@ -12,59 +16,58 @@ import { Turn } from '../turn/turn';
 })
 export class RoundComponent implements OnInit {
 
-  @Input() round: Round;
-  @Input() players: Player[];
-  @Output() change = new EventEmitter<Round>();
-  @Output() remove = new EventEmitter<Round>();
+  @Input() players: number[];
+  @Input() rooms: Room[];
+  @Input() suspects: Suspect[];
+  @Input() turns: Turn[];
+  @Input() weapons: Weapon[];
+  @Output() add = new EventEmitter<number>();
+  @Output() save = new EventEmitter<Turn>();
+  @Output() remove = new EventEmitter<Turn>();
 
   get canAdd() {
-    return this.round.turns.length < this.players.length;
+    return this.turns.length < this.players.length;
   }
 
   constructor() { }
 
   ngOnInit() { }
 
-  addTurn(): void {
-    this.change.emit(this.round);
-  }
-
   descriptionFor(turn: Turn) {
     if (!turn.playerId
-     || !turn.suggestion.suspectId
-     || !turn.suggestion.weaponId
-     || !turn.suggestion.roomId) {
-          return '';
-      }
+     && !turn.player) {
+      return '';
+    }
 
-      const player = turn.player.name || `Player #${turn.playerId}`;
-
-      const suggestionOrDefault = type => turn.suggestion[type].name || `${type}  #${turn.suggestion[type + 'Id']}`;
-
-      const suspect = suggestionOrDefault('suspect');
-      const weapon = suggestionOrDefault('weapon');
-      const room = suggestionOrDefault('room');
-
-      let disproved = '';
-
-      if (turn.disprove.playerId) {
-          const disprovedBy = turn.disprove.player.name || `player #${turn.disprove.playerId}`;
-          const card = turn.disprove.card.name || `card #${turn.disprove.cardId}`;
-
-          // disproved = ` but was disproved by ${disprovedBy} with ${card}`;
-          disproved = ` ! => ${disprovedBy} -> ${card}`;
-      }
-
-      // return `${player} suggested ${suspect} with the ${weapon} at ${room}${disproved}`;
-      return `${player} ? -> { ${suspect} + ${weapon} @ ${room} }${disproved}`;
+    return turn.player.name || `Player #${turn.playerId}`
+         + this.getSuggestionDescription(turn.suggestion)
+         + this.getDisprovedDescription(turn.disprove);
   }
 
-  onRemove(turn: Turn): void {
-    this.round.turns = this.round.turns.filter(t => t.id !== turn.id);
+  ///////////////
 
-    if (!this.round.turns.length) {
-      this.remove.emit(this.round);
-    }
+  private getDisprovedDescription(disprove: Disprove): string {
+    if (!disprove)
+      return '';
+
+    const disprovedBy = disprove.player.name || `player #${disprove.playerId}`;
+    const card = disprove.card.name || `card #${disprove.cardId}`;
+
+    // return ` but was disproved by ${disprovedBy} with ${card}`;
+    return ` ! => ${disprovedBy} -> ${card}`;
+  }
+
+  private getSuggestionDescription(suggestion: Suggestion): string {
+    if (!suggestion)
+      return '';
+
+    const suggestionOrDefault = type => suggestion[type].name || `${type} #${suggestion[type + 'Id']}`;
+    const suspect = suggestionOrDefault('suspect');
+    const weapon = suggestionOrDefault('weapon');
+    const room = suggestionOrDefault('room');
+
+    // return ` suggested ${suspect} with the ${weapon} at ${room}`;
+    return ` ? -> { ${suspect} + ${weapon} @ ${room} }`;
   }
 
 }

@@ -1,8 +1,12 @@
-import { CardMap } from '../../card/store/card-map';
-import { PlayerMap } from '../../player/store/player-map';
+import { Card } from '../../card/card';
+import { HashMap } from './hash-map';
+import { Player } from '../../player/player';
+import { Turn } from '../../history/turn-form/turn';
 
 export interface ClueState {
-    cards: CardMap;
-    players: PlayerMap;
+    cards: HashMap<Card>;
+    history: HashMap<Turn>;
+    historyLoaded: boolean;
+    players: HashMap<Player>;
     playersLoaded: boolean;
 }

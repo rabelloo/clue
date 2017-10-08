@@ -1,6 +1,4 @@
 <form [formGroup]="form">
-  <input type="hidden" [value]="turn.id" />
-
   <!-- TODO: remove style when md-form-field supports md-selects -->
   <md-form-field style="max-width: 40px">
     <input mdInput formControlName="order" type="number" min="1" [max]="players.length" placeholder="Order" [value]="turn.order" />
@@ -19,11 +17,20 @@
     <md-error clueErrorMessages="playerId"></md-error>
   </md-form-field>
 
-  <clue-suggestion-form [suggestion]="turn.suggestion"></clue-suggestion-form>
+  <clue-suggestion-form [suggestion]="turn.suggestion"
+                        [rooms]="rooms"
+                        [suspects]="suspects"
+                        [weapons]="weapons">
+  </clue-suggestion-form>
 
-  <clue-disprove-form [turn]="turn" [players]="players"></clue-disprove-form>
+  <clue-disprove-form [disprove]="turn.disprove"
+                      [players]="players"
+                      [room]="turn.suggestion.room"
+                      [suspect]="turn.suggestion.suspect"
+                      [weapon]="turn.suggestion.weapon">
+  </clue-disprove-form>
   
-  <button md-icon-button type="button" color="warn" (click)="removeTurn()">
+  <button md-icon-button type="button" color="warn" (click)="remove.emit(turn)">
     <md-icon>delete</md-icon>
   </button>
   

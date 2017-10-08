@@ -1,11 +1,9 @@
 import { Component, OnInit, Input, Output } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
-import { CardCollection } from '../../../card/card-collection';
 import { ClueValidators } from '../../../shared/validators/validators';
 import { Room } from '../../../card/room/room';
-import { Suggestion } from '../../turn/suggestion';
+import { Suggestion } from './suggestion';
 import { Suspect } from '../../../card/suspect/suspect';
 import { TurnFormComponent } from '../turn-form.component';
 import { Weapon } from '../../../card/weapon/weapon';
@@ -17,20 +15,15 @@ import { Weapon } from '../../../card/weapon/weapon';
 })
 export class SuggestionFormComponent implements OnInit {
 
+  @Input() rooms: Room[];
   @Input() suggestion: Suggestion;
+  @Input() suspects: Suspect[];
+  @Input() weapons: Weapon[];
   form: FormGroup;
-  rooms: Room[];
-  suspects: Suspect[];
-  weapons: Weapon[];
 
   constructor(private formBuilder: FormBuilder,
-              private route: ActivatedRoute,
               private turnForm: TurnFormComponent) {
-    const cards = route.snapshot.data.cards as CardCollection;
-
-    this.rooms = cards.rooms;
-    this.suspects = cards.suspects;
-    this.weapons = cards.weapons;
+    //
   }
 
   ngOnInit() {
@@ -38,13 +31,15 @@ export class SuggestionFormComponent implements OnInit {
     const weaponIds = this.weapons.map(w => w.id);
     const roomIds = this.rooms.map(r => r.id);
 
+    const suggestion = this.suggestion || {} as Suggestion;
+
     this.form = this.formBuilder.group({
-      suspectId: [this.suggestion.suspectId, ClueValidators.in(suspectIds)],
-      weaponId: [this.suggestion.weaponId, ClueValidators.in(weaponIds)],
-      roomId: [this.suggestion.roomId, ClueValidators.in(roomIds)],
+      suspectId: [suggestion.suspectId, ClueValidators.in(suspectIds)],
+      weaponId: [suggestion.weaponId, ClueValidators.in(weaponIds)],
+      roomId: [suggestion.roomId, ClueValidators.in(roomIds)],
     });
 
-    this.turnForm.addControl('suggestion', this.form);
+    this.turnForm.form.addControl('suggestion', this.form);
   }
 
 }

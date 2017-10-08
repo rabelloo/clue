@@ -1,6 +1,6 @@
-import { Disprove } from './disprove';
-import { Suggestion } from './suggestion';
+import { Disprove } from './disprove-form/disprove';
 import { Player } from '../../player/player';
+import { Suggestion } from './suggestion-form/suggestion';
 
 export interface Turn {
     id: number;

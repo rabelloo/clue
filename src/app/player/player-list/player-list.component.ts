@@ -31,9 +31,9 @@ export class PlayerListComponent implements OnInit {
   }
 
   constructor(private store: Store<ClueState>) {
-    this.maxCards = this.store.select(CardSelectors.maxCards);
-    this.playerCount = this.store.select(PlayerSelectors.playerCount);
-    this.players = this.store.select(PlayerSelectors.players);
+    this.maxCards = this.store.select(CardSelectors.max);
+    this.playerCount = this.store.select(PlayerSelectors.count);
+    this.players = this.store.select(PlayerSelectors.all);
   }
 
   ngOnInit(): void {

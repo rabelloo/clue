@@ -1,10 +1,6 @@
-import { Turn } from '../turn/turn';
+import { Turn } from '../turn-form/turn';
 
-export class Round {
-    number = 1;
-    turns: Turn[] = [];
-
-    constructor(init?: Partial<Round>) {
-        Object.assign(this, init);
-    }
+export interface Round {
+    number: number;
+    turns: Turn[];
 }

@@ -5,7 +5,6 @@ import { Store } from '@ngrx/store';
 
 import { cardsLoadedSelector } from './store/card.selectors';
 import { ClueState } from '../core/store/state';
-import { LoadCards } from './store/card.actions';
 
 
 @Injectable()
@@ -17,9 +16,8 @@ export class CardGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot,
               state: RouterStateSnapshot): Observable<boolean> {
-    this.store.dispatch(new LoadCards());
-
-    return this.store.select(cardsLoadedSelector);
+    return this.store.select(cardsLoadedSelector)
+                  .filter(loaded => loaded);
   }
 
 }

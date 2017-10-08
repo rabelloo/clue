@@ -4,7 +4,7 @@
   <!-- TODO: remove class and styles when md-form-field supports md-selects -->
   <md-form-field class="mat-form-field-type-mat-select">
     <md-select formControlName="playerId" placeholder="By" [value]="disprove.playerId">
-      <md-option *ngFor="let player of validPlayers" [value]="player.id">{{ player.name }}</md-option>
+      <md-option *ngFor="let player of players" [value]="player.id">{{ player.name }}</md-option>
     </md-select>
 
     <!-- TODO: remove input when md-form-field supports md-selects -->
@@ -16,21 +16,21 @@
   <!-- TODO: remove class and styles when md-form-field supports md-selects -->
   <md-form-field class="mat-form-field-type-mat-select">
     <md-select formControlName="cardId" placeholder="With" [value]="disprove.cardId">
-      <md-optgroup label="Suspects">
-        <md-option *ngFor="let suspect of validSuspects" [value]="suspect.id">
-            <span>{{ suspect.name }}</span>
+      <md-optgroup label="Suspect">
+        <md-option [value]="suspect?.id">
+            {{ suspect.name }}
         </md-option>
       </md-optgroup>
 
-      <md-optgroup label="Weapons">
-        <md-option *ngFor="let weapon of validWeapons" [value]="weapon.id">
-            <span>{{ weapon.name }}</span>
+      <md-optgroup label="Weapon">
+        <md-option [value]="weapon?.id">
+            {{ weapon.name }}
         </md-option>
       </md-optgroup>
 
-      <md-optgroup label="Rooms">
-        <md-option *ngFor="let room of validRooms" [value]="room.id">
-            <span>{{ room.name }}</span>
+      <md-optgroup label="Room">
+        <md-option [value]="room?.id">
+            {{ room.name }}
         </md-option>
       </md-optgroup>
     </md-select>

@@ -19,9 +19,6 @@ import { Weapon } from '../../card/weapon/weapon';
 })
 export class PlayerFormComponent implements OnInit, OnChanges {
 
-  form: FormGroup;
-  saved = new BehaviorSubject<boolean>(true);
-  private hasFocusedInput = new BehaviorSubject<boolean>(false);
   @Input() characters: Suspect[];
   @Input() maxCards: number;
   @Input() player: Player;
@@ -31,6 +28,9 @@ export class PlayerFormComponent implements OnInit, OnChanges {
   @Input() weapons: Weapon[];
   @Output() private save: EventEmitter<Player> = new EventEmitter<Player>();
   @Output() private remove: EventEmitter<Player> = new EventEmitter<Player>();
+  form: FormGroup;
+  saved = new BehaviorSubject<boolean>(true);
+  private hasFocusedInput = new BehaviorSubject<boolean>(false);
 
   constructor(private formBuilder: FormBuilder) {
     //

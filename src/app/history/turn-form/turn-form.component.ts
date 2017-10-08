@@ -1,35 +1,38 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { Component, OnInit, Input, EventEmitter, Output, OnChanges } from '@angular/core';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
-import { CardCollection } from '../../card/card-collection';
-import { Notifier } from '../../core/notifier/notifier.service';
+import { ClueValidators } from '../../shared/validators/validators';
 import { Player } from '../../player/player';
 import { Room } from '../../card/room/room';
 import { Suspect } from '../../card/suspect/suspect';
-import { Turn } from '../turn/turn';
-import { TurnService } from '../turn/turn.service';
+import { Turn } from './turn';
 import { Weapon } from '../../card/weapon/weapon';
-import { ClueValidators } from '../../shared/validators/validators';
-import { Card } from '../../card/card';
 
 @Component({
   selector: 'clue-turn-form',
   templateUrl: './turn-form.component.html',
   styleUrls: ['./turn-form.component.scss']
 })
-export class TurnFormComponent implements OnInit {
+export class TurnFormComponent implements OnInit, OnChanges {
 
-  @Input() turn: Turn;
   @Input() players: Player[];
+  @Input() rooms: Room[];
+  @Input() suspects: Suspect[];
+  @Input() turn: Turn;
+  @Input() weapons: Weapon[];
+  @Output() save = new EventEmitter<Turn>();
   @Output() remove = new EventEmitter<Turn>();
-  saved: boolean;
-  form: FormGroup;
+  form: FormGroup; 
+  saved = new BehaviorSubject<boolean>(true);
+  
 
-  constructor(private formBuilder: FormBuilder,
-              private turnService: TurnService,
-              private notifier: Notifier) {
+  constructor(private formBuilder: FormBuilder) {
     //
+  }
+
+  ngOnChanges() {
+    this.saved.next(true);
   }
 
   ngOnInit() {
@@ -37,43 +40,22 @@ export class TurnFormComponent implements OnInit {
 
     this.form = this.formBuilder.group({
       id: this.turn.id,
-      order: [this.turn.order, ClueValidators.range(1, this.players.length)],
+      round: this.turn.round,
+      order: [this.turn.order, ClueValidators.range(1, playerIds.length)],
       playerId: [this.turn.playerId, ClueValidators.in(playerIds)]
     });
 
     this.listenForChanges();
   }
 
-  addControl(name: string, control: AbstractControl): void {
-    this.form.addControl(name, control);
-  }
-
-  removeTurn(): void {
-    const player = this.turn.player.name || `Player #${this.turn.playerId}`;
-    const message = `Are you sure you want to delete ${player}'s turn in round ${this.turn.round}?`;
-
-    if (this.notifier.confirm(message)) {
-      this.turnService.delete(this.turn)
-          .subscribe(() => this.remove.emit(this.turn));
-    }
-  }
-
-  private saveTurn(turn: Turn): void {
-    this.turnService.save(turn)
-        .subscribe(t => {
-          this.saved = true;
-          t.player = this.turn.player;
-          this.turn = t;
-        });
-  }
-
   private listenForChanges(): void {
     this.form.valueChanges
-          .do(values => this.saved = false)
           .distinctUntilChanged()
+          .do(values => this.saved.next(false))
           .debounceTime(300)
+          .filter(c => false) // TODO: fix this never ending loop
           // .filter((turn) => form.valid)
-          .subscribe(turn => this.saveTurn(turn));
+          .subscribe(turn => this.save.emit(turn));
   }
 
 }

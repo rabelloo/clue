@@ -4,8 +4,9 @@ import { Action, Store } from '@ngrx/store';
 import { Effect, Actions } from '@ngrx/effects';
 
 import { ClueState } from '../../core/store/state';
+import { Player } from '../player';
 import { PlayerService } from '../player.service';
-import { Suspect } from '../../card/suspect/suspect';
+
 import { addPlayer, deletePlayer, DeletePlayer, DeletedPlayer,
          loadPlayers, LoadedPlayers, savePlayer, SavePlayer, SavedPlayer } from './player.actions';
 import { playerCountSelector } from './player.selectors';
@@ -15,8 +16,8 @@ export class PlayerEffects {
 
   @Effect() addPlayer: Observable<Action> =
     this.actions.ofType(addPlayer)
-        .switchMap(() => this.store.select(playerCountSelector))
-        .map(playerCount => ({ id: undefined, name: '', order: playerCount + 1 }))
+        .switchMap(() => this.store.select(playerCountSelector).first())
+        .map(playerCount => this.createPlayer(playerCount))
         .map(player => new SavePlayer(player));
 
   @Effect() deletePlayer: Observable<Action> =
@@ -31,8 +32,7 @@ export class PlayerEffects {
 
   @Effect() loadPlayers: Observable<Action> =
     this.actions.ofType(loadPlayers)
-        .switchMap(() => this.playerService.getAll())
-        .defaultIfEmpty([])
+        .switchMap(() => this.playerService.getAll().defaultIfEmpty([]))
         .map(players => new LoadedPlayers(players));
 
   @Effect() savePlayer: Observable<Action> =
@@ -46,5 +46,16 @@ export class PlayerEffects {
       private playerService: PlayerService,
       private store: Store<ClueState>
   ) { }
+
+  private createPlayer(playerCount: number): Player {
+    return {
+      id: undefined,
+      name: '', 
+      order: playerCount + 1,
+      cardIds: undefined,
+      character: undefined,
+      characterId: undefined,
+    };
+  }
 
 }
