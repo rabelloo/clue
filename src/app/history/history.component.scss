@@ -4,8 +4,15 @@ button {
 
 .mat-expansion-panel ::ng-deep  {
     
+    
+    
     .mat-expansion-panel-content {
         font-size: 1rem;
+
+        .mat-expansion-panel-body {
+            margin: 0;
+            padding: 2px 24px 16px;
+        }
     }
 
     .mat-expansion-panel-header {
