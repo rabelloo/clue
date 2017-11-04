@@ -1,7 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { map } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
 
@@ -17,12 +16,9 @@ export class ApiService {
    *
    * Returns the data unwrapped from the response.
    */
-  get(resource: string, query?: object): Observable<any> {
+  get<T>(resource: string, query?: object): Observable<any> {
     return this.http
-              .get(this.getUrl(resource), { params: this.getUrlParams(query) })
-              .pipe(
-                map(response => response)
-              );
+              .get<T>(this.getUrl(resource), { params: this.getUrlParams(query) });
   }
 
   /**
