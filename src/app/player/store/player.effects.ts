@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { switchMap, map, first, filter, defaultIfEmpty } from 'rxjs/operators';
 import { Action, Store } from '@ngrx/store';
 import { Effect, Actions } from '@ngrx/effects';
 
@@ -16,30 +17,40 @@ export class PlayerEffects {
 
   @Effect() addPlayer: Observable<Action> =
     this.actions.ofType(addPlayer)
-        .switchMap(() => this.store.select(playerCountSelector).first())
-        .map(playerCount => this.createPlayer(playerCount))
-        .map(player => new SavePlayer(player));
+        .pipe(
+          switchMap(() => this.store.select(playerCountSelector).pipe( first() )),
+          map(playerCount => this.createPlayer(playerCount)),
+          map(player => new SavePlayer(player)),
+        );
 
   @Effect() deletePlayer: Observable<Action> =
     this.actions.ofType(deletePlayer)
-        .map((action: DeletePlayer) => action.player)
-        .switchMap(player => this.playerService
+        .pipe(
+          map((action: DeletePlayer) => action.player),
+          switchMap(player => this.playerService
                                   .delete(player)
-                                  .filter(deleted => deleted)
-                                  .map(() => player))
-        .filter(player => !!player)
-        .map(player => new DeletedPlayer(player));
+                                  .pipe(
+                                    filter(deleted => deleted),
+                                    map(() => player))
+                                  ),
+          filter(player => !!player),
+          map(player => new DeletedPlayer(player)),
+        );
 
   @Effect() loadPlayers: Observable<Action> =
     this.actions.ofType(loadPlayers)
-        .switchMap(() => this.playerService.getAll().defaultIfEmpty([]))
-        .map(players => new LoadedPlayers(players));
+        .pipe(
+          switchMap(() => this.playerService.getAll().pipe( defaultIfEmpty([]) )),
+          map(players => new LoadedPlayers(players))
+        );
 
   @Effect() savePlayer: Observable<Action> =
     this.actions.ofType(savePlayer)
-        .map((action: SavePlayer) => action.player)
-        .switchMap(player => this.playerService.save(player))
-        .map(player => new SavedPlayer(player));
+        .pipe(
+          map((action: SavePlayer) => action.player),
+          switchMap(player => this.playerService.save(player)),
+          map(player => new SavedPlayer(player)),
+        );
 
   constructor(
       private actions: Actions,

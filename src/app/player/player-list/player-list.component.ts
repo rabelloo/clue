@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
+import { map } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 
 import { AddPlayer, DeletePlayer, SavePlayer } from '../store/player.actions';
@@ -27,7 +28,9 @@ export class PlayerListComponent implements OnInit {
 
   get canAdd(): Observable<boolean> {
     return this.playerCount
-              .map(p => p < this.maxPlayers);
+              .pipe(
+                map(p => p < this.maxPlayers)
+              );
   }
 
   constructor(private store: Store<ClueState>) {

@@ -1,31 +1,15 @@
 @import '~@angular/material/theming';
 
-.mat-select { 
-    ::ng-deep .mat-select-trigger {
-        height: 32px;
-    }
-}
-
-md-form-field.small {
+mat-form-field.small {
     max-width: 40px;
 }
 
-md-option {
-    .mat-icon {
-        $size: 32px;
-    
-        font-size: $size;
-        height: $size;
-        width: $size;
-    }
-}
-
 [fxlayout],
-[mdprefix] {
+[matPrefix] {
     position: relative;
 }
 
-[mdprefix] {
+[matPrefix] {
     top: 2px;
     margin-right: 0.5rem;
 }

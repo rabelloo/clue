@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { map } from 'rxjs/operators';
+import { of } from 'rxjs/observable/of';
 
 import { Disprove } from './disprove-form/disprove';
 import { LocalForageIdTable } from '../../core/local-forage/local-forage-id-table';
@@ -32,10 +34,13 @@ export class TurnService {
     const message = `Are you sure you want to delete ${player}'s turn in round ${turn.round}?`;
 
     if (this.notifier.confirm(message)) {
-      return this.turns.delete(turn).map(() => true);
+      return this.turns.delete(turn)
+                 .pipe(
+                   map(() => true)
+                 );
     }
     
-    return Observable.of(false);
+    return of(false);
   }
 
   private getSavableTurn(turn: Turn): Turn {

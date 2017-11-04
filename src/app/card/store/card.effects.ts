@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { switchMap, map } from 'rxjs/operators';
 import { Action } from '@ngrx/store';
 import { Effect, Actions } from '@ngrx/effects';
 
@@ -11,8 +12,10 @@ export class CardEffects {
 
   @Effect() loadCards: Observable<Action> =
     this.actions.ofType(loadCards)
-        .switchMap(() => this.cardService.get())
-        .map(cards => new LoadedCards(cards));
+      .pipe(
+        switchMap(() => this.cardService.get()),
+        map(cards => new LoadedCards(cards))
+      );
 
   constructor(
       private actions: Actions,

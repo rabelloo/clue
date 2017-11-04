@@ -1,14 +1,14 @@
-<button md-raised-button
+<button mat-raised-button
         color="primary"
         (click)="addTurn()">
-  <md-icon>add</md-icon> Turn
+  <mat-icon>add</mat-icon> Turn
 </button>
 
-<md-accordion>
-  <md-expansion-panel *ngFor="let round of rounds | async">
-    <md-expansion-panel-header>
+<mat-accordion>
+  <mat-expansion-panel *ngFor="let round of rounds | async">
+    <mat-expansion-panel-header>
       <mat-panel-title><h4>Round {{ round.number }}</h4></mat-panel-title>
-    </md-expansion-panel-header>
+    </mat-expansion-panel-header>
 
     <clue-round [turns]="round.turns"
                 [players]="players | async"
@@ -20,5 +20,5 @@
                 (remove)="onRemove($event)">
       Loading round...
     </clue-round>
-  </md-expansion-panel>
-</md-accordion>
+  </mat-expansion-panel>
+</mat-accordion>

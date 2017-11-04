@@ -1,39 +1,39 @@
 <form [formGroup]="form">
   <label>Suggestion</label>
 
-  <!-- TODO: remove class and styles when md-form-field supports md-selects -->
-  <md-form-field class="mat-form-field-type-mat-select">
-    <md-select formControlName="suspectId" placeholder="Suspect" [value]="suggestion.suspectId">
-      <md-option *ngFor="let suspect of suspects" [value]="suspect.id">{{ suspect.name }}</md-option>
-    </md-select>
+  <!-- TODO: remove class and styles when mat-form-field supports mat-selects -->
+  <mat-form-field class="mat-form-field-type-mat-select">
+    <mat-select formControlName="suspectId" placeholder="Suspect" [value]="suggestion.suspectId">
+      <mat-option *ngFor="let suspect of suspects" [value]="suspect.id">{{ suspect.name }}</mat-option>
+    </mat-select>
 
-    <!-- TODO: remove input when md-form-field supports md-selects -->
-    <input mdInput formControlName="suspectId" hidden id="temporary fix" />
+    <!-- TODO: remove input when mat-form-field supports mat-selects -->
+    <input matInput formControlName="suspectId" hidden id="temporary fix" />
     
-    <md-error clueErrorMessages="suspectId" [clueReplacements]="{ container: 'the suspects' }"></md-error>
-  </md-form-field>
+    <mat-error clueErrorMessages="suspectId" [clueReplacements]="{ container: 'the suspects' }"></mat-error>
+  </mat-form-field>
 
-  <!-- TODO: remove class and styles when md-form-field supports md-selects -->
-  <md-form-field class="mat-form-field-type-mat-select">
-    <md-select formControlName="weaponId" placeholder="Weapon" [value]="suggestion.weaponId">
-      <md-option *ngFor="let weapon of weapons" [value]="weapon.id">{{ weapon.name }}</md-option>
-    </md-select>
+  <!-- TODO: remove class and styles when mat-form-field supports mat-selects -->
+  <mat-form-field class="mat-form-field-type-mat-select">
+    <mat-select formControlName="weaponId" placeholder="Weapon" [value]="suggestion.weaponId">
+      <mat-option *ngFor="let weapon of weapons" [value]="weapon.id">{{ weapon.name }}</mat-option>
+    </mat-select>
 
-    <!-- TODO: remove input when md-form-field supports md-selects -->
-    <input mdInput formControlName="weaponId" hidden id="temporary fix" />
+    <!-- TODO: remove input when mat-form-field supports mat-selects -->
+    <input matInput formControlName="weaponId" hidden id="temporary fix" />
     
-    <md-error clueErrorMessages="weaponId" [clueReplacements]="{ container: 'the weapons' }"></md-error>
-  </md-form-field>
+    <mat-error clueErrorMessages="weaponId" [clueReplacements]="{ container: 'the weapons' }"></mat-error>
+  </mat-form-field>
 
-  <!-- TODO: remove class and styles when md-form-field supports md-selects -->
-  <md-form-field class="mat-form-field-type-mat-select">
-    <md-select formControlName="roomId" placeholder="Room" [value]="suggestion.roomId">
-      <md-option *ngFor="let room of rooms" [value]="room.id">{{ room.name }}</md-option>
-    </md-select>
+  <!-- TODO: remove class and styles when mat-form-field supports mat-selects -->
+  <mat-form-field class="mat-form-field-type-mat-select">
+    <mat-select formControlName="roomId" placeholder="Room" [value]="suggestion.roomId">
+      <mat-option *ngFor="let room of rooms" [value]="room.id">{{ room.name }}</mat-option>
+    </mat-select>
 
-    <!-- TODO: remove input when md-form-field supports md-selects -->
-    <input mdInput formControlName="roomId" hidden id="temporary fix" />
+    <!-- TODO: remove input when mat-form-field supports mat-selects -->
+    <input matInput formControlName="roomId" hidden id="temporary fix" />
     
-    <md-error clueErrorMessages="roomId" [clueReplacements]="{ container: 'the rooms' }"></md-error>
-  </md-form-field>
+    <mat-error clueErrorMessages="roomId" [clueReplacements]="{ container: 'the rooms' }"></mat-error>
+  </mat-form-field>
 </form>

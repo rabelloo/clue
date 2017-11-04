@@ -1,6 +1,7 @@
 import { Directive, Input, HostBinding, OnInit } from '@angular/core';
 import { FormControl, FormGroupDirective } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
+import { distinctUntilChanged, filter, debounceTime, map, startWith, switchMap, defaultIfEmpty, first } from 'rxjs/operators';
 
 import { errorMessages } from './error-messages';
 
@@ -41,16 +42,20 @@ export class ErrorMessagesDirective implements OnInit {
 
   private subscribeToForm(): void {
     this.formControl.valueChanges
-        .distinctUntilChanged()
-        .debounceTime(300)
-        .map(values => this.formControl.errors)
-        .startWith(this.formControl.errors)
-        .filter(errors => errors != null)
-        .switchMap(errors => Object.keys(errors))
-        .map(key => errorMessages[key])
-        .filter(errorMessage => errorMessage != null)
-        .defaultIfEmpty(undefined)
-        .first()
+        .pipe(
+          distinctUntilChanged(),
+          debounceTime(300),
+          map(values => this.formControl.errors),
+          startWith(this.formControl.errors),
+          filter(errors => errors != null),
+          switchMap(errors => Object.keys(errors)),
+          map(key => errorMessages[key]),
+          filter(errorMessage => errorMessage != null),
+          defaultIfEmpty(undefined),
+        )
+        .pipe(
+          first(),
+        )
         .subscribe(errorMessage => this.html = errorMessage.format(this.clueReplacements));
   }
 

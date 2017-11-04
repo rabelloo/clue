@@ -1,13 +1,14 @@
-import { Http } from '@angular/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { map } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class ApiService {
 
-  constructor(private http: Http) { }
+  constructor(private http: HttpClient) { }
 
   /**
    * Performs a request with `get` http method.
@@ -19,7 +20,9 @@ export class ApiService {
   get(resource: string, query?: object): Observable<any> {
     return this.http
               .get(this.getUrl(resource), { params: this.getUrlParams(query) })
-              .map(response => response.json().data);
+              .pipe(
+                map(response => response)
+              );
   }
 
   /**
@@ -33,8 +36,8 @@ export class ApiService {
   /**
    * Gets an `URLSearchParams` from an object
    */
-  private getUrlParams(query: object): URLSearchParams {
-    const params = new URLSearchParams();
+  private getUrlParams(query: object): HttpParams {
+    const params = new HttpParams();
 
     Object.keys(query)
       .map(key =>

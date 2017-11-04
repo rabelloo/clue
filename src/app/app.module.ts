@@ -8,6 +8,7 @@ import { CoreModule } from './core/core.module';
 import { HistoryModule } from './history/history.module';
 import { PlayerModule } from './player/player.module';
 import { SharedModule } from './shared/shared.module';
+import { SpinnerComponent } from './spinner/spinner.component';
 
 @NgModule({
   imports: [
@@ -21,6 +22,7 @@ import { SharedModule } from './shared/shared.module';
   ],
   declarations: [
     AppComponent,
+    SpinnerComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]

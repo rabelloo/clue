@@ -1,9 +1,9 @@
-<md-accordion>
-  <md-expansion-panel *ngFor="let turn of turns">
-    <md-expansion-panel-header>
+<mat-accordion>
+  <mat-expansion-panel *ngFor="let turn of turns">
+    <mat-expansion-panel-header>
       <mat-panel-title>Turn {{ turn.order }}</mat-panel-title>
       <mat-panel-description>{{ descriptionFor(turn) }}</mat-panel-description>
-    </md-expansion-panel-header>
+    </mat-expansion-panel-header>
 
     <clue-turn-form [turn]="turn"
                     [players]="players"
@@ -13,9 +13,9 @@
                     (save)="save.emit($event)"
                     (remove)="remove.emit($event)">
     </clue-turn-form>
-  </md-expansion-panel>
-</md-accordion>
+  </mat-expansion-panel>
+</mat-accordion>
 
-<button md-raised-button color="primary" (click)="add.emit($event)" *ngIf="canAdd">
-  <md-icon>add</md-icon> Turn
+<button mat-raised-button color="primary" (click)="add.emit($event)" *ngIf="canAdd">
+  <mat-icon>add</mat-icon> Turn
 </button>

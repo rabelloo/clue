@@ -13,31 +13,3 @@ $clue-theme: mat-light-theme($clue-primary, $clue-accent, $clue-warn);
 
 
 @include angular-material-theme($clue-theme);
-
-
-// TODO: remove this fix when md-form-field supports md-selects
-.mat-form-field-type-mat-select {
-    
-    .mat-form-field-flex {
-        cursor: pointer;
-    }
-
-    .mat-form-field-infix {
-        min-width: 0;
-        
-        .mat-select {
-            padding-top: 0;
-            width: 100%;
-
-            .mat-select-trigger {
-                min-width: unset;
-                height: 1.125em;
-                cursor: pointer;
-            }
-
-            .mat-select-underline {
-                height: 0;
-            }
-        }
-    }
-}

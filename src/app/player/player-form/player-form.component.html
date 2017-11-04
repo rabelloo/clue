@@ -1,76 +1,68 @@
 <form [formGroup]="form">
   <input formControlName="id" type="hidden" [value]="player.id" />
 
-  <md-form-field class="small">
-    <input mdInput formControlName="order" type="number" min="1" [max]="playerCount" placeholder="Order" [value]="player.order" />
-  </md-form-field>
+  <mat-form-field class="small">
+    <input matInput formControlName="order" type="number" min="1" [max]="playerCount" placeholder="Order" [value]="player.order" />
+  </mat-form-field>
 
-  <md-form-field>
-    <input mdInput formControlName="name" placeholder="Name" [value]="player.name" />
-    <md-error clueErrorMessages="name"></md-error>
-  </md-form-field>
+  <mat-form-field>
+    <input matInput formControlName="name" placeholder="Name" [value]="player.name" />
+    <mat-error clueErrorMessages="name"></mat-error>
+  </mat-form-field>
 
-  <!-- TODO: remove class and styles when md-form-field supports md-selects -->
-  <md-form-field class="mat-form-field-type-mat-select">
-    <div mdPrefix>
-      <md-icon class="{{player.character?.color}}">person</md-icon>
-      <md-icon class="outline {{player.character?.color}}">person_outline</md-icon>
+  <mat-form-field>
+    <div matPrefix>
+      <mat-icon [ngClass]="player.character?.color">person</mat-icon>
+      <mat-icon class="outline" [ngClass]="player.character?.color">person_outline</mat-icon>
     </div>
-    <md-select formControlName="characterId" placeholder="Character" [value]="player.characterId">
-      <md-select-trigger>{{ player.character?.name }}</md-select-trigger>
-      <md-option *ngFor="let suspect of characters" [value]="suspect.id">
+    <mat-select formControlName="characterId" placeholder="Character" [value]="player.characterId">
+      <mat-select-trigger>{{ player.character?.name }}</mat-select-trigger>
+      <mat-option *ngFor="let suspect of characters" [value]="suspect.id">
         <div fxLayout fxLayoutAlign="default center">
-          <md-icon class="{{suspect.color}}">person</md-icon>
-          <md-icon class="outline {{suspect.color}}">person_outline</md-icon>
+          <mat-icon [ngClass]="suspect.color">person</mat-icon>
+          <mat-icon class="outline" [ngClass]="suspect.color">person_outline</mat-icon>
           <span>{{ suspect.name }}</span>
         </div>
-      </md-option>
-    </md-select>
-    <!-- TODO: remove input when md-form-field supports md-selects -->
-    <input mdInput formControlName="characterId" hidden id="temporary fix" />
+      </mat-option>
+    </mat-select>
 
-    <md-error clueErrorMessages="characterId"></md-error>
-  </md-form-field>
+    <mat-error clueErrorMessages="characterId"></mat-error>
+  </mat-form-field>
 
-  <!-- TODO: remove class and styles when md-form-field supports md-selects -->
-  <md-form-field class="mat-form-field-type-mat-select">
-    <md-select #cards multiple formControlName="cardIds" placeholder="Cards" [value]="player.cardIds">
-      <md-optgroup label="Suspects">
-        <md-option *ngFor="let suspect of suspects" [value]="suspect.id">
+  <mat-form-field>
+    <mat-select #cards multiple formControlName="cardIds" placeholder="Cards" [value]="player.cardIds">
+      <mat-optgroup label="Suspects">
+        <mat-option *ngFor="let suspect of suspects" [value]="suspect.id">
             <span>{{ suspect.name }}</span>
-        </md-option>
-      </md-optgroup>
+        </mat-option>
+      </mat-optgroup>
 
-      <md-optgroup label="Weapons">
-        <md-option *ngFor="let weapon of weapons" [value]="weapon.id">
+      <mat-optgroup label="Weapons">
+        <mat-option *ngFor="let weapon of weapons" [value]="weapon.id">
             <span>{{ weapon.name }}</span>
-        </md-option>
-      </md-optgroup>
+        </mat-option>
+      </mat-optgroup>
 
-      <md-optgroup label="Rooms">
-        <md-option *ngFor="let room of rooms" [value]="room.id">
+      <mat-optgroup label="Rooms">
+        <mat-option *ngFor="let room of rooms" [value]="room.id">
             <span>{{ room.name }}</span>
-        </md-option>
-      </md-optgroup>
-    </md-select>
+        </mat-option>
+      </mat-optgroup>
+    </mat-select>
 
-    <!-- TODO: remove input when md-form-field supports md-selects -->
-    <input mdInput formControlName="cardIds" hidden id="temporary fix" />
+    <mat-hint align="end">{{ cards.value?.length || 0 }} / {{ maxCards }}</mat-hint>
 
-    <!-- TODO md-error instead of hint.mat-error when md-form-field supports md-selects -->
-    <md-hint align="end">{{ cards.value?.length || 0 }} / {{ maxCards }}</md-hint>
-
-    <md-error fxLayoutAlign="space-between">
+    <mat-error fxLayoutAlign="space-between">
       <span>Maximum exceeded</span>
       <span>{{ cards.value?.length || 0 }} / {{ maxCards }}</span>
-    </md-error>
-  </md-form-field>
+    </mat-error>
+  </mat-form-field>
 
-  <button md-icon-button type="button" color="warn" (click)="removePlayer()">
-    <md-icon>delete</md-icon>
+  <button mat-icon-button type="button" color="warn" (click)="removePlayer()">
+    <mat-icon>delete</mat-icon>
   </button>
   
-  <button md-icon-button type="button" mdTooltip="Saved" mdTooltipPosition="after" *ngIf="saved | async">
-    <md-icon color="primary">done</md-icon>
+  <button mat-icon-button type="button" matTooltip="Saved" matTooltipPosition="after" *ngIf="saved | async">
+    <mat-icon color="primary">done</mat-icon>
   </button>
 </form>

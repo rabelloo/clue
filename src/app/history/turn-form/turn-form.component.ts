@@ -8,6 +8,7 @@ import { Room } from '../../card/room/room';
 import { Suspect } from '../../card/suspect/suspect';
 import { Turn } from './turn';
 import { Weapon } from '../../card/weapon/weapon';
+import { distinctUntilChanged, tap, debounceTime, filter } from 'rxjs/operators';
 
 @Component({
   selector: 'clue-turn-form',
@@ -50,11 +51,13 @@ export class TurnFormComponent implements OnInit, OnChanges {
 
   private listenForChanges(): void {
     this.form.valueChanges
-          .distinctUntilChanged()
-          .do(values => this.saved.next(false))
-          .debounceTime(300)
-          .filter(c => false) // TODO: fix this never ending loop
-          // .filter((turn) => form.valid)
+          .pipe(
+            distinctUntilChanged(),
+            tap(values => this.saved.next(false)),
+            debounceTime(300),
+            filter(c => false), // TODO: fix this never ending loop
+            // filter((turn) => form.valid),
+          )
           .subscribe(turn => this.save.emit(turn));
   }
 

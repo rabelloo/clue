@@ -7,7 +7,6 @@ import { FooterComponent } from './footer/footer.component';
 import { LocalForageService } from './local-forage/local-forage.service';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { Notifier } from './notifier/notifier.service';
-import { RxJSModule } from './rx-js/rx-js.module';
 import { SharedModule } from '../shared/shared.module';
 
 import { effects } from './store/effects';
@@ -27,7 +26,7 @@ const coreComponents = [
     EffectsModule.forRoot(effects),
     StoreModule.forRoot(reducers),
   ],
-  exports: [RxJSModule].concat(coreComponents),
+  exports: coreComponents,
   declarations: coreComponents,
   providers: [
     ApiService,

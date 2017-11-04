@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, RouterStateSnapshot, CanActivate } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
+import { filter } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 
 import { cardsLoadedSelector } from './store/card.selectors';
@@ -16,8 +17,11 @@ export class CardGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot,
               state: RouterStateSnapshot): Observable<boolean> {
-    return this.store.select(cardsLoadedSelector)
-                  .filter(loaded => loaded);
+    return this.store
+               .select(cardsLoadedSelector)
+               .pipe(
+                  filter(loaded => loaded)
+               );
   }
 
 }

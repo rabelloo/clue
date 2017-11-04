@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output, OnChanges, SimpleChange
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
+import { distinctUntilChanged, debounceTime, filter, withLatestFrom, map } from 'rxjs/operators';
 
 import { Player } from '../player';
 import { Suspect } from '../../card/suspect/suspect';
@@ -82,16 +83,20 @@ export class PlayerFormComponent implements OnInit, OnChanges {
 
   private listenForChanges() {
     this.form.valueChanges
-        .distinctUntilChanged()
-        .subscribe(() => this.saved.next(false));
+        .pipe(
+          distinctUntilChanged(),
+        )
+        .subscribe(() => this.saved.next(false)),
 
     this.hasFocusedInput
-        .debounceTime(1) // prevents trigger when tabbing between inputs
-        .distinctUntilChanged()
-        .filter(hasFocus => !hasFocus)
-        .withLatestFrom(this.form.valueChanges)
-        .map(([h, p]) => p)
-        .distinctUntilChanged()
+        .pipe(
+          debounceTime(1), // prevents trigger when tabbing between inputs
+          distinctUntilChanged(),
+          filter(hasFocus => !hasFocus),
+          withLatestFrom(this.form.valueChanges),
+          map(([h, p]) => p),
+          distinctUntilChanged(),
+        )
         .subscribe(player => this.save.emit(player));
   }
 

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { of } from 'rxjs/observable/of';
 
 import { Card } from './card';
 import { suspects } from './suspect/suspects';
@@ -12,7 +13,7 @@ export class CardService {
   constructor() { }
 
   get(): Observable<Card[]> {
-    return Observable.of([...suspects, ...rooms, ...weapons]);
+    return of([...suspects, ...rooms, ...weapons]);
   }
 
 }

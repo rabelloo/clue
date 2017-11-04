@@ -9,7 +9,7 @@
     padding: 40px;
   }
 
-  md-spinner {
+  clue-spinner {
     position: absolute;
     left: 50%;
     top: 50%;
@@ -18,7 +18,8 @@
     opacity: 0;
     transition: opacity .35s;
   }
-  router-outlet + md-spinner {
+
+  router-outlet + clue-spinner {
     opacity: 1;
   }
 }

@@ -3,7 +3,7 @@ import { Directive, ElementRef, Renderer } from '@angular/core';
 import { bubble } from '../bubble';
 
 @Directive({
-  selector: 'md-select',
+  selector: 'mat-select',
   host: { '(onOpen)': 'onOpen($event)' }
 })
 export class OpenDetectorDirective {

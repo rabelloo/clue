@@ -1,4 +1,4 @@
-<md-card>
+<mat-card>
   <clue-player-form *ngFor="let player of players | async"
                     [player]="player"
                     [playerCount]="playerCount | async"
@@ -12,10 +12,10 @@
     Loading player...
   </clue-player-form>
 
-  <button md-raised-button
+  <button mat-raised-button
           color="primary"
           (click)="addPlayer()"
           *ngIf="canAdd | async">
-    <md-icon>add</md-icon> Player
+    <mat-icon>add</mat-icon> Player
   </button>
-</md-card>
+</mat-card>
