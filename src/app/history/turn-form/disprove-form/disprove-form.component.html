@@ -1,20 +1,15 @@
 <form [formGroup]="form">
   <label>Disproved</label>
 
-  <!-- TODO: remove class and styles when mat-form-field supports mat-selects -->
-  <mat-form-field class="mat-form-field-type-mat-select">
+  <mat-form-field>
     <mat-select formControlName="playerId" placeholder="By" [value]="disprove.playerId">
       <mat-option *ngFor="let player of players" [value]="player.id">{{ player.name }}</mat-option>
     </mat-select>
 
-    <!-- TODO: remove input when mat-form-field supports mat-selects -->
-    <input matInput formControlName="playerId" hidden id="temporary fix" />
-    
     <mat-error clueErrorMessages="playerId" [clueReplacements]="{ container: 'the players' }"></mat-error>
   </mat-form-field>
 
-  <!-- TODO: remove class and styles when mat-form-field supports mat-selects -->
-  <mat-form-field class="mat-form-field-type-mat-select">
+  <mat-form-field>
     <mat-select formControlName="cardId" placeholder="With" [value]="disprove.cardId">
       <mat-optgroup label="Suspect">
         <mat-option [value]="suspect?.id">
@@ -35,9 +30,6 @@
       </mat-optgroup>
     </mat-select>
 
-    <!-- TODO: remove input when mat-form-field supports mat-selects -->
-    <input matInput formControlName="cardId" hidden id="temporary fix" />
-    
     <mat-error clueErrorMessages="cardId" [clueReplacements]="{ container: 'the cards' }"></mat-error>
   </mat-form-field>
 </form>

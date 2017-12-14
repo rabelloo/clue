@@ -8,19 +8,25 @@ import { DebugPipe } from './debug/debug.pipe';
 import { ErrorMessagesDirective } from './error-messages/error-messages.directive';
 import { MaterialModule } from './material.module';
 
-const declarations: any[] = [
+const components = [
   DebugPipe,
   ErrorMessagesDirective,
 ];
 
+const modules = [
+  CommonModule,
+  FlexLayoutModule,
+  MaterialModule,
+  ReactiveFormsModule,
+  RouterModule,
+];
+
 @NgModule({
-  exports: declarations.concat([
-    CommonModule,
-    FlexLayoutModule,
-    MaterialModule,
-    ReactiveFormsModule,
-    RouterModule,
-  ]),
-  declarations: declarations
+  imports: modules,
+  exports: [
+    ...modules,
+    ...components
+  ],
+  declarations: components
 })
 export class SharedModule { }
