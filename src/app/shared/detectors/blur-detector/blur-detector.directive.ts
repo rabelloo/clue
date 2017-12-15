@@ -1,15 +1,15 @@
-import { Directive, ElementRef, Renderer } from '@angular/core';
+import { Directive, ElementRef, Renderer, HostListener } from '@angular/core';
 
 import { bubble } from '../bubble';
 
 @Directive({
-  selector: 'input,select',
-  host: { '(blur)': 'onBlur($event)' }
+  selector: '[clueBlurDetector]',
 })
 export class BlurDetectorDirective {
   constructor(private elRef: ElementRef, private renderer: Renderer) { }
-  
+
+  @HostListener('blur', ['$event'])
   onBlur($event) {
     return bubble('input-blur', this.elRef, this.renderer);
-  };
+  }
 }

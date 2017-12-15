@@ -6,7 +6,7 @@ export const PlayerSelectors = {
   all: playersSelector,
   count: playerCountSelector,
   loaded: playersLoadedSelector,
-}
+};
 
 export function playerCountSelector(state: ClueState): number {
   return Object.keys(state.players).length;

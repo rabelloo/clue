@@ -39,10 +39,10 @@ interface Array<T> {
     sortBy(propertyFn: (item: T) => any): T[];
     /**
      * Transforms the array into a HashMap object using the specified property as an index
-     * 
+     *
      * Example:
      * `[{ id: 4, name: 'John'}, {id: 1, name: 'Mary'}].toHashMap(x => x.id)`
-     * 
+     *
      * =>
      * `{ 1: {id: 1, name: 'Mary'}, 4: { id: 4, name: 'John'}}`
      */
@@ -118,13 +118,15 @@ interface Array<T> {
     }
 
     function min(): number {
-        if (this.length)
+        if (this.length) {
             return Math.min(...this);
+        }
     }
 
     function max(): number {
-        if (this.length)
+        if (this.length) {
             return Math.max(...this);
+        }
     }
 
     function reverse<T>(): T[] {

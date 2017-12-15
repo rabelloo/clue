@@ -39,7 +39,7 @@ export class TurnService {
                    map(() => true)
                  );
     }
-    
+
     return of(false);
   }
 
@@ -53,16 +53,18 @@ export class TurnService {
   }
 
   private getSavableDisprove(disprove: Disprove): Disprove {
-    if (!disprove)
+    if (!disprove) {
     return;
+    }
 
     const { card, player, ...rest } = disprove;
     return rest;
   }
-  
+
   private getSavableSuggestion(suggestion: Suggestion): Suggestion {
-    if (!suggestion)
+    if (!suggestion) {
       return;
+    }
 
     const { room, suspect, weapon, ...rest } = suggestion;
     return rest;

@@ -24,9 +24,9 @@ export class TurnFormComponent implements OnInit, OnChanges {
   @Input() weapons: Weapon[];
   @Output() save = new EventEmitter<Turn>();
   @Output() remove = new EventEmitter<Turn>();
-  form: FormGroup; 
+  form: FormGroup;
   saved = new BehaviorSubject<boolean>(true);
-  
+
 
   constructor(private formBuilder: FormBuilder) {
     //

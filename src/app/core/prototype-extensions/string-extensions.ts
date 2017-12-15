@@ -47,24 +47,31 @@ interface String {
 // Functions ==================================================
 
     function format(...replacements: (string | number | {[key: string]: string})[]): string {
-        let formattedString = this.toString();
-
-        if (replacements.length) {
-            let args: any = replacements;
-
-            if (replacements[0] instanceof Array) {
-                args = replacements.reduce((args, r) => args.concat(r), []);
-            }
-            else if (replacements[0] instanceof Object) {
-                args = replacements.reduce((args, r) => Object.assign(args, r), {});
-            }
-
-            Object.keys(args)
-                .forEach(key =>
-                    formattedString = formattedString.replace(new RegExp(`\\{${key}\\}`, 'gi'), args[key]));
+        if (!replacements.length) {
+            return this.toString();
         }
 
-        return formattedString;
+        const args = getArgs(replacements);
+
+        return Object.keys(args)
+                .reduce((formattedString, key) =>
+                    formattedString.replace(new RegExp(`\\{${key}\\}`, 'gi'), args[key]),
+                    this.toString()
+                );
+    }
+
+
+    ///////
+
+
+    function getArgs(replacements) {
+        if (replacements[0] instanceof Array) {
+            return replacements.reduce((args, r) => [...args, r], []);
+        }
+        if (replacements[0] instanceof Object) {
+            return replacements.reduce((args, r) => Object.assign(args, r), {});
+        }
+        return replacements;
     }
 
 })();

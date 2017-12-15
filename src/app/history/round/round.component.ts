@@ -47,8 +47,9 @@ export class RoundComponent implements OnInit {
   ///////////////
 
   private getDisprovedDescription(disprove: Disprove): string {
-    if (!disprove)
+    if (!disprove) {
       return '';
+    }
 
     const disprovedBy = disprove.player.name || `player #${disprove.playerId}`;
     const card = disprove.card.name || `card #${disprove.cardId}`;
@@ -58,8 +59,9 @@ export class RoundComponent implements OnInit {
   }
 
   private getSuggestionDescription(suggestion: Suggestion): string {
-    if (!suggestion)
+    if (!suggestion) {
       return '';
+    }
 
     const suggestionOrDefault = type => suggestion[type].name || `${type} #${suggestion[type + 'Id']}`;
     const suspect = suggestionOrDefault('suspect');

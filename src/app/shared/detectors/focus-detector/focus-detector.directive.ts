@@ -1,15 +1,15 @@
-import { Directive, ElementRef, Renderer } from '@angular/core';
+import { Directive, ElementRef, Renderer, HostListener } from '@angular/core';
 
 import { bubble } from '../bubble';
 
 @Directive({
-  selector: 'input,select',
-  host: { '(focus)': 'onFocus($event)' }
+  selector: '[clueFocusDetector]',
 })
 export class FocusDetectorDirective {
   constructor(private elRef: ElementRef, private renderer: Renderer) { }
-  
+
+  @HostListener('focus', ['$event'])
   onFocus($event) {
     return bubble('input-focus', this.elRef, this.renderer);
-  };
+  }
 }

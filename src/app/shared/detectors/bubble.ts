@@ -1,4 +1,4 @@
-import { ElementRef, Renderer } from "@angular/core";
+import { ElementRef, Renderer } from '@angular/core';
 
 export function bubble(eventType: string, elRef: ElementRef, renderer: Renderer) {
   renderer.invokeElementMethod(

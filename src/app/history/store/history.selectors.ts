@@ -12,7 +12,7 @@ export const HistorySelectors = {
   rounds: roundsSelector,
   turns: turnsSelector,
   turnCount: turnCountSelector,
-}
+};
 
 export function currentRoundSelector(state: ClueState): number {
   return Object.values(state.history)

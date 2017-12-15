@@ -50,7 +50,7 @@ export class HistoryEffects {
           map((action: SaveTurn) => action.turn),
           switchMap(turn => this.turnService.save(turn).pipe( map(t => turn) )),
           map(turn => new SavedTurn(turn)),
-        );;
+        );
 
   constructor(
       private actions: Actions,

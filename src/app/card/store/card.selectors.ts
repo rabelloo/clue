@@ -18,7 +18,7 @@ export const CardSelectors = {
   validRoomsFor: (player: Player) => validRoomsForSelector(player),
   validSuspectsFor: (player: Player) => validSuspectsForSelector(player),
   validWeaponsFor: (player: Player) => validWeaponsForSelector(player),
-}
+};
 
 export function cardCountSelector(state: ClueState): number {
   return Object.keys(state.cards).length;
@@ -59,32 +59,32 @@ export function validCharactersForSelector(player: Player) {
   return function (state: ClueState): Suspect[] {
     const invalidCharacterIds = otherPlayersCharacterIds(player, state);
     return suspectsSelector(state)
-            .filter(r => !invalidCharacterIds.includes(r.id))
-  }
+            .filter(r => !invalidCharacterIds.includes(r.id));
+  };
 }
 
 export function validRoomsForSelector(player: Player) {
   return function (state: ClueState): Room[] {
     const invalidCardIds = otherPlayersCardIds(player, state);
     return roomsSelector(state)
-            .filter(r => !invalidCardIds.includes(r.id))
-  }
+            .filter(r => !invalidCardIds.includes(r.id));
+  };
 }
 
 export function validSuspectsForSelector(player: Player) {
   return function (state: ClueState): Suspect[] {
     const invalidCardIds = otherPlayersCardIds(player, state);
     return suspectsSelector(state)
-            .filter(r => !invalidCardIds.includes(r.id))
-  }
+            .filter(r => !invalidCardIds.includes(r.id));
+  };
 }
 
 export function validWeaponsForSelector(player: Player) {
   return function (state: ClueState): Weapon[] {
     const invalidCardIds = otherPlayersCardIds(player, state);
     return weaponsSelector(state)
-            .filter(r => !invalidCardIds.includes(r.id))
-  }
+            .filter(r => !invalidCardIds.includes(r.id));
+  };
 }
 
 

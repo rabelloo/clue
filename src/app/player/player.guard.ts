@@ -15,7 +15,7 @@ export class PlayerGuard implements CanActivate {
     }
 
     canActivate(route: ActivatedRouteSnapshot,
-                state: RouterStateSnapshot): Observable<boolean> {      
+                state: RouterStateSnapshot): Observable<boolean> {
       return this.store.select(playersLoadedSelector)
                     .pipe(
                         filter(loaded => loaded)

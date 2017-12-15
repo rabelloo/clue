@@ -61,7 +61,7 @@ export class PlayerEffects {
   private createPlayer(playerCount: number): Player {
     return {
       id: undefined,
-      name: '', 
+      name: '',
       order: playerCount + 1,
       cardIds: undefined,
       character: undefined,

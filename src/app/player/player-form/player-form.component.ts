@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, OnChanges, SimpleChanges, ElementRef, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, OnChanges, SimpleChanges, HostListener } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
@@ -13,10 +13,6 @@ import { Weapon } from '../../card/weapon/weapon';
   selector: 'clue-player-form',
   templateUrl: './player-form.component.html',
   styleUrls: ['./player-form.component.scss'],
-  host: {
-    '(input-blur)':'onInputBlur($event)',
-    '(input-focus)':'onInputFocus($event)'
-  },
 })
 export class PlayerFormComponent implements OnInit, OnChanges {
 
@@ -57,11 +53,13 @@ export class PlayerFormComponent implements OnInit, OnChanges {
           && input.currentValue !== input.previousValue;
     }
   }
-  
+
+  @HostListener('input-blur')
   onInputBlur() {
     this.hasFocusedInput.next(false);
   }
-  
+
+  @HostListener('input-focus')
   onInputFocus() {
     this.hasFocusedInput.next(true);
   }
