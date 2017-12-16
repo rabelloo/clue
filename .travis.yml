@@ -26,10 +26,6 @@ deploy:
   - provider: firebase
     skip_cleanup: true
     token: $FIREBASE_TOKEN # Set in travis-ci.org dashboard
-    
-  - provider: pages
-    skip_cleanup: true
-    github_token: $GITHUB_TOKEN # Set in travis-ci.org dashboard
 
 notifications:
   email:
