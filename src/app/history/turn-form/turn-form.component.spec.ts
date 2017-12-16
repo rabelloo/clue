@@ -40,7 +40,7 @@ describe('TurnComponent', () => {
     component.suspects = [];
     component.weapons = [];
   });
-  
+
   it('should be created', () => {
     fixture.detectChanges();
     expect(component).toBeTruthy();

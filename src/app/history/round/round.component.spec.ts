@@ -38,7 +38,7 @@ describe('RoundComponent', () => {
     component.players = [];
     component.turns = [];
   });
-  
+
   it('should be created', () => {
     fixture.detectChanges();
     expect(component).toBeTruthy();

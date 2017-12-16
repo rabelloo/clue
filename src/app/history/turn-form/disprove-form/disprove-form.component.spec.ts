@@ -47,7 +47,7 @@ describe('DisproveFormComponent', () => {
     component.players = [];
     component.disprove = {} as Disprove;
   });
-  
+
   it('should be created', () => {
     fixture.detectChanges();
     expect(component).toBeTruthy();

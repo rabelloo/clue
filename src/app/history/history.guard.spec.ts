@@ -8,7 +8,7 @@ describe('HistoryGuard', () => {
     select() {
       return {
         pipe() {}
-      }
+      };
     }
   };
 

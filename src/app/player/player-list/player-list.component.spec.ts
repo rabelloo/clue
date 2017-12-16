@@ -40,7 +40,7 @@ describe('PlayerListComponent', () => {
     component = fixture.componentInstance;
     component.playerCount = of(1);
   });
-  
+
   it('should be created', () => {
     fixture.detectChanges();
     expect(component).toBeTruthy();

@@ -8,7 +8,7 @@ describe('PlayerService', () => {
   const localForageStub = {
     getIdTable() {}
   };
-  
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [

@@ -44,7 +44,7 @@ describe('SuggestionFormComponent', () => {
     component.weapons = [];
     component.suggestion = {} as Suggestion;
   });
-  
+
   it('should be created', () => {
     fixture.detectChanges();
     expect(component).toBeTruthy();

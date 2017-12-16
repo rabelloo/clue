@@ -29,7 +29,7 @@ describe('PlayerFormComponent', () => {
     component = fixture.componentInstance;
     component.player = {} as Player;
   });
-  
+
   it('should be created', () => {
     fixture.detectChanges();
     expect(component).toBeTruthy();

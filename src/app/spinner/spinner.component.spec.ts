@@ -22,7 +22,7 @@ describe('SpinnerComponent', () => {
     fixture = TestBed.createComponent(SpinnerComponent);
     component = fixture.componentInstance;
   });
-  
+
   it('should create', () => {
     fixture.detectChanges();
     expect(component).toBeTruthy();

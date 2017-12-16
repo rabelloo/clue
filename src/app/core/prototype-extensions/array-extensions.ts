@@ -3,7 +3,7 @@
  * or "fix" whatever may be incorrect for this app's purpose.
  *
  * DO NOT use arrow functions as they capture the wrong `this` as `window`
- * 
+ *
  * This file (.ts):
  *  - Logic guards for the overrides/extensions
  *  - Function implementations

@@ -13,7 +13,7 @@ import { TurnFormComponent } from './turn-form/turn-form.component';
 describe('HistoryComponent', () => {
   let component: HistoryComponent;
   let fixture: ComponentFixture<HistoryComponent>;
-  
+
   const storeStub = {
     dispatch() {},
     select() {}
