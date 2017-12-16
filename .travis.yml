@@ -23,17 +23,13 @@ script:
   - ng build --prod
 
 deploy:
-  provider: firebase
-  skip_cleanup: true
-  token:
-    secure: $FIREBASE_TOKEN # Set in travis-ci.org dashboard
-
-deploy:
-  provider: pages
-  skip_cleanup: true
-  github_token: $GITHUB_TOKEN # Set in travis-ci.org dashboard
-  on:
-    branch: master
+  - provider: firebase
+    skip_cleanup: true
+    token: $FIREBASE_TOKEN # Set in travis-ci.org dashboard
+    
+  - provider: pages
+    skip_cleanup: true
+    github_token: $GITHUB_TOKEN # Set in travis-ci.org dashboard
 
 notifications:
   email:
