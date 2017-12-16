@@ -12,9 +12,7 @@ import { SharedModule } from '../shared/shared.module';
 import { effects } from './store/effects';
 import { reducers } from './store/reducers';
 
-import './prototype-extensions/array-extensions.d';
 import './prototype-extensions/array-extensions';
-import './prototype-extensions/string-extensions.d';
 import './prototype-extensions/string-extensions';
 
 const coreComponents = [
