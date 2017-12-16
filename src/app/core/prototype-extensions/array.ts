@@ -6,7 +6,7 @@
  *
  * This file (.d.ts):
  *  - Interface for TS typings
- * 
+ *
  * Other file (.ts):
  *  - Logic guards for the overrides/additions
  *  - Function implementations
