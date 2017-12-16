@@ -1,11 +1,23 @@
 import { TestBed, inject } from '@angular/core/testing';
+import { Store } from '@ngrx/store';
 
 import { HistoryGuard } from './history.guard';
 
 describe('HistoryGuard', () => {
+  const storeStub = {
+    select() {
+      return {
+        pipe() {}
+      }
+    }
+  };
+
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [HistoryGuard]
+      providers: [
+        HistoryGuard,
+        { provide: Store, useValue: storeStub }
+      ]
     });
   });
 

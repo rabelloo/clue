@@ -27,10 +27,7 @@ export class TurnFormComponent implements OnInit, OnChanges {
   form: FormGroup;
   saved = new BehaviorSubject<boolean>(true);
 
-
-  constructor(private formBuilder: FormBuilder) {
-    //
-  }
+  constructor(private formBuilder: FormBuilder) { }
 
   ngOnChanges() {
     this.saved.next(true);

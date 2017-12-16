@@ -24,9 +24,7 @@ export class DisproveFormComponent implements OnInit {
   form: FormGroup;
 
   constructor(private formBuilder: FormBuilder,
-              private turnForm: TurnFormComponent) {
-    //
-  }
+              private turnForm: TurnFormComponent) { }
 
   ngOnInit() {
     const playerIds = this.players.map(p => p.id);

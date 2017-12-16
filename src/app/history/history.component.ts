@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 
@@ -20,7 +20,7 @@ import { Weapon } from '../card/weapon/weapon';
   styleUrls: ['./history.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HistoryComponent implements OnInit {
+export class HistoryComponent {
 
   players: Observable<Player[]>;
   rounds: Observable<Round[]>;
@@ -34,10 +34,6 @@ export class HistoryComponent implements OnInit {
     this.rooms = this.store.select(CardSelectors.rooms);
     this.suspects = this.store.select(CardSelectors.suspects);
     this.weapons = this.store.select(CardSelectors.weapons);
-  }
-
-  ngOnInit() {
-    //
   }
 
   addTurn() {

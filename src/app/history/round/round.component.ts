@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 import { Disprove } from '../turn-form/disprove-form/disprove';
 import { Player } from '../../player/player';
@@ -14,7 +14,7 @@ import { Weapon } from '../../card/weapon/weapon';
   templateUrl: './round.component.html',
   styleUrls: ['./round.component.scss']
 })
-export class RoundComponent implements OnInit {
+export class RoundComponent {
 
   @Input() players: number[];
   @Input() rooms: Room[];
@@ -30,8 +30,6 @@ export class RoundComponent implements OnInit {
   }
 
   constructor() { }
-
-  ngOnInit() { }
 
   descriptionFor(turn: Turn) {
     if (!turn.playerId

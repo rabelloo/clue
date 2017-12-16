@@ -22,9 +22,7 @@ export class SuggestionFormComponent implements OnInit {
   form: FormGroup;
 
   constructor(private formBuilder: FormBuilder,
-              private turnForm: TurnFormComponent) {
-    //
-  }
+              private turnForm: TurnFormComponent) { }
 
   ngOnInit() {
     const suspectIds = this.suspects.map(s => s.id);

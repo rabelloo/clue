@@ -10,9 +10,7 @@ import { historyLoadedSelector } from './store/history.selectors';
 @Injectable()
 export class HistoryGuard implements CanActivate {
 
-    constructor(private store: Store<ClueState>) {
-        //
-    }
+    constructor(private store: Store<ClueState>) { }
 
     canActivate(route: ActivatedRouteSnapshot,
                 state: RouterStateSnapshot): Observable<boolean> {

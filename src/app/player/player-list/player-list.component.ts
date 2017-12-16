@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators';
@@ -19,7 +19,7 @@ import { Weapon } from '../../card/weapon/weapon';
   styleUrls: ['./player-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PlayerListComponent implements OnInit {
+export class PlayerListComponent {
 
   maxCards: Observable<number>;
   playerCount: Observable<number>;
@@ -37,10 +37,6 @@ export class PlayerListComponent implements OnInit {
     this.maxCards = this.store.select(CardSelectors.max);
     this.playerCount = this.store.select(PlayerSelectors.count);
     this.players = this.store.select(PlayerSelectors.all);
-  }
-
-  ngOnInit(): void {
-    //
   }
 
   addPlayer(): void {
