@@ -19,7 +19,7 @@ install:
 
 script:
   - ng lint --format stylish
-  - ng test --watch false
+  - ng test --watch false --single-run true --browsers ChromeHeadless
   - ng build --prod
 
 deploy:
