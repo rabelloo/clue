@@ -27,12 +27,12 @@ module.exports = function (config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    browsers: [ process.env.TRAVIS ? 'Chrome_travis_ci' : 'Chrome'],
+    browsers: [ 'Chrome', 'ChromeHeadless', 'Chrome_travis_ci' ],
     singleRun: false,
     customLaunchers: {
       Chrome_travis_ci: {
-        base: 'Chrome',
-        flags: ['--no-sandbox --disable-setuid-sandbox']
+        base: 'ChromeHeadless',
+        flags: ['--no-sandbox', '--disable-setuid-sandbox']
       }
     },
   });
