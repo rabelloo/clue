@@ -13,8 +13,6 @@ cache:
 dist: trusty
 addons:
   chrome: stable
-before_install:
-  - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
 
 install:
   # - npm install -g @angular/cli
@@ -22,6 +20,7 @@ install:
 
 script:
   - ng lint
+  - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9876 http://localhost &
   - ng test --watch false
   - ng build --prod
 
