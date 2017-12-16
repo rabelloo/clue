@@ -19,7 +19,6 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "clue",
       "styles": [
-        "material.scss",
         "styles.scss"
       ],
       "scripts": [],
