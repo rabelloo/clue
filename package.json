@@ -1,13 +1,13 @@
 {
   "name": "clue",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "test": "ng test",
-    "lint": "ng lint",
+    "start": "ng serve -o -hmr",
+    "build": "ng build --prod",
+    "test": "ng test --browsers ChromeHeadless -sr",
+    "lint": "ng lint -t stylish -fix",
     "e2e": "ng e2e"
   },
   "private": true,

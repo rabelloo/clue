@@ -20,11 +20,11 @@ install:
   - yarn install
 
 before_script:
-  - ng lint --format stylish
-  - ng test --watch false --single-run true --browsers ChromeHeadless
+  - yarn lint
+  - yarn test
 
 script:
-  - ng build --prod
+  - yarn build
 
 deploy:
   - provider: firebase
