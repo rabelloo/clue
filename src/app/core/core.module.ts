@@ -11,6 +11,7 @@ import { SharedModule } from '../shared/shared.module';
 
 import { effects } from './store/effects';
 import { reducers } from './store/reducers';
+import { metaReducers } from '../../hmr';
 
 import './prototype-extensions/array-extensions';
 import './prototype-extensions/string-extensions';
@@ -24,7 +25,7 @@ const coreComponents = [
   imports: [
     SharedModule,
     EffectsModule.forRoot(effects),
-    StoreModule.forRoot(reducers),
+    StoreModule.forRoot(reducers, { metaReducers }),
   ],
   exports: coreComponents,
   declarations: coreComponents,
