@@ -1,25 +1,29 @@
 language: node_js
 node_js:
-  - "6.10"
+  - "8.9.3"
 
 branches:
   only:
     - master
 
 cache:
+  yarn: true
   directories:
      - node_modules
 
+sudo: required
 dist: trusty
 addons:
   chrome: stable
 
 install:
-  - npm install
+  - yarn install
 
-script:
+before_script:
   - ng lint --format stylish
   - ng test --watch false --single-run true --browsers ChromeHeadless
+
+script:
   - ng build --prod
 
 deploy:
