@@ -1,0 +1,20 @@
+{
+  "short_name": "Clue",
+  "name": "Clue solver",
+  "description": "A solver for Clue (Cluedo)",
+  "start_url": "/",
+
+  "theme_color": "#2196f3",
+  "background_color": "#ffffff",
+
+  "display": "standalone",
+  "orientation": "portrait",
+
+  "icons": [
+      {
+          "src": "favicon.ico",
+          "sizes": "192x192",
+          "type": "image/png"
+      }
+  ]
+}

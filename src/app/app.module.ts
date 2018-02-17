@@ -1,6 +1,7 @@
-﻿import { BrowserModule } from '@angular/platform-browser';
+﻿import { ApplicationRef, NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule, ApplicationRef } from '@angular/core';
+import { ServiceWorkerModule } from '@angular/service-worker';
 import { HotModuleReplacementModule } from '../hmr';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -12,6 +13,8 @@ import { SharedModule } from './shared/shared.module';
 import { AppComponent } from './app.component';
 import { SpinnerComponent } from './spinner/spinner.component';
 
+import { environment } from '../environments/environment';
+
 
 @NgModule({
   imports: [
@@ -22,6 +25,7 @@ import { SpinnerComponent } from './spinner/spinner.component';
     HistoryModule,
     PlayerModule,
     SharedModule,
+    environment.production ? ServiceWorkerModule.register('/ngsw-worker.js') : [],
   ],
   declarations: [
     AppComponent,
