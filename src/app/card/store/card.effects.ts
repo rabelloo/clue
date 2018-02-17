@@ -19,7 +19,6 @@ export class CardEffects {
 
   constructor(
       private actions: Actions,
-      private cardService: CardService
-  ) { }
+      private cardService: CardService) { }
 
 }
