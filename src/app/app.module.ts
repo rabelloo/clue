@@ -1,7 +1,7 @@
 ﻿import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule, ApplicationRef } from '@angular/core';
-import { HotModuleReloadModule } from '../hmr';
+import { HotModuleReplacementModule } from '../hmr';
 
 import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './core/core.module';
@@ -30,7 +30,7 @@ import { SpinnerComponent } from './spinner/spinner.component';
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule extends HotModuleReloadModule {
+export class AppModule extends HotModuleReplacementModule {
   constructor(appRef: ApplicationRef) {
     super(appRef);
   }

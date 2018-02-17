@@ -11,7 +11,7 @@ export function metaReducer(reducer: ActionReducer<any>) {
         : reducer(state, action);
 }
 
-export abstract class HotModuleReloadModule {
+export abstract class HotModuleReplacementModule {
 
   constructor(private appRef: ApplicationRef) { }
 
@@ -19,8 +19,6 @@ export abstract class HotModuleReloadModule {
     if (!store || !store.state) {
       return;
     }
-
-    console.log('[HMR] store', store);
 
     if ('restoreInputValues' in store) {
       store.restoreInputValues();
