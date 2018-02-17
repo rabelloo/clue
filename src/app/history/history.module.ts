@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 
+import { HistoryRoutingModule } from './history-routing.module';
 import { SharedModule } from '../shared/shared.module';
 
 import { DisproveFormComponent } from './turn-form/disprove-form/disprove-form.component';
@@ -13,6 +14,7 @@ import { TurnService } from './turn-form/turn.service';
 
 @NgModule({
   imports: [
+    HistoryRoutingModule,
     SharedModule,
   ],
   declarations: [

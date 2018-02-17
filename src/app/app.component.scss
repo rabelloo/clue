@@ -1,5 +1,4 @@
-﻿
-:host {
+﻿:host {
   display: flex;
   flex-flow: column nowrap;
   height: 100vh;
@@ -7,19 +6,5 @@
   main {
     flex: 1 0 auto;
     padding: 40px;
-  }
-
-  clue-spinner {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-
-    opacity: 0;
-    transition: opacity .35s;
-  }
-
-  router-outlet + clue-spinner {
-    opacity: 1;
   }
 }

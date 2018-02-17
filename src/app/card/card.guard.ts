@@ -11,9 +11,7 @@ import { ClueState } from '../core/store/state';
 @Injectable()
 export class CardGuard implements CanActivate {
 
-  constructor(private store: Store<ClueState>) {
-      //
-  }
+  constructor(private store: Store<ClueState>) { }
 
   canActivate(route: ActivatedRouteSnapshot,
               state: RouterStateSnapshot): Observable<boolean> {

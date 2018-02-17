@@ -10,9 +10,7 @@ import { playersLoadedSelector } from './store/player.selectors';
 @Injectable()
 export class PlayerGuard implements CanActivate {
 
-    constructor(private store: Store<ClueState>) {
-        //
-    }
+    constructor(private store: Store<ClueState>) { }
 
     canActivate(route: ActivatedRouteSnapshot,
                 state: RouterStateSnapshot): Observable<boolean> {

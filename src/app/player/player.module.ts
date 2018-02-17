@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 
 import { CardModule } from '../card/card.module';
+import { PlayerRoutingModule } from './player-routing.module';
 import { SharedModule } from '../shared/shared.module';
 
 import { PlayerFormComponent } from './player-form/player-form.component';
@@ -18,6 +19,7 @@ import { PlayerService } from './player.service';
 @NgModule({
   imports: [
     CardModule,
+    PlayerRoutingModule,
     SharedModule,
   ],
   declarations: [
