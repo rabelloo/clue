@@ -4,10 +4,10 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve -o -hmr",
+    "start": "ng serve --open -hmr",
     "build": "ng build --prod",
-    "test": "ng test --browsers ChromeHeadless -sr",
-    "lint": "ng lint -t stylish -fix",
+    "test": "ng test --browsers ChromeHeadless --single-run --code-coverage",
+    "lint": "ng lint --style stylish --fix",
     "e2e": "ng e2e"
   },
   "private": true,
