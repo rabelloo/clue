@@ -1,6 +1,6 @@
 {
   "short_name": "Clue",
-  "name": "Clue solver",
+  "name": "Clue",
   "description": "A solver for Clue (Cluedo)",
   "start_url": "/",
 

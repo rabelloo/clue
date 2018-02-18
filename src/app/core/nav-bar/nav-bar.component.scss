@@ -1,7 +1,7 @@
 @import '~@angular/material/theming';
 
 mat-toolbar {
-    padding: 0 40px;
+    padding: 0 2.5rem;
 
     .spacer {
         flex: 1 0 auto;
@@ -9,14 +9,7 @@ mat-toolbar {
 
     a[routerLink] {
         line-height: 4rem;
-        height: 100%;
-        padding: 0 1rem;
         text-transform: uppercase;
-    
-        &.logo {
-            font-size: 1.5rem;
-            text-transform: none;
-        }
 
         &.active {
             background-color: $black-12-opacity;
