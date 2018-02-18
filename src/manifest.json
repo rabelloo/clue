@@ -4,16 +4,21 @@
   "description": "A solver for Clue (Cluedo)",
   "start_url": "/",
 
-  "theme_color": "#2196f3",
-  "background_color": "#ffffff",
+  "theme_color": "#ed1c24",
+  "background_color": "#231f20",
 
   "display": "standalone",
   "orientation": "portrait",
 
   "icons": [
       {
-          "src": "favicon.ico",
-          "sizes": "192x192",
+          "src": "assets/logo/clue-48x48.png",
+          "sizes": "48x48",
+          "type": "image/png"
+      },
+      {
+          "src": "assets/logo/clue-512x512.png",
+          "sizes": "512x512",
           "type": "image/png"
       }
   ]
