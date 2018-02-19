@@ -4,4 +4,4 @@
 
 Readme in construction
 
-Keep tuned for more
+Keep tuned

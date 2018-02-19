@@ -1,0 +1,48 @@
+/*
+    vvvvvvvvvvvvvvvvvvvvv  IMPORTANT vvvvvvvvvvvvvvvvvvvvv
+
+    this file must be used as .css because it is inlined
+    by the postbuild process into the dist/index.html file
+
+    ^^^^^^^^^^^^^^^^^^^^^  IMPORTANT ^^^^^^^^^^^^^^^^^^^^^
+*/
+
+:host {
+    display: inline-block;
+}
+
+svg {
+    animation: spin 2s linear infinite;
+    height: auto;
+    width: 5rem;
+}
+
+circle {
+    stroke: #2196F3;
+    stroke-dasharray: 1, 150;
+    stroke-dashoffset: 0;
+    stroke-linecap: round;
+    stroke-width: 3;
+    animation: expand 1.5s ease-in-out infinite;
+}
+
+@keyframes spin {
+    100% {
+      transform: rotate(360deg);
+    }
+}
+
+@keyframes expand {
+    0% {
+      stroke-dasharray: 1, 150;
+      stroke-dashoffset: 0;
+    }
+    50% {
+      stroke-dasharray: 90, 150;
+      stroke-dashoffset: -35;
+    }
+    100% {
+      stroke-dasharray: 90, 150;
+      stroke-dashoffset: -124;
+    }
+}

@@ -19,78 +19,19 @@
 
   <meta name="msapplication-TileColor" content="#231f20">
 
-  <link async href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link async href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Mono" rel="stylesheet">
+  <link async rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link async rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Mono">
 </head>
 
 <body>
   <clue-root>
-    <style>
-      body {
-        background-color: #eeeeee;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
-      }
+    <link inline href="src/index.css">
+    <link inline href="src/app/spinner/spinner.component.scss">
 
-      svg {
-        animation: spin 2s linear infinite;
-      }
-
-      circle {
-        stroke: #2196F3;
-        stroke-dasharray: 1, 150;
-        stroke-dashoffset: 0;
-        stroke-linecap: round;
-        animation: expand 1.5s ease-in-out infinite;
-      }
-
-      @keyframes spin {
-        100% {
-          transform: rotate(360deg);
-        }
-      }
-
-      @keyframes expand {
-        0% {
-          stroke-dasharray: 1, 150;
-          stroke-dashoffset: 0;
-        }
-        50% {
-          stroke-dasharray: 90, 150;
-          stroke-dashoffset: -35;
-        }
-        100% {
-          stroke-dasharray: 90, 150;
-          stroke-dashoffset: -124;
-        }
-      }
-    </style>
-
-    <svg width="50" height="50" viewBox="0 0 50 50">
-      <circle cx="25" cy="25" r="20" fill="none" stroke-width="4"></circle>
-    </svg>
+    <img inline src="tmp/spinner.svg">
 
     <noscript>
-      <style>
-        body {
-          background-color: #2196F3;
-          background-image: linear-gradient(0deg, #0D47A1, #2196F3);
-          padding: 0 10%;
-        }
-
-        svg {
-          display: none;
-        }
-
-        noscript {
-          color: #ffffff;
-          font-size: 2rem;
-          line-height: 1.5;
-          text-shadow: 0px 0px 8px #000000;
-        }
-      </style>
+      <link inline href="src/index-noscript.css">
 
       Clue requires JavaScript to be enabled
     </noscript>
