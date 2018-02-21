@@ -58,7 +58,7 @@ export class HistoryEffects {
       private store: Store<ClueState>
   ) { }
 
-  private createNextTurn(next: { round: number, turn: number, playerId: number }): Turn {
+  private createNextTurn(next: { round: number, turn: number, playerId: string }): Turn {
     return {
       id: undefined,
       order: next.turn,

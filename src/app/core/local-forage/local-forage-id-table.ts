@@ -42,11 +42,12 @@ export class LocalForageIdTable<T extends ILocalForageEntity> extends LocalForag
   save(entity: T): Observable<T> {
     let insertingEntity = entity;
 
-    if (!insertingEntity.id) {
-      // Can't use spread operator here because TS doesn't support
-      // the type inference for generics as objects yet
-      // TODO: replace it with spread when it does
-      insertingEntity = Object.assign({}, entity, { id: this.incrementId() });
+    if (!entity.id) {
+      // Double casting from and to T needs to be done as a hack because
+      // TS doesn't support type inference for generics as objects yet
+      // https://github.com/Microsoft/TypeScript/issues/10727
+      // TODO: remove casts when it does
+      insertingEntity = { ...entity as {}, id: this.nextId() } as T;
     }
 
     return super.set(insertingEntity.id, insertingEntity);
@@ -71,7 +72,7 @@ export class LocalForageIdTable<T extends ILocalForageEntity> extends LocalForag
         });
   }
 
-  private incrementId(): number {
+  private nextId(): number {
     this.idMap.set(this.name, ++this.currentId);
     return this.currentId;
   }

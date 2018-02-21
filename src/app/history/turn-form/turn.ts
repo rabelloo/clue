@@ -7,7 +7,7 @@ export interface Turn {
     round: number;
     order: number;
 
-    playerId: number;
+    playerId: string;
     player: Player;
 
     suggestion: Suggestion;

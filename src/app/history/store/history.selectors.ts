@@ -21,7 +21,7 @@ export function currentRoundSelector(state: ClueState): number {
       || 1;
 }
 
-export function nextRoundSelector(state: ClueState): { round: number, turn: number, playerId: number } {
+export function nextRoundSelector(state: ClueState) {
   const currentRound = currentRoundSelector(state);
   const playerCount = PlayerSelectors.count(state) || 6;
   const currentTurn = turnsSelector(state)

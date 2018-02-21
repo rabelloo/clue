@@ -40,7 +40,7 @@ export class PlayerEffects {
   @Effect() loadPlayers: Observable<Action> =
     this.actions.ofType(loadPlayers)
         .pipe(
-          switchMap(() => this.playerService.getAll().pipe( defaultIfEmpty([]) )),
+          switchMap(() => this.playerService.documents.pipe( defaultIfEmpty([]) )),
           map(players => new LoadedPlayers(players))
         );
 
