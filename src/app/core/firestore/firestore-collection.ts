@@ -1,4 +1,5 @@
 import { AngularFirestore, AngularFirestoreCollection, DocumentChangeAction } from 'angularfire2/firestore';
+import { DocumentChangeType } from '@firebase/firestore-types';
 import { Observable } from 'rxjs/Observable';
 import { fromPromise } from 'rxjs/observable/fromPromise';
 import { map } from 'rxjs/operators';
@@ -37,8 +38,8 @@ export abstract class FirestoreCollection<T extends IDocument> {
    * 
    * Equivalent to `AngularFirestoreCollection.stateChanges()`
    */
-  get states(): Observable<DocumentChangeAction[]> {
-    return this.collection.stateChanges();
+  stateChanges(events?: DocumentChangeType[]): Observable<DocumentChangeAction[]> {
+    return this.collection.stateChanges(events);
   }
 
   /**
@@ -53,53 +54,60 @@ export abstract class FirestoreCollection<T extends IDocument> {
   /**
    * Adds a document
    */
-  add(document: T): Observable<T> {
+  add(document: Partial<T>): Observable<T> {
     // Double casting from and to T needs to be done as a hack because
     // TS doesn't support type inference for generics as objects yet
     // https://github.com/Microsoft/TypeScript/issues/10727
     // TODO: remove casts when it does
-    const doc = { ...document as {}, id: this.db.createId() } as T;
-
-    return fromPromise(this.collection.add(doc))
+    return fromPromise(this.collection.add(document as T))
             .pipe(
-              map(() => doc)
-            );
+              map(ref => ({
+                ...document as {},
+                id: ref.id,
+              } as T)
+            )
+          );
   }
 
   /**
    * Update a document
    */
-  update(document: T): Observable<void> {
-    return fromPromise(this.collection.doc(document.id).set(document));
+  update(document: Partial<T>): Observable<void> {
+    return fromPromise(this.collection.doc(document.id).set(this.stripId(document)));
   }
 
   /**
    * Patch a document's fields
    */
   patch(document: Partial<T>): Observable<void> {
-    return fromPromise(this.collection.doc(document.id).update(document));
+    return fromPromise(this.collection.doc(document.id).update(this.stripId(document)));
   }
 
   /**
    * Save a document (adds if no id, updates if id)
    */
-  save(document: T): Observable<T> {
+  save(document: Partial<T>): Observable<T> {
     return !document.id
             ? this.add(document)
             : this.update(document)
                   .pipe(
-                    map(() => document)
+                    map(() => document as T)
                   );
   }
 
   /**
    * Removes a document
    */
-  delete(document: T): Observable<boolean> {
+  delete(document: T): Observable<T> {
     return fromPromise(this.collection.doc(document.id).delete())
-            .pipe(
-              map(() => true)
-            );
+              .pipe(
+                map(() => document)
+              );
+  }
+
+  private stripId(document: Partial<T>) {
+    const { id: removed, ...rest } = document as IDocument;
+    return rest;
   }
 
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 
 import { FirestoreCollection } from '../core/firestore/firestore-collection';
@@ -16,22 +16,19 @@ export class PlayerService extends FirestoreCollection<Player> {
     super(db, 'players');
   }
 
-  save(player: Player): Observable<Player> {
+  save(player: Partial<Player>): Observable<Player> {
     const { character, ...rest } = player;
     return super.save(rest);
   }
 
-  delete(player: Player): Observable<boolean> {
+  delete(player: Player): Observable<Player> {
     const message = `Are you sure you want to delete player ${player.name || '"Unnamed"'}?`;
 
     if (this.notifier.confirm(message)) {
-      return super.delete(player)
-                 .pipe(
-                   map(() => true)
-                 );
+      return super.delete(player);
     }
 
-    return of(false);
+    return of(undefined);
   }
 
 }

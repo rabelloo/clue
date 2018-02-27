@@ -8,5 +8,4 @@ export interface ClueState {
     history: HashMap<Turn>;
     historyLoaded: boolean;
     players: HashMap<Player>;
-    playersLoaded: boolean;
 }

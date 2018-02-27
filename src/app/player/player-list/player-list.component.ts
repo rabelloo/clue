@@ -1,14 +1,16 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
-import { map } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
+import { map } from 'rxjs/operators';
 
-import { AddPlayer, DeletePlayer, SavePlayer } from '../store/player.actions';
+import { AddPlayer, DeletePlayer, SavePlayer, SyncPlayers, UnsyncPlayers } from '../store/player.actions';
 import { CardSelectors } from '../../card/store/card.selectors';
 import { ClueState } from '../../core/store/state';
 import { Player } from '.././player';
 import { PlayerSelectors } from '../store/player.selectors';
+import { PlayerService } from '../player.service';
 import { Room } from '../../card/room/room';
 import { Suspect } from '../../card/suspect/suspect';
 import { Weapon } from '../../card/weapon/weapon';
@@ -19,7 +21,7 @@ import { Weapon } from '../../card/weapon/weapon';
   styleUrls: ['./player-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PlayerListComponent {
+export class PlayerListComponent implements OnDestroy {
 
   maxCards: Observable<number>;
   playerCount: Observable<number>;
@@ -34,9 +36,14 @@ export class PlayerListComponent {
   }
 
   constructor(private store: Store<ClueState>) {
+    this.store.dispatch(new SyncPlayers());
     this.maxCards = this.store.select(CardSelectors.max);
     this.playerCount = this.store.select(PlayerSelectors.count);
     this.players = this.store.select(PlayerSelectors.all);
+  }
+
+  ngOnDestroy() {
+    this.store.dispatch(new UnsyncPlayers());
   }
 
   addPlayer(): void {

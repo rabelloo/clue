@@ -26,20 +26,15 @@ export class PlayerFormComponent implements OnInit, OnChanges {
   @Output() private save: EventEmitter<Player> = new EventEmitter<Player>();
   @Output() private remove: EventEmitter<Player> = new EventEmitter<Player>();
   form: FormGroup;
-  saved = new BehaviorSubject<boolean>(true);
   private hasFocusedInput = new BehaviorSubject<boolean>(false);
 
-  constructor(private formBuilder: FormBuilder) {
-    //
-  }
+  constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
     this.createForm();
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    this.saved.next(true);
-
     if (valueChanged('maxCards')
      || valueChanged('players')) {
       this.form.controls.cardIds.setValidators(Validators.maxLength(this.maxCards));
@@ -80,12 +75,6 @@ export class PlayerFormComponent implements OnInit, OnChanges {
   }
 
   private listenForChanges() {
-    this.form.valueChanges
-        .pipe(
-          distinctUntilChanged(),
-        )
-        .subscribe(() => this.saved.next(false)),
-
     this.hasFocusedInput
         .pipe(
           debounceTime(1), // prevents trigger when tabbing between inputs

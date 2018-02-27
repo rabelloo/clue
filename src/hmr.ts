@@ -2,8 +2,6 @@ import { ApplicationRef } from '@angular/core';
 import { ActionReducer } from '@ngrx/store';
 import { createNewHosts, createInputTransfer, removeNgStyles } from '@angularclass/hmr';
 
-export const metaReducers = [ metaReducer ];
-
 export function metaReducer(reducer: ActionReducer<any>) {
   return (state: any, action: any) =>
     action.type === 'SET_ROOT_STATE'

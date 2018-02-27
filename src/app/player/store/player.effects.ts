@@ -1,55 +1,63 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { switchMap, map, first, filter, defaultIfEmpty } from 'rxjs/operators';
+import { DocumentChangeType } from '@firebase/firestore-types';
 import { Action, Store } from '@ngrx/store';
 import { Effect, Actions } from '@ngrx/effects';
+import { DocumentChangeAction } from 'angularfire2/firestore';
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
+import { switchMap, map, first, filter, tap } from 'rxjs/operators';
 
 import { ClueState } from '../../core/store/state';
 import { Player } from '../player';
 import { PlayerService } from '../player.service';
 
 import { addPlayer, deletePlayer, DeletePlayer, DeletedPlayer,
-         loadPlayers, LoadedPlayers, savePlayer, SavePlayer, SavedPlayer } from './player.actions';
-import { playerCountSelector } from './player.selectors';
+         savePlayer, SavePlayer, SavedPlayer, syncPlayers, unsyncPlayers } from './player.actions';
+import { PlayerSelectors } from './player.selectors';
 
 @Injectable()
 export class PlayerEffects {
 
+  private syncSub: Subscription;
+
   @Effect() addPlayer: Observable<Action> =
     this.actions.ofType(addPlayer)
         .pipe(
-          switchMap(() => this.store.select(playerCountSelector).pipe( first() )),
-          map(playerCount => this.createPlayer(playerCount)),
-          map(player => new SavePlayer(player)),
+          switchMap(() => this.store.select(PlayerSelectors.count).pipe( first() )),
+          map(playerCount => ({ order: playerCount + 1, name: '' })),
+          map(player => new SavePlayer(player as Player)),
         );
 
-  @Effect() deletePlayer: Observable<Action> =
+  @Effect({ dispatch: false }) deletePlayer: Observable<Action> =
     this.actions.ofType(deletePlayer)
         .pipe(
-          map((action: DeletePlayer) => action.player),
-          switchMap(player => this.playerService
-                                  .delete(player)
-                                  .pipe(
-                                    filter(deleted => deleted),
-                                    map(() => player))
-                                  ),
-          filter(player => !!player),
-          map(player => new DeletedPlayer(player)),
+          tap((action: DeletePlayer) => this.playerService.delete(action.player)),
         );
 
-  @Effect() loadPlayers: Observable<Action> =
-    this.actions.ofType(loadPlayers)
-        .pipe(
-          switchMap(() => this.playerService.documents.pipe( defaultIfEmpty([]) )),
-          map(players => new LoadedPlayers(players))
-        );
-
-  @Effect() savePlayer: Observable<Action> =
+  @Effect({ dispatch: false }) savePlayer: Observable<Action> =
     this.actions.ofType(savePlayer)
         .pipe(
-          map((action: SavePlayer) => action.player),
-          switchMap(player => this.playerService.save(player)),
-          map(player => new SavedPlayer(player)),
+          tap((action: SavePlayer) => this.playerService.save(action.player))
+        );
+
+  @Effect({ dispatch: false }) sync: Observable<Action> =
+    this.actions.ofType(syncPlayers)
+        .pipe(
+          filter(() => !this.syncSub || this.syncSub.closed),
+          tap(() => this.syncSub
+                  = this.playerService
+                        .stateChanges()
+                        .pipe(
+                          tap(events => events.forEach(e => this.dispatch(e))),
+                        )
+                        .subscribe()
+          ),
+        );
+
+  @Effect({ dispatch: false }) unsync: Observable<Action> =
+    this.actions.ofType(unsyncPlayers)
+        .pipe(
+          tap(() => this.syncSub.unsubscribe()),
         );
 
   constructor(
@@ -58,15 +66,17 @@ export class PlayerEffects {
       private store: Store<ClueState>
   ) { }
 
-  private createPlayer(playerCount: number): Player {
-    return {
-      id: undefined,
-      name: '',
-      order: playerCount + 1,
-      cardIds: undefined,
-      character: undefined,
-      characterId: undefined,
-    };
+  private dispatch(event: DocumentChangeAction) {
+    const player = {
+      ...event.payload.doc.data(),
+      id: event.payload.doc.id,
+    } as Player;
+
+    const action = event.type === 'removed'
+                  ? new DeletedPlayer(player)
+                  : new SavedPlayer(player);
+
+    this.store.dispatch(action);
   }
 
 }

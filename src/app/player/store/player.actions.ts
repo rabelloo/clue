@@ -2,13 +2,13 @@ import { Action } from '@ngrx/store';
 
 import { Player } from '../player';
 
-export const addPlayer     = '[Players] Add';
-export const deletePlayer  = '[Players] Delete';
-export const deletedPlayer = '[Players] Deleted';
-export const loadPlayers   = '[Players] Load';
-export const loadedPlayers = '[Players] Loaded';
-export const savePlayer    = '[Players] Save';
-export const savedPlayer   = '[Players] Saved';
+export const addPlayer     = '[Players] add';
+export const deletePlayer  = '[Players] delete';
+export const deletedPlayer = '[Players] deleted';
+export const savePlayer    = '[Players] save';
+export const savedPlayer   = '[Players] saved';
+export const syncPlayers   = '[Players] sync';
+export const unsyncPlayers = '[Players] unsync';
 
 export class AddPlayer implements Action {
     readonly type = addPlayer;
@@ -26,16 +26,6 @@ export class DeletedPlayer implements Action {
     constructor(public player: Player) { }
 }
 
-export class LoadPlayers implements Action {
-    readonly type = loadPlayers;
-}
-
-export class LoadedPlayers implements Action {
-    readonly type = loadedPlayers;
-
-    constructor(public players: Player[]) { }
-}
-
 export class SavePlayer implements Action {
     readonly type = savePlayer;
 
@@ -48,12 +38,20 @@ export class SavedPlayer implements Action {
     constructor(public player: Player) { }
 }
 
+export class SyncPlayers implements Action {
+    readonly type = syncPlayers;
+}
+
+export class UnsyncPlayers implements Action {
+    readonly type = unsyncPlayers;
+}
+
 export type PlayerAction
     = AddPlayer
     | DeletePlayer
     | DeletedPlayer
-    | LoadPlayers
-    | LoadedPlayers
     | SavePlayer
     | SavedPlayer
+    | SyncPlayers
+    | UnsyncPlayers
     ;

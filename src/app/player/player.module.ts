@@ -12,8 +12,6 @@ import { CloseDetectorDirective } from '../shared/detectors/close-detector/close
 import { FocusDetectorDirective } from '../shared/detectors/focus-detector/focus-detector.directive';
 import { OpenDetectorDirective } from '../shared/detectors/open-detector/open-detector.directive';
 
-import { PlayerGuard } from './player.guard';
-
 import { PlayerService } from './player.service';
 
 @NgModule({
@@ -31,7 +29,6 @@ import { PlayerService } from './player.service';
     PlayerListComponent,
   ],
   providers: [
-    PlayerGuard,
     PlayerService,
   ]
 })

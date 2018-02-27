@@ -3,16 +3,11 @@ import { Player } from '../player';
 import { Suspect } from '../../card/suspect/suspect';
 
 export const PlayerSelectors = {
-  all: playersSelector,
-  count: playerCountSelector,
-  loaded: playersLoadedSelector,
+  all,
+  count,
 };
 
-export function playerCountSelector(state: ClueState): number {
-  return Object.keys(state.players).length;
-}
-
-export function playersSelector(state: ClueState): Player[] {
+function all(state: ClueState): Player[] {
   return Object.values(state.players)
                .sortBy((p: Player) => p.order)
                .map((p: Player) => ({
@@ -21,6 +16,6 @@ export function playersSelector(state: ClueState): Player[] {
                }));
 }
 
-export function playersLoadedSelector(state: ClueState): boolean {
-  return state.playersLoaded;
+function count(state: ClueState): number {
+  return Object.keys(state.players).length;
 }

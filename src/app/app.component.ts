@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 
 import { ClueState } from './core/store/state';
 import { LoadCards } from './card/store/card.actions';
+import { SignIn } from './core/auth/auth.actions';
 
 @Component({
   selector: 'clue-root',
@@ -11,8 +12,9 @@ import { LoadCards } from './card/store/card.actions';
 })
 export class AppComponent {
 
-  constructor(private store: Store<ClueState>) {
-    this.store.dispatch(new LoadCards());
+  constructor(store: Store<ClueState>) {
+    store.dispatch(new LoadCards());
+    store.dispatch(new SignIn());
   }
 
 }
