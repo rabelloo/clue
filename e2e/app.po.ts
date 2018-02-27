@@ -1,11 +1,15 @@
-import { browser, by, element } from 'protractor';
+import { browser, $ } from 'protractor';
 
 export class AppPage {
-  navigateTo() {
-    return browser.get('/');
+  navigateTo(path?: string) {
+    return browser.get(path || '/');
   }
 
-  getParagraphText() {
-    return element(by.css('app-root h1')).getText();
+  getNavBar() {
+    return $('clue-nav-bar');
+  }
+
+  getFooter() {
+    return $('clue-footer');
   }
 }
