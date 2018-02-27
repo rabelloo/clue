@@ -5,12 +5,15 @@ import { Notifier } from '../core/notifier/notifier.service';
 import { PlayerService } from './player.service';
 
 describe('PlayerService', () => {
+  const dbStub = {
+    collection: name => name
+  };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
         PlayerService,
-        { provide: AngularFirestore, useValue: {} },
+        { provide: AngularFirestore, useValue: dbStub },
         { provide: Notifier, useValue: {} },
       ]
     });
