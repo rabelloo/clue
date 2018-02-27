@@ -17,7 +17,7 @@ export abstract class FirestoreCollection<T extends IDocument> {
 
   /**
    * Gets all documents
-   * 
+   *
    * Equivalent to `AngularFirestoreCollection.valueChanges()`
    */
   get documents(): Observable<T[]> {
@@ -26,7 +26,7 @@ export abstract class FirestoreCollection<T extends IDocument> {
 
   /**
    * Gets all documents' snapshots (metadata included)
-   * 
+   *
    * Equivalent to `AngularFirestoreCollection.snapshotChanges()`
    */
   get snapshots(): Observable<DocumentChangeAction[]> {
@@ -35,7 +35,7 @@ export abstract class FirestoreCollection<T extends IDocument> {
 
   /**
    * Gets all documents' states
-   * 
+   *
    * Equivalent to `AngularFirestoreCollection.stateChanges()`
    */
   stateChanges(events?: DocumentChangeType[]): Observable<DocumentChangeAction[]> {
@@ -44,7 +44,7 @@ export abstract class FirestoreCollection<T extends IDocument> {
 
   /**
    * Gets a document by id
-   * 
+   *
    * Equivalent to `AngularFirestoreDocument.stateChanges()`
    */
   get(id: string): Observable<T> {

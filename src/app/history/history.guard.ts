@@ -16,7 +16,7 @@ export class HistoryGuard implements CanActivate {
     canActivate(route: ActivatedRouteSnapshot,
                 state: RouterStateSnapshot): Observable<boolean> {
       this.store.dispatch(new LoadHistory());
-                    
+
       return this.store.select(historyLoadedSelector)
                     .pipe(
                         filter(loaded => loaded)
