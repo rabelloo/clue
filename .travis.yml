@@ -16,6 +16,9 @@ dist: trusty
 addons:
   chrome: stable
 
+before_install:
+  - npm install yarn --global
+
 install:
   - yarn install
 
