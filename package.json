@@ -1,6 +1,6 @@
 {
   "name": "clue",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "A solver for Clue (Cluedo)",
   "homepage": "https://clue-solver.firebaseapp.com",
   "bugs": "https://github.com/rabelloo/clue/issues",
