@@ -19,7 +19,7 @@ import { metaReducer } from '../../hmr';
 import './prototype-extensions/array-extensions';
 import './prototype-extensions/string-extensions';
 
-const metaReducers = [ metaReducer, reducer => (state, action) => console.log(action, state) || reducer(state, action)  ];
+const metaReducers = [ metaReducer ];
 
 const coreComponents = [
   FooterComponent,
