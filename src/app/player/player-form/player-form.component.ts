@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output, OnChanges, SimpleChanges, HostListener } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { distinctUntilChanged, debounceTime, filter, withLatestFrom, map } from 'rxjs/operators';
 
 import { Player } from '../player';

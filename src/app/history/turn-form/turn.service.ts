@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { of } from 'rxjs/observable/of';
 
 import { Disprove } from './disprove-form/disprove';
 import { LocalForageIdTable } from '../../core/local-forage/local-forage-id-table';
@@ -16,7 +15,7 @@ export class TurnService {
   private readonly tableName = 'Turns';
   turns: LocalForageIdTable<Turn>;
 
-  constructor(private localForageService: LocalForageService,
+  constructor(localForageService: LocalForageService,
               private notifier: Notifier) {
     this.turns = localForageService.getIdTable<Turn>(this.tableName);
   }

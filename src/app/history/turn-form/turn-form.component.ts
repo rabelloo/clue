@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output, OnChanges } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { BehaviorSubject } from 'rxjs';
 
 import { ClueValidators } from '../../shared/validators/validators';
 import { Player } from '../../player/player';

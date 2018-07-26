@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { switchMap, map } from 'rxjs/operators';
 import { Action } from '@ngrx/store';
 import { Effect, Actions } from '@ngrx/effects';

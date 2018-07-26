@@ -1,8 +1,6 @@
 import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { AddPlayer, DeletePlayer, SavePlayer, SyncPlayers, UnsyncPlayers } from '../store/player.actions';
@@ -10,7 +8,6 @@ import { CardSelectors } from '../../card/store/card.selectors';
 import { ClueState } from '../../core/store/state';
 import { Player } from '.././player';
 import { PlayerSelectors } from '../store/player.selectors';
-import { PlayerService } from '../player.service';
 import { Room } from '../../card/room/room';
 import { Suspect } from '../../card/suspect/suspect';
 import { Weapon } from '../../card/weapon/weapon';

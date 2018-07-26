@@ -1,13 +1,12 @@
 language: node_js
 node_js:
-  - "8"
+  - "10.7"
 
 branches:
   only:
     - master
 
 cache:
-  yarn: true
   directories:
      - node_modules
 
@@ -16,19 +15,16 @@ dist: trusty
 addons:
   chrome: stable
 
-before_install:
-  - npm install yarn --global
-
 install:
-  - yarn install
+  - npm ci
 
 before_script:
-  - yarn lint
-  - yarn test
-  - yarn e2e
+  - npm run lint:ci
+  - npm run test:ci
+  - npm run e2e
 
 script:
-  - yarn build
+  - npm run build
 
 deploy:
   - provider: firebase

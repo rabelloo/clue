@@ -2,11 +2,11 @@
   <input formControlName="id" type="hidden" [value]="player.id" />
 
   <mat-form-field class="small">
+    <mat-label>Order</mat-label>
     <input matInput
            clueBlurDetector
            clueFocusDetector
            formControlName="order"
-           placeholder="Order"
            type="number"
            min="1"
            [max]="playerCount"
@@ -14,16 +14,18 @@
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput clueBlurDetector clueFocusDetector formControlName="name" placeholder="Name" [value]="player.name" />
+    <mat-label>Name</mat-label>
+    <input matInput clueBlurDetector clueFocusDetector formControlName="name" [value]="player.name" />
     <mat-error clueErrorMessages="name"></mat-error>
   </mat-form-field>
 
   <mat-form-field>
+    <mat-label>Character</mat-label>
     <div matPrefix>
       <mat-icon [ngClass]="player.character?.color">person</mat-icon>
       <mat-icon class="outline" [ngClass]="player.character?.color">person_outline</mat-icon>
     </div>
-    <mat-select clueCloseDetector clueOpenDetector formControlName="characterId" placeholder="Character" [value]="player.characterId">
+    <mat-select clueCloseDetector clueOpenDetector formControlName="characterId" [value]="player.characterId">
       <mat-select-trigger>{{ player.character?.name }}</mat-select-trigger>
       <mat-option *ngFor="let suspect of characters" [value]="suspect.id">
         <div fxLayout fxLayoutAlign="default center">
@@ -38,7 +40,8 @@
   </mat-form-field>
 
   <mat-form-field>
-    <mat-select #cards multiple clueCloseDetector clueOpenDetector formControlName="cardIds" placeholder="Cards" [value]="player.cardIds">
+    <mat-label>Cards</mat-label>
+    <mat-select #cards multiple clueCloseDetector clueOpenDetector formControlName="cardIds" [value]="player.cardIds">
       <mat-optgroup label="Suspects">
         <mat-option *ngFor="let suspect of suspects" [value]="suspect.id">
             <span>{{ suspect.name }}</span>

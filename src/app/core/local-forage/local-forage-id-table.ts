@@ -1,7 +1,5 @@
-import { Observable } from 'rxjs/Observable';
-import { Type } from '@angular/core';
+import { Observable } from 'rxjs';
 
-import * as localforage from 'localforage';
 import { ILocalForageEntity } from './ilocal-forage-entity';
 import { LocalForageTable } from './local-forage-table';
 

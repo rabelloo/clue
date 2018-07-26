@@ -1,6 +1,5 @@
 import { Directive, Input, HostBinding, OnInit } from '@angular/core';
 import { FormControl, FormGroupDirective } from '@angular/forms';
-import { Observable } from 'rxjs/Observable';
 import { distinctUntilChanged, filter, debounceTime, map, startWith, switchMap, defaultIfEmpty, first } from 'rxjs/operators';
 
 import { errorMessages } from './error-messages';

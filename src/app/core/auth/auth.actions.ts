@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { User } from '@firebase/auth-types';
+import { User } from 'firebase';
 
 export const signIn    = '[Auth] sign in';
 export const signedIn  = '[Auth] signed in';

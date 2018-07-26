@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { Action, Store } from '@ngrx/store';
 import { Effect, Actions } from '@ngrx/effects';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
+import { Observable, Subscription } from 'rxjs';
 import { filter, tap } from 'rxjs/operators';
 
 import { ClueState } from '../../core/store/state';

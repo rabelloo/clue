@@ -1,7 +1,5 @@
-import { AngularFirestore, AngularFirestoreCollection, DocumentChangeAction } from 'angularfire2/firestore';
-import { DocumentChangeType } from '@firebase/firestore-types';
-import { Observable } from 'rxjs/Observable';
-import { fromPromise } from 'rxjs/observable/fromPromise';
+import { AngularFirestore, AngularFirestoreCollection, DocumentChangeAction, DocumentChangeType } from 'angularfire2/firestore';
+import { Observable, from } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { IDocument } from './idocument';
@@ -29,7 +27,7 @@ export abstract class FirestoreCollection<T extends IDocument> {
    *
    * Equivalent to `AngularFirestoreCollection.snapshotChanges()`
    */
-  get snapshots(): Observable<DocumentChangeAction[]> {
+  get snapshots(): Observable<DocumentChangeAction<T>[]> {
     return this.collection.snapshotChanges();
   }
 
@@ -38,7 +36,7 @@ export abstract class FirestoreCollection<T extends IDocument> {
    *
    * Equivalent to `AngularFirestoreCollection.stateChanges()`
    */
-  stateChanges(events?: DocumentChangeType[]): Observable<DocumentChangeAction[]> {
+  stateChanges(events?: DocumentChangeType[]): Observable<DocumentChangeAction<T>[]> {
     return this.collection.stateChanges(events);
   }
 
@@ -59,7 +57,7 @@ export abstract class FirestoreCollection<T extends IDocument> {
     // TS doesn't support type inference for generics as objects yet
     // https://github.com/Microsoft/TypeScript/issues/10727
     // TODO: remove casts when it does
-    return fromPromise(this.collection.add(document as T))
+    return from(this.collection.add(document as T))
             .pipe(
               map(ref => ({
                 ...document as {},
@@ -73,14 +71,14 @@ export abstract class FirestoreCollection<T extends IDocument> {
    * Update a document
    */
   update(document: Partial<T>): Observable<void> {
-    return fromPromise(this.collection.doc(document.id).set(this.stripId(document)));
+    return from(this.collection.doc(document.id).set(this.stripId(document)));
   }
 
   /**
    * Patch a document's fields
    */
   patch(document: Partial<T>): Observable<void> {
-    return fromPromise(this.collection.doc(document.id).update(this.stripId(document)));
+    return from(this.collection.doc(document.id).update(this.stripId(document)));
   }
 
   /**
@@ -99,7 +97,7 @@ export abstract class FirestoreCollection<T extends IDocument> {
    * Removes a document
    */
   delete(document: T): Observable<T> {
-    return fromPromise(this.collection.doc(document.id).delete())
+    return from(this.collection.doc(document.id).delete())
               .pipe(
                 map(() => document)
               );

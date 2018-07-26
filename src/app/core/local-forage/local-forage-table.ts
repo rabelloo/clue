@@ -1,10 +1,7 @@
-import { Observable } from 'rxjs/Observable';
-import { forkJoin } from 'rxjs/observable/forkJoin';
-import { fromPromise } from 'rxjs/observable/fromPromise';
+import { Observable, forkJoin, from } from 'rxjs';
 import { switchMap, map } from 'rxjs/operators';
 
 import * as localforage from 'localforage';
-import { ILocalForageEntity } from './ilocal-forage-entity';
 
 export class LocalForageTable {
 
@@ -31,7 +28,7 @@ export class LocalForageTable {
    * Gets a record by key
    */
   get(key: string | number): Observable<any> {
-    return fromPromise(this.table.getItem('' + key))
+    return from(this.table.getItem('' + key))
               .pipe(
                 map(this.cast)
               );
@@ -41,7 +38,7 @@ export class LocalForageTable {
    * Stores a value with the specified key
    */
   set(key: string | number, value: any): Observable<any> {
-    return fromPromise(this.table.setItem('' + key, value))
+    return from(this.table.setItem('' + key, value))
               .pipe(
                 map(this.cast)
               );
@@ -51,35 +48,35 @@ export class LocalForageTable {
    * Removes a record by key
    */
   remove(key: string | number): Observable<void> {
-    return fromPromise(this.table.removeItem('' + key));
+    return from(this.table.removeItem('' + key));
   }
 
   /**
    * Removes all records
    */
   clear(): Observable<void> {
-    return fromPromise(this.table.clear());
+    return from(this.table.clear());
   }
 
   /**
    * Gets the total number of records in the table
    */
   length(): Observable<number> {
-    return fromPromise(this.table.length());
+    return from(this.table.length());
   }
 
   /**
    * Gets a record's key with the specified table index
    */
   key(index: number): Observable<string> {
-    return fromPromise(this.table.key(index));
+    return from(this.table.key(index));
   }
 
   /**
    * Gets all records' keys
    */
   keys(): Observable<string[]> {
-    return fromPromise(this.table.keys());
+    return from(this.table.keys());
   }
 
 }

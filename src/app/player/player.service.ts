@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
-import { Observable } from 'rxjs/Observable';
-import { map, tap } from 'rxjs/operators';
-import { of } from 'rxjs/observable/of';
+import { Observable, of } from 'rxjs';
 
 import { FirestoreCollection } from '../core/firestore/firestore-collection';
 import { Notifier } from '../core/notifier/notifier.service';

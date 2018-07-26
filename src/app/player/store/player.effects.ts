@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
-import { DocumentChangeType } from '@firebase/firestore-types';
 import { Action, Store } from '@ngrx/store';
 import { Effect, Actions } from '@ngrx/effects';
 import { DocumentChangeAction } from 'angularfire2/firestore';
-import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
+import { Observable, Subscription } from 'rxjs';
 import { switchMap, map, first, filter, tap } from 'rxjs/operators';
 
 import { ClueState } from '../../core/store/state';
@@ -66,7 +64,7 @@ export class PlayerEffects {
       private store: Store<ClueState>
   ) { }
 
-  private dispatch(event: DocumentChangeAction) {
+  private dispatch(event: DocumentChangeAction<Player>) {
     const player = {
       ...event.payload.doc.data(),
       id: event.payload.doc.id,
