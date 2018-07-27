@@ -1,3 +1,5 @@
+import { User } from 'firebase';
+
 import { Card } from '../../card/card';
 import { HashMap } from './hash-map';
 import { Player } from '../../player/player';
@@ -8,4 +10,5 @@ export interface ClueState {
     history: HashMap<Turn>;
     historyLoaded: boolean;
     players: HashMap<Player>;
+    user: User;
 }

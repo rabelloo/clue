@@ -4,33 +4,29 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { HotModuleReplacementModule } from '../hmr';
 
-import { AppRoutingModule } from './app-routing.module';
+import { appRoutes } from './app.routes';
 import { CoreModule } from './core/core.module';
-import { HistoryModule } from './history/history.module';
-import { PlayerModule } from './player/player.module';
-import { SharedModule } from './shared/shared.module';
+import { FooterModule } from './footer/footer.module';
+import { NavBarModule } from './nav-bar/nav-bar.module';
 
 import { AppComponent } from './app.component';
-import { SpinnerComponent } from './spinner/spinner.component';
 
 import { environment } from '../environments/environment';
+import { CardModule } from './card/card.module';
 
 
 @NgModule({
   imports: [
-    AppRoutingModule,
+    appRoutes,
     BrowserModule,
     BrowserAnimationsModule,
+    CardModule,
     CoreModule,
-    HistoryModule,
-    PlayerModule,
-    SharedModule,
+    FooterModule,
+    NavBarModule,
     environment.production ? ServiceWorkerModule.register('/ngsw-worker.js') : [],
   ],
-  declarations: [
-    AppComponent,
-    SpinnerComponent,
-  ],
+  declarations: [AppComponent],
   providers: [],
   bootstrap: [AppComponent]
 })

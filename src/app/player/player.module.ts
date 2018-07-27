@@ -1,32 +1,20 @@
 import { NgModule } from '@angular/core';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
 
-import { CardModule } from '../card/card.module';
-import { PlayerRoutingModule } from './player-routing.module';
-import { SharedModule } from '../shared/shared.module';
-
-import { PlayerFormComponent } from './player-form/player-form.component';
-import { PlayerListComponent } from './player-list/player-list.component';
-
-import { BlurDetectorDirective } from '../shared/detectors/blur-detector/blur-detector.directive';
-import { CloseDetectorDirective } from '../shared/detectors/close-detector/close-detector.directive';
-import { FocusDetectorDirective } from '../shared/detectors/focus-detector/focus-detector.directive';
-import { OpenDetectorDirective } from '../shared/detectors/open-detector/open-detector.directive';
+import { playerRoutes } from './player.routes';
+import { PlayerEffects } from './store/player.effects';
+import { PlayerReducer } from './store/player.reducer';
+import { PlayerListModule } from './player-list/player-list.module';
 
 import { PlayerService } from './player.service';
 
 @NgModule({
   imports: [
-    CardModule,
-    PlayerRoutingModule,
-    SharedModule,
-  ],
-  declarations: [
-    BlurDetectorDirective,
-    CloseDetectorDirective,
-    FocusDetectorDirective,
-    OpenDetectorDirective,
-    PlayerFormComponent,
-    PlayerListComponent,
+    EffectsModule.forFeature([PlayerEffects]),
+    StoreModule.forFeature('players', PlayerReducer),
+    PlayerListModule,
+    playerRoutes,
   ],
   providers: [
     PlayerService,

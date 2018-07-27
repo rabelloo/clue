@@ -2,7 +2,15 @@ import { ApplicationRef } from '@angular/core';
 import { ActionReducer } from '@ngrx/store';
 import { createNewHosts, createInputTransfer, removeNgStyles } from '@angularclass/hmr';
 
-export function metaReducer(reducer: ActionReducer<any>) {
+import { ClueState } from './app/core/store/state';
+
+export function logger(reducer: ActionReducer<ClueState>): ActionReducer<ClueState> {
+  return (state: ClueState, action: any): ClueState =>
+    console.log('state', state, '\naction', action)
+      || reducer(state, action);
+}
+
+export function stateSetter(reducer: ActionReducer<any>) {
   return (state: any, action: any) =>
     action.type === 'SET_ROOT_STATE'
         ? action.payload

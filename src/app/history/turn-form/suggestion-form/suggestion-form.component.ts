@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 
-import { ClueValidators } from '../../../shared/validators/validators';
+import { ClueValidators } from '../../../validators/validators';
 import { Room } from '../../../card/room/room';
 import { Suggestion } from './suggestion';
 import { Suspect } from '../../../card/suspect/suspect';

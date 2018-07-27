@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 import { AddPlayer, DeletePlayer, SavePlayer, SyncPlayers, UnsyncPlayers } from '../store/player.actions';
 import { CardSelectors } from '../../card/store/card.selectors';
 import { ClueState } from '../../core/store/state';
-import { Player } from '.././player';
+import { Player } from '../player';
 import { PlayerSelectors } from '../store/player.selectors';
 import { Room } from '../../card/room/room';
 import { Suspect } from '../../card/suspect/suspect';

@@ -1,4 +1,4 @@
-import { Validators, ValidatorFn, ValidationErrors, AbstractControl } from '@angular/forms';
+import { AbstractControl, ValidationErrors, Validators, ValidatorFn } from '@angular/forms';
 
 export const ClueValidators = {
     in: inValidator,

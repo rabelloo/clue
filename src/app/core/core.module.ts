@@ -5,26 +5,17 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 
-import { FooterComponent } from './footer/footer.component';
-import { LocalForageService } from './local-forage/local-forage.service';
-import { NavBarComponent } from './nav-bar/nav-bar.component';
-import { Notifier } from './notifier/notifier.service';
-import { SharedModule } from '../shared/shared.module';
-
-import { environment } from '../../environments/environment';
-import { effects } from './store/effects';
-import { reducers } from './store/reducers';
-import { metaReducer } from '../../hmr';
-
 import './prototype-extensions/array-extensions';
 import './prototype-extensions/string-extensions';
 
-const metaReducers = [ metaReducer ];
+import { environment } from '../../environments/environment';
+import { logger, stateSetter } from '../../hmr';
 
-const coreComponents = [
-  FooterComponent,
-  NavBarComponent,
-];
+import { AuthModule } from './auth/auth.module';
+
+import { Notifier } from './notifier/notifier.service';
+
+const metaReducers = environment.production ? [] : [ logger, stateSetter ];
 
 @NgModule({
   imports: [
@@ -32,14 +23,11 @@ const coreComponents = [
     AngularFireAuthModule,
     AngularFirestoreModule,
     AngularFirestoreModule.enablePersistence(),
-    EffectsModule.forRoot(effects),
-    SharedModule,
-    StoreModule.forRoot(reducers, { metaReducers }),
+    AuthModule,
+    EffectsModule.forRoot([]),
+    StoreModule.forRoot({}, { metaReducers }),
   ],
-  exports: coreComponents,
-  declarations: coreComponents,
   providers: [
-    LocalForageService,
     Notifier,
   ]
 })

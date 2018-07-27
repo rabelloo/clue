@@ -1,14 +1,14 @@
 import { Component, OnInit, Input, EventEmitter, Output, OnChanges } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
+import { distinctUntilChanged, tap, debounceTime, filter } from 'rxjs/operators';
 
-import { ClueValidators } from '../../shared/validators/validators';
+import { ClueValidators } from '../../validators/validators';
 import { Player } from '../../player/player';
 import { Room } from '../../card/room/room';
 import { Suspect } from '../../card/suspect/suspect';
 import { Turn } from './turn';
 import { Weapon } from '../../card/weapon/weapon';
-import { distinctUntilChanged, tap, debounceTime, filter } from 'rxjs/operators';
 
 @Component({
   selector: 'clue-turn-form',

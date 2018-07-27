@@ -5,7 +5,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { Observable, Subscription } from 'rxjs';
 import { filter, tap } from 'rxjs/operators';
 
-import { ClueState } from '../../core/store/state';
+import { ClueState } from '../store/state';
 
 import { signIn, signOut, SignedIn } from './auth.actions';
 
