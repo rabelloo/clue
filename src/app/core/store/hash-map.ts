@@ -1,3 +1,3 @@
 export interface HashMap<T> {
-    [id: string]: T;
+  [id: string]: T;
 }

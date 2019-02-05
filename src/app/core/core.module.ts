@@ -4,18 +4,14 @@ import { StoreModule } from '@ngrx/store';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
-
+import { environment } from '../../environments/environment';
+import { hmrMetaReducer } from '../../hmr';
+import { AuthModule } from './auth/auth.module';
+import { logReducer } from './log.reducer';
 import './prototype-extensions/array-extensions';
 import './prototype-extensions/string-extensions';
 
-import { environment } from '../../environments/environment';
-import { logger, stateSetter } from '../../hmr';
-
-import { AuthModule } from './auth/auth.module';
-
-import { Notifier } from './notifier/notifier.service';
-
-const metaReducers = environment.production ? [] : [ logger, stateSetter ];
+const metaReducers = environment.production ? [] : [hmrMetaReducer, logReducer];
 
 @NgModule({
   imports: [
@@ -27,8 +23,5 @@ const metaReducers = environment.production ? [] : [ logger, stateSetter ];
     EffectsModule.forRoot([]),
     StoreModule.forRoot({}, { metaReducers }),
   ],
-  providers: [
-    Notifier,
-  ]
 })
-export class CoreModule { }
+export class CoreModule {}

@@ -1,20 +1,27 @@
-import { Component, EventEmitter, Input, OnInit, Output, OnChanges, SimpleChanges, HostListener } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { debounceTime, distinctUntilChanged, filter, map, withLatestFrom } from 'rxjs/operators';
-
-import { Player } from '../player';
-import { Suspect } from '../../card/suspect/suspect';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Subject } from 'rxjs';
 import { Room } from '../../card/room/room';
+import { Suspect } from '../../card/suspect/suspect';
 import { Weapon } from '../../card/weapon/weapon';
+import { ClueValidators } from '../../validators/validators';
+import { Player } from '../player';
 
 @Component({
   selector: 'clue-player-form',
   templateUrl: './player-form.component.html',
   styleUrls: ['./player-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PlayerFormComponent implements OnInit, OnChanges {
-
   @Input() characters: Suspect[];
   @Input() maxCards: number;
   @Input() player: Player;
@@ -22,68 +29,54 @@ export class PlayerFormComponent implements OnInit, OnChanges {
   @Input() rooms: Room[];
   @Input() suspects: Suspect[];
   @Input() weapons: Weapon[];
-  @Output() private save: EventEmitter<Player> = new EventEmitter<Player>();
-  @Output() private remove: EventEmitter<Player> = new EventEmitter<Player>();
-  form: FormGroup;
-  private hasFocusedInput = new BehaviorSubject<boolean>(false);
+  @Output() save: Subject<Player>;
+  @Output() remove = new Subject<Player>();
 
-  constructor(private formBuilder: FormBuilder) { }
+  form: FormGroup;
+
+  constructor(private formBuilder: FormBuilder) {
+    this.form = this.formBuilder.group({
+      id: null,
+      name: [null, Validators.required],
+      order: [null, ClueValidators.range(1, 6)],
+      characterId: [null, Validators.required],
+      cardIds: [null, Validators.maxLength(6)],
+    });
+
+    this.save = this.form.valueChanges as Subject<Player>;
+  }
 
   ngOnInit(): void {
-    this.createForm();
+    this.form.patchValue(this.player);
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (valueChanged('maxCards')
-     || valueChanged('players')) {
-      this.form.controls.cardIds.setValidators(Validators.maxLength(this.maxCards));
+    if (propChanged('maxCards') || propChanged('playerCount')) {
+      this.form.controls.cardIds.setValidators(
+        Validators.maxLength(this.maxCards)
+      );
       this.form.controls.cardIds.updateValueAndValidity();
     }
 
-    function valueChanged(property: string): boolean {
-      const input = changes[property];
-      return input
-          && !input.isFirstChange()
-          && input.currentValue !== input.previousValue;
+    function propChanged<K extends keyof PlayerFormComponent>(prop: K) {
+      return didPropertyChange(changes, prop);
     }
   }
 
-  @HostListener('input-blur')
-  onInputBlur() {
-    this.hasFocusedInput.next(false);
+  deletePlayer(): void {
+    this.remove.next(this.player);
   }
+}
 
-  @HostListener('input-focus')
-  onInputFocus() {
-    this.hasFocusedInput.next(true);
-  }
+function didPropertyChange<K extends keyof PlayerFormComponent>(
+  changes: SimpleChanges,
+  property: K
+): boolean {
+  const input = changes[property];
 
-  removePlayer(): void {
-    this.remove.emit(this.player);
-  }
-
-  private createForm() {
-    this.form = this.formBuilder.group({
-      id: this.player.id,
-      name: [this.player.name, Validators.required],
-      order: [this.player.order, Validators.compose([Validators.min(1), Validators.max(6)])],
-      characterId: [this.player.characterId, Validators.required],
-      cardIds: [this.player.cardIds, Validators.maxLength(this.maxCards)]
-    });
-    this.listenForChanges();
-  }
-
-  private listenForChanges() {
-    this.hasFocusedInput
-        .pipe(
-          debounceTime(1), // prevents trigger when tabbing between inputs
-          distinctUntilChanged(),
-          filter(hasFocus => !hasFocus),
-          withLatestFrom(this.form.valueChanges),
-          map(([h, p]) => p),
-          distinctUntilChanged(),
-        )
-        .subscribe(player => this.save.emit(player));
-  }
-
+  return (
+    input &&
+    !input.isFirstChange() &&
+    input.currentValue !== input.previousValue
+  );
 }

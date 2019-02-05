@@ -1,6 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatFormFieldModule, MatIconModule, MatSelectModule, MatCardModule } from '@angular/material';
+import {
+  MatCardModule,
+  MatFormFieldModule,
+  MatIconModule,
+  MatSelectModule,
+} from '@angular/material';
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
 
@@ -13,15 +18,12 @@ describe('PlayerListComponent', () => {
 
   const storeStub = {
     dispatch() {},
-    select() {}
+    select() {},
   };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        PlayerFormComponent,
-        PlayerListComponent,
-      ],
+      declarations: [PlayerFormComponent, PlayerListComponent],
       imports: [
         MatCardModule,
         MatIconModule,
@@ -29,9 +31,7 @@ describe('PlayerListComponent', () => {
         MatSelectModule,
         ReactiveFormsModule,
       ],
-      providers: [
-        { provide: Store, useValue: storeStub },
-      ]
+      providers: [{ provide: Store, useValue: storeStub }],
     });
   }));
 

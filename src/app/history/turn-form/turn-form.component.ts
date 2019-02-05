@@ -1,22 +1,32 @@
-import { Component, OnInit, Input, EventEmitter, Output, OnChanges } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+} from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
-import { distinctUntilChanged, tap, debounceTime, filter } from 'rxjs/operators';
-
-import { ClueValidators } from '../../validators/validators';
-import { Player } from '../../player/player';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  filter,
+  tap,
+} from 'rxjs/operators';
 import { Room } from '../../card/room/room';
 import { Suspect } from '../../card/suspect/suspect';
-import { Turn } from './turn';
 import { Weapon } from '../../card/weapon/weapon';
+import { Player } from '../../player/player';
+import { ClueValidators } from '../../validators/validators';
+import { Turn } from './turn';
 
 @Component({
   selector: 'clue-turn-form',
   templateUrl: './turn-form.component.html',
-  styleUrls: ['./turn-form.component.scss']
+  styleUrls: ['./turn-form.component.scss'],
 })
 export class TurnFormComponent implements OnInit, OnChanges {
-
   @Input() players: Player[];
   @Input() rooms: Room[];
   @Input() suspects: Suspect[];
@@ -27,7 +37,7 @@ export class TurnFormComponent implements OnInit, OnChanges {
   form: FormGroup;
   saved = new BehaviorSubject<boolean>(true);
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder) {}
 
   ngOnChanges() {
     this.saved.next(true);
@@ -40,7 +50,7 @@ export class TurnFormComponent implements OnInit, OnChanges {
       id: this.turn.id,
       round: this.turn.round,
       order: [this.turn.order, ClueValidators.range(1, playerIds.length)],
-      playerId: [this.turn.playerId, ClueValidators.in(playerIds)]
+      playerId: [this.turn.playerId, ClueValidators.in(playerIds)],
     });
 
     this.listenForChanges();
@@ -48,14 +58,13 @@ export class TurnFormComponent implements OnInit, OnChanges {
 
   private listenForChanges(): void {
     this.form.valueChanges
-          .pipe(
-            distinctUntilChanged(),
-            tap(values => this.saved.next(false)),
-            debounceTime(300),
-            filter(c => false), // TODO: fix this never ending loop
-            // filter((turn) => form.valid),
-          )
-          .subscribe(turn => this.save.emit(turn));
+      .pipe(
+        distinctUntilChanged(),
+        tap(_ => this.saved.next(false)),
+        debounceTime(300),
+        filter(c => false) // TODO: fix this never ending loop
+        // filter((turn) => form.valid),
+      )
+      .subscribe(turn => this.save.emit(turn));
   }
-
 }

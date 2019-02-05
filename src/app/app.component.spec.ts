@@ -1,18 +1,15 @@
-﻿import { TestBed, async } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
+﻿import { async, TestBed } from '@angular/core/testing';
 import { MatProgressSpinnerModule, MatToolbarModule } from '@angular/material';
+import { RouterTestingModule } from '@angular/router/testing';
 import { Store } from '@ngrx/store';
-
 import { AppComponent } from './app.component';
-import { NavBarComponent } from './core/nav-bar/nav-bar.component';
-import { FooterComponent } from './core/footer/footer.component';
+import { FooterComponent } from './footer/footer.component';
+import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { SpinnerComponent } from './spinner/spinner.component';
-import { Platform } from '@angular/cdk/platform';
-import { MaterialModule } from './shared/material.module';
 
 describe('AppComponent', () => {
   const storeStub = {
-    dispatch() { }
+    dispatch() {},
   };
 
   beforeEach(async(() => {
@@ -28,9 +25,7 @@ describe('AppComponent', () => {
         NavBarComponent,
         SpinnerComponent,
       ],
-      providers: [
-        { provide: Store, useValue: storeStub },
-      ]
+      providers: [{ provide: Store, useValue: storeStub }],
     });
   }));
 

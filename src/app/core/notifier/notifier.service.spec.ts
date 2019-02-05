@@ -1,11 +1,10 @@
-import { TestBed, inject } from '@angular/core/testing';
-
+import { inject, TestBed } from '@angular/core/testing';
 import { Notifier } from './notifier.service';
 
 describe('Notifier', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [Notifier]
+      providers: [Notifier],
     });
   });
 

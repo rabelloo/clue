@@ -1,13 +1,11 @@
-import { Injectable, Type } from '@angular/core';
-
+import { Injectable } from '@angular/core';
 import { ILocalForageEntity } from './ilocal-forage-entity';
-import { LocalForageTable } from './local-forage-table';
 import { LocalForageIdTable } from './local-forage-id-table';
+import { LocalForageTable } from './local-forage-table';
 
 @Injectable()
 export class LocalForageService {
-
-  constructor() { }
+  constructor() {}
 
   getTable(name: string) {
     return new LocalForageTable(name);

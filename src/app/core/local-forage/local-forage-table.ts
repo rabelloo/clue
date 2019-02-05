@@ -1,16 +1,14 @@
-import { Observable, forkJoin, from } from 'rxjs';
-import { switchMap, map } from 'rxjs/operators';
-
 import * as localforage from 'localforage';
+import { forkJoin, from, Observable } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 
 export class LocalForageTable {
-
   protected table: LocalForage;
   protected cast = item => item;
 
   constructor(protected name: string) {
     this.table = localforage.createInstance({
-      name: name
+      name: name,
     });
   }
 
@@ -18,30 +16,23 @@ export class LocalForageTable {
    * Gets all records
    */
   getAll(): Observable<any[]> {
-    return this.keys()
-               .pipe(
-                  switchMap(keys => forkJoin( keys.map(key => this.get(key) )))
-               );
+    return this.keys().pipe(
+      switchMap(keys => forkJoin(keys.map(key => this.get(key))))
+    );
   }
 
   /**
    * Gets a record by key
    */
   get(key: string | number): Observable<any> {
-    return from(this.table.getItem('' + key))
-              .pipe(
-                map(this.cast)
-              );
+    return from(this.table.getItem('' + key)).pipe(map(this.cast));
   }
 
   /**
    * Stores a value with the specified key
    */
   set(key: string | number, value: any): Observable<any> {
-    return from(this.table.setItem('' + key, value))
-              .pipe(
-                map(this.cast)
-              );
+    return from(this.table.setItem('' + key, value)).pipe(map(this.cast));
   }
 
   /**
@@ -78,5 +69,4 @@ export class LocalForageTable {
   keys(): Observable<string[]> {
     return from(this.table.keys());
   }
-
 }

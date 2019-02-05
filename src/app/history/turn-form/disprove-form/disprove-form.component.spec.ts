@@ -1,15 +1,13 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatSelectModule, MatIconModule } from '@angular/material';
+import { MatIconModule, MatSelectModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-
-import { Disprove } from './disprove';
-import { DisproveFormComponent } from './disprove-form.component';
-import { ErrorMessagesDirective } from '../../../shared/error-messages/error-messages.directive';
+import '../../../core/prototype-extensions/string-extensions';
+import { ErrorMessagesDirective } from '../../../error-messages/error-messages.directive';
 import { SuggestionFormComponent } from '../suggestion-form/suggestion-form.component';
 import { TurnFormComponent } from '../turn-form.component';
-
-import '../../../core/prototype-extensions/string-extensions';
+import { Disprove } from './disprove';
+import { DisproveFormComponent } from './disprove-form.component';
 
 describe('DisproveFormComponent', () => {
   let component: DisproveFormComponent;
@@ -17,8 +15,8 @@ describe('DisproveFormComponent', () => {
 
   const turnFormStub = {
     form: {
-      addControl() {}
-    }
+      addControl() {},
+    },
   };
 
   beforeEach(async(() => {
@@ -35,9 +33,7 @@ describe('DisproveFormComponent', () => {
         NoopAnimationsModule,
         ReactiveFormsModule,
       ],
-      providers: [
-        { provide: TurnFormComponent, useValue: turnFormStub }
-      ]
+      providers: [{ provide: TurnFormComponent, useValue: turnFormStub }],
     });
   }));
 

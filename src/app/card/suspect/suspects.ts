@@ -1,40 +1,41 @@
 import { Suspect } from './suspect';
 
-export const suspects = <Suspect[]>[ // TODO: fetch from somewhere else
+// TODO: fetch from somewhere else
+export const suspects = <Suspect[]>[
   {
     id: 1,
     type: 'suspect',
     name: 'Miss Scarlet',
-    color: 'red'
+    color: 'red',
   },
   {
     id: 2,
     type: 'suspect',
     name: 'Mrs. White',
-    color: 'grey-A100'
+    color: 'grey-A100',
   },
   {
     id: 3,
     type: 'suspect',
     name: 'Mrs. Peacock',
-    color: 'blue'
+    color: 'blue',
   },
   {
     id: 4,
     type: 'suspect',
     name: 'Professor Plum',
-    color: 'purple'
+    color: 'purple',
   },
   {
     id: 5,
     type: 'suspect',
     name: 'Mr. Green',
-    color: 'green'
+    color: 'green',
   },
   {
     id: 6,
     type: 'suspect',
     name: 'Colonel Mustard',
-    color: 'yellow'
-  }
+    color: 'yellow',
+  },
 ];

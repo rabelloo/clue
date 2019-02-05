@@ -1,16 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, observable } from 'rxjs';
-
+import { Observable, of } from 'rxjs';
 import { Weapon } from './weapon';
 import { weapons } from './weapons';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class WeaponService {
-
-  constructor() { }
+  constructor() {}
 
   get(): Observable<Weapon[]> {
     return of(weapons);
   }
-
 }

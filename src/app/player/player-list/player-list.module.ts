@@ -1,10 +1,12 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatButtonModule, MatCardModule, MatIconModule } from '@angular/material';
-
+import {
+  MatButtonModule,
+  MatCardModule,
+  MatIconModule,
+} from '@angular/material';
 import { PlayerFormModule } from '../player-form/player-form.module';
-
 import { PlayerListComponent } from './player-list.component';
 
 const components = [PlayerListComponent];
@@ -21,4 +23,4 @@ const components = [PlayerListComponent];
   declarations: components,
   exports: components,
 })
-export class PlayerListModule { }
+export class PlayerListModule {}

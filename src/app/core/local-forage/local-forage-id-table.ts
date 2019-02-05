@@ -1,10 +1,10 @@
 import { Observable } from 'rxjs';
-
 import { ILocalForageEntity } from './ilocal-forage-entity';
 import { LocalForageTable } from './local-forage-table';
 
-export class LocalForageIdTable<T extends ILocalForageEntity> extends LocalForageTable {
-
+export class LocalForageIdTable<
+  T extends ILocalForageEntity
+> extends LocalForageTable {
   private idMap: LocalForageTable;
   private currentId: number;
 
@@ -45,7 +45,7 @@ export class LocalForageIdTable<T extends ILocalForageEntity> extends LocalForag
       // TS doesn't support type inference for generics as objects yet
       // https://github.com/Microsoft/TypeScript/issues/10727
       // TODO: remove casts when it does
-      insertingEntity = { ...entity as {}, id: this.nextId() } as T;
+      insertingEntity = { ...(entity as {}), id: this.nextId() } as T;
     }
 
     return super.set(insertingEntity.id, insertingEntity);
@@ -59,15 +59,13 @@ export class LocalForageIdTable<T extends ILocalForageEntity> extends LocalForag
   }
 
   private getCurrentId(): void {
-    this.idMap
-        .get(this.name)
-        .subscribe(id => {
-            if (!id) {
-              this.idMap.set(this.name, 0);
-            }
+    this.idMap.get(this.name).subscribe(id => {
+      if (!id) {
+        this.idMap.set(this.name, 0);
+      }
 
-            this.currentId = id as number || 0;
-        });
+      this.currentId = (id as number) || 0;
+    });
   }
 
   private nextId(): number {

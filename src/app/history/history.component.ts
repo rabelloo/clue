@@ -1,18 +1,17 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { Observable } from 'rxjs';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-
-import { AddTurn, DeleteTurn, SaveTurn } from './store/history.actions';
+import { Observable } from 'rxjs';
+import { Room } from '../card/room/room';
 import { CardSelectors } from '../card/store/card.selectors';
+import { Suspect } from '../card/suspect/suspect';
+import { Weapon } from '../card/weapon/weapon';
 import { ClueState } from '../core/store/state';
-import { HistorySelectors } from './store/history.selectors';
 import { Player } from '../player/player';
 import { PlayerSelectors } from '../player/store/player.selectors';
-import { Room } from '../card/room/room';
 import { Round } from './round/round';
-import { Suspect } from '../card/suspect/suspect';
+import { AddTurn, DeleteTurn, SaveTurn } from './store/history.actions';
+import { HistorySelectors } from './store/history.selectors';
 import { Turn } from './turn-form/turn';
-import { Weapon } from '../card/weapon/weapon';
 
 @Component({
   selector: 'clue-history',
@@ -21,7 +20,6 @@ import { Weapon } from '../card/weapon/weapon';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HistoryComponent {
-
   players: Observable<Player[]>;
   rounds: Observable<Round[]>;
   rooms: Observable<Room[]>;
@@ -47,5 +45,4 @@ export class HistoryComponent {
   onRemove(turn: Turn): void {
     this.store.dispatch(new DeleteTurn(turn));
   }
-
 }

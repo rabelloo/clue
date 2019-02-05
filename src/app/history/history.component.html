@@ -1,23 +1,25 @@
-<button mat-raised-button
-        color="primary"
-        (click)="addTurn()">
+<button mat-raised-button color="primary" (click)="addTurn()">
   <mat-icon>add</mat-icon> Turn
 </button>
 
 <mat-accordion>
-  <mat-expansion-panel *ngFor="let round of rounds | async">
+  <mat-expansion-panel *ngFor="let round of (rounds | async)">
     <mat-expansion-panel-header>
-      <mat-panel-title><h4>Round {{ round.number }}</h4></mat-panel-title>
+      <mat-panel-title
+        ><h4>Round {{ round.number }}</h4></mat-panel-title
+      >
     </mat-expansion-panel-header>
 
-    <clue-round [turns]="round.turns"
-                [players]="players | async"
-                [rooms]="rooms | async"
-                [suspects]="suspects | async"
-                [weapons]="weapons | async"
-                (add)="addTurn()"
-                (save)="onSave($event)"
-                (remove)="onRemove($event)">
+    <clue-round
+      [turns]="round.turns"
+      [players]="players | async"
+      [rooms]="rooms | async"
+      [suspects]="suspects | async"
+      [weapons]="weapons | async"
+      (add)="addTurn()"
+      (save)="onSave($event)"
+      (remove)="onRemove($event)"
+    >
       Loading round...
     </clue-round>
   </mat-expansion-panel>

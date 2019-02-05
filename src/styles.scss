@@ -1,7 +1,7 @@
-﻿@import "material";
+﻿@import 'material';
 
 body {
   background-color: mat-color($mat-grey, 200);
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
   margin: 0;
 }

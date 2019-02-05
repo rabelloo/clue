@@ -1,12 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatSelectModule, MatFormFieldModule } from '@angular/material';
+import { MatFormFieldModule, MatSelectModule } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-
-import { ErrorMessagesDirective } from '../../../shared/error-messages/error-messages.directive';
-import { SuggestionFormComponent } from './suggestion-form.component';
+import { ErrorMessagesDirective } from '../../../error-messages/error-messages.directive';
 import { TurnFormComponent } from '../turn-form.component';
 import { Suggestion } from './suggestion';
+import { SuggestionFormComponent } from './suggestion-form.component';
 
 describe('SuggestionFormComponent', () => {
   let component: SuggestionFormComponent;
@@ -14,25 +13,20 @@ describe('SuggestionFormComponent', () => {
 
   const turnFormStub = {
     form: {
-      addControl() {}
-    }
+      addControl() {},
+    },
   };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        ErrorMessagesDirective,
-        SuggestionFormComponent,
-      ],
+      declarations: [ErrorMessagesDirective, SuggestionFormComponent],
       imports: [
         MatFormFieldModule,
         MatSelectModule,
         NoopAnimationsModule,
         ReactiveFormsModule,
       ],
-      providers: [
-        { provide: TurnFormComponent, useValue: turnFormStub }
-      ]
+      providers: [{ provide: TurnFormComponent, useValue: turnFormStub }],
     });
   }));
 

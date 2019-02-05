@@ -1,16 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-
 import { Suspect } from './suspect';
 import { suspects } from './suspects';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class SuspectService {
-
-  constructor() { }
+  constructor() {}
 
   get(): Observable<Suspect[]> {
     return of(suspects);
   }
-
 }

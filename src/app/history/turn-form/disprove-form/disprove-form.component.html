@@ -2,34 +2,50 @@
   <label>Disproved</label>
 
   <mat-form-field>
-    <mat-select formControlName="playerId" placeholder="By" [value]="disprove.playerId">
-      <mat-option *ngFor="let player of players" [value]="player.id">{{ player.name }}</mat-option>
+    <mat-select
+      formControlName="playerId"
+      placeholder="By"
+      [value]="disprove.playerId"
+    >
+      <mat-option *ngFor="let player of players" [value]="player.id">
+        {{ player.name }}
+      </mat-option>
     </mat-select>
 
-    <mat-error clueErrorMessages="playerId" [clueReplacements]="{ container: 'the players' }"></mat-error>
+    <mat-error
+      clueErrorMessages="playerId"
+      [clueReplacements]="{ container: 'the players' }"
+    ></mat-error>
   </mat-form-field>
 
   <mat-form-field>
-    <mat-select formControlName="cardId" placeholder="With" [value]="disprove.cardId">
+    <mat-select
+      formControlName="cardId"
+      placeholder="With"
+      [value]="disprove.cardId"
+    >
       <mat-optgroup label="Suspect">
         <mat-option [value]="suspect?.id">
-            {{ suspect?.name }}
+          {{ suspect?.name }}
         </mat-option>
       </mat-optgroup>
 
       <mat-optgroup label="Weapon">
         <mat-option [value]="weapon?.id">
-            {{ weapon?.name }}
+          {{ weapon?.name }}
         </mat-option>
       </mat-optgroup>
 
       <mat-optgroup label="Room">
         <mat-option [value]="room?.id">
-            {{ room?.name }}
+          {{ room?.name }}
         </mat-option>
       </mat-optgroup>
     </mat-select>
 
-    <mat-error clueErrorMessages="cardId" [clueReplacements]="{ container: 'the cards' }"></mat-error>
+    <mat-error
+      clueErrorMessages="cardId"
+      [clueReplacements]="{ container: 'the cards' }"
+    ></mat-error>
   </mat-form-field>
 </form>

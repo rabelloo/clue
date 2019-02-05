@@ -1,12 +1,16 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatIconModule, MatExpansionModule, MatFormFieldModule, MatSelectModule } from '@angular/material';
+import {
+  MatExpansionModule,
+  MatFormFieldModule,
+  MatIconModule,
+  MatSelectModule,
+} from '@angular/material';
 import { Store } from '@ngrx/store';
-
-import { DisproveFormComponent } from './turn-form/disprove-form/disprove-form.component';
-import { ErrorMessagesDirective } from '../shared/error-messages/error-messages.directive';
+import { ErrorMessagesDirective } from '../error-messages/error-messages.directive';
 import { HistoryComponent } from './history.component';
 import { RoundComponent } from './round/round.component';
+import { DisproveFormComponent } from './turn-form/disprove-form/disprove-form.component';
 import { SuggestionFormComponent } from './turn-form/suggestion-form/suggestion-form.component';
 import { TurnFormComponent } from './turn-form/turn-form.component';
 
@@ -16,7 +20,7 @@ describe('HistoryComponent', () => {
 
   const storeStub = {
     dispatch() {},
-    select() {}
+    select() {},
   };
 
   beforeEach(async(() => {
@@ -36,9 +40,7 @@ describe('HistoryComponent', () => {
         MatSelectModule,
         ReactiveFormsModule,
       ],
-      providers: [
-        { provide: Store, useValue: storeStub }
-      ]
+      providers: [{ provide: Store, useValue: storeStub }],
     });
   }));
 

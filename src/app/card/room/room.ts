@@ -1,5 +1,4 @@
 import { Card } from '../card';
 
-export interface Room extends Card { // tslint:disable-line:no-empty-interface
-    //
-}
+// tslint:disable-next-line:no-empty-interface
+export interface Room extends Card {}

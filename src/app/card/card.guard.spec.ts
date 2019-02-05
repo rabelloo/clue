@@ -1,23 +1,19 @@
-import { TestBed, inject } from '@angular/core/testing';
-
-import { CardGuard } from './card.guard';
+import { inject, TestBed } from '@angular/core/testing';
 import { Store } from '@ngrx/store';
+import { CardGuard } from './card.guard';
 
 describe('CardGuard', () => {
   const storeStub = {
     select() {
       return {
-        pipe() { }
+        pipe() {},
       };
-    }
+    },
   };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [
-        CardGuard,
-        { provide: Store, useValue: storeStub },
-      ]
+      providers: [CardGuard, { provide: Store, useValue: storeStub }],
     });
   });
 

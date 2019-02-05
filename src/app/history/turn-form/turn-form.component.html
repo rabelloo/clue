@@ -1,40 +1,72 @@
 <form [formGroup]="form">
   <!-- TODO: remove style when mat-form-field supports mat-selects -->
   <mat-form-field style="max-width: 40px">
-    <input matInput formControlName="order" type="number" min="1" [max]="players.length" placeholder="Order" [value]="turn.order" />
-    <mat-error clueErrorMessages="order" [clueReplacements]="{max: players.length}"></mat-error>
+    <input
+      matInput
+      formControlName="order"
+      type="number"
+      min="1"
+      [max]="players.length"
+      placeholder="Order"
+      [value]="turn.order"
+    />
+    <mat-error
+      clueErrorMessages="order"
+      [clueReplacements]="{ max: players.length }"
+    ></mat-error>
   </mat-form-field>
 
   <!-- TODO: remove class and styles when mat-form-field supports mat-selects -->
   <mat-form-field class="mat-form-field-type-mat-select">
-    <mat-select formControlName="playerId" placeholder="Player" [value]="turn.playerId">
-      <mat-option *ngFor="let player of players" [value]="player.id">{{ player.name }}</mat-option>
+    <mat-select
+      formControlName="playerId"
+      placeholder="Player"
+      [value]="turn.playerId"
+    >
+      <mat-option *ngFor="let player of players" [value]="player.id">
+        {{ player.name }}
+      </mat-option>
     </mat-select>
 
     <!-- TODO: remove input when mat-form-field supports mat-selects -->
     <input matInput formControlName="playerId" hidden id="temporary fix" />
-    
+
     <mat-error clueErrorMessages="playerId"></mat-error>
   </mat-form-field>
 
-  <clue-suggestion-form [suggestion]="turn.suggestion"
-                        [rooms]="rooms"
-                        [suspects]="suspects"
-                        [weapons]="weapons">
+  <clue-suggestion-form
+    [suggestion]="turn.suggestion"
+    [rooms]="rooms"
+    [suspects]="suspects"
+    [weapons]="weapons"
+  >
   </clue-suggestion-form>
 
-  <clue-disprove-form [disprove]="turn.disprove"
-                      [players]="players"
-                      [room]="turn.suggestion.room"
-                      [suspect]="turn.suggestion.suspect"
-                      [weapon]="turn.suggestion.weapon">
+  <clue-disprove-form
+    [disprove]="turn.disprove"
+    [players]="players"
+    [room]="turn.suggestion.room"
+    [suspect]="turn.suggestion.suspect"
+    [weapon]="turn.suggestion.weapon"
+  >
   </clue-disprove-form>
-  
-  <button mat-icon-button type="button" color="warn" (click)="remove.emit(turn)">
+
+  <button
+    mat-icon-button
+    type="button"
+    color="warn"
+    (click)="remove.emit(turn)"
+  >
     <mat-icon>delete</mat-icon>
   </button>
-  
-  <button mat-icon-button type="button" matTooltip="Saved" matTooltipPosition="after" *ngIf="saved">
+
+  <button
+    mat-icon-button
+    type="button"
+    matTooltip="Saved"
+    matTooltipPosition="after"
+    *ngIf="saved"
+  >
     <mat-icon color="primary">done</mat-icon>
   </button>
 </form>

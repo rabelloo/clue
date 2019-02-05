@@ -1,31 +1,30 @@
 button {
-    margin-bottom: 1rem;
+  margin-bottom: 1rem;
 }
 
-.mat-expansion-panel ::ng-deep  {
-    
-    .mat-expansion-panel-content {
-        font-size: 1rem;
+.mat-expansion-panel ::ng-deep {
+  .mat-expansion-panel-content {
+    font-size: 1rem;
 
-        .mat-expansion-panel-body {
-            margin: 0;
-            padding: 2px 24px 16px;
-        }
+    .mat-expansion-panel-body {
+      margin: 0;
+      padding: 2px 24px 16px;
+    }
+  }
+
+  .mat-expansion-panel-header {
+    transition: background-color 0.2s;
+    overflow: hidden;
+
+    .mat-expansion-panel-header-title {
+      flex-grow: 0;
+      flex-shrink: 0;
     }
 
-    .mat-expansion-panel-header {
-        transition: background-color .2s;
-        overflow: hidden;
-
-        .mat-expansion-panel-header-title {
-            flex-grow: 0;
-            flex-shrink: 0;
-        }
-
-        .mat-expansion-panel-header-description {
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
+    .mat-expansion-panel-header-description {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
+  }
 }

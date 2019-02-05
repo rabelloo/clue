@@ -1,21 +1,7 @@
 <form [formGroup]="form" style="display: block">
-  <input formControlName="id" type="hidden" [value]="player.id" />
-
-  <mat-form-field class="small">
-    <mat-label>Order</mat-label>
-    <input matInput
-           clueBlurDetector
-           clueFocusDetector
-           formControlName="order"
-           type="number"
-           min="1"
-           [max]="playerCount"
-           [value]="player.order" />
-  </mat-form-field>
-
   <mat-form-field>
     <mat-label>Name</mat-label>
-    <input matInput clueBlurDetector clueFocusDetector formControlName="name" [value]="player.name" />
+    <input matInput formControlName="name" required />
     <mat-error clueErrorMessages="name"></mat-error>
   </mat-form-field>
 
@@ -23,14 +9,18 @@
     <mat-label>Character</mat-label>
     <div matPrefix>
       <mat-icon [ngClass]="player.character?.color">person</mat-icon>
-      <mat-icon class="outline" [ngClass]="player.character?.color">person_outline</mat-icon>
+      <mat-icon class="outline" [ngClass]="player.character?.color">
+        person_outline
+      </mat-icon>
     </div>
-    <mat-select clueCloseDetector clueOpenDetector formControlName="characterId" [value]="player.characterId">
+    <mat-select formControlName="characterId" required>
       <mat-select-trigger>{{ player.character?.name }}</mat-select-trigger>
       <mat-option *ngFor="let suspect of characters" [value]="suspect.id">
         <div fxLayout fxLayoutAlign="default center">
           <mat-icon [ngClass]="suspect.color">person</mat-icon>
-          <mat-icon class="outline" [ngClass]="suspect.color">person_outline</mat-icon>
+          <mat-icon class="outline" [ngClass]="suspect.color">
+            person_outline
+          </mat-icon>
           <span>{{ suspect.name }}</span>
         </div>
       </mat-option>
@@ -41,27 +31,29 @@
 
   <mat-form-field>
     <mat-label>Cards</mat-label>
-    <mat-select #cards multiple clueCloseDetector clueOpenDetector formControlName="cardIds" [value]="player.cardIds">
+    <mat-select #cards multiple formControlName="cardIds">
       <mat-optgroup label="Suspects">
         <mat-option *ngFor="let suspect of suspects" [value]="suspect.id">
-            <span>{{ suspect.name }}</span>
+          <span>{{ suspect.name }}</span>
         </mat-option>
       </mat-optgroup>
 
       <mat-optgroup label="Weapons">
         <mat-option *ngFor="let weapon of weapons" [value]="weapon.id">
-            <span>{{ weapon.name }}</span>
+          <span>{{ weapon.name }}</span>
         </mat-option>
       </mat-optgroup>
 
       <mat-optgroup label="Rooms">
         <mat-option *ngFor="let room of rooms" [value]="room.id">
-            <span>{{ room.name }}</span>
+          <span>{{ room.name }}</span>
         </mat-option>
       </mat-optgroup>
     </mat-select>
 
-    <mat-hint align="end">{{ cards.value?.length || 0 }} / {{ maxCards }}</mat-hint>
+    <mat-hint align="end">
+      {{ cards.value?.length || 0 }} / {{ maxCards }}
+    </mat-hint>
 
     <mat-error fxLayoutAlign="space-between">
       <span>Maximum exceeded</span>
@@ -69,11 +61,17 @@
     </mat-error>
   </mat-form-field>
 
-  <button mat-icon-button type="button" color="warn" (click)="removePlayer()">
+  <button mat-icon-button type="button" color="warn" (click)="deletePlayer()">
     <mat-icon>delete</mat-icon>
   </button>
-  
-  <button mat-icon-button type="button" matTooltip="Saved" matTooltipPosition="after" *ngIf="true">
+
+  <button
+    mat-icon-button
+    type="button"
+    matTooltip="Saved"
+    matTooltipPosition="after"
+    *ngIf="true"
+  >
     <mat-icon color="primary">done</mat-icon>
   </button>
 </form>

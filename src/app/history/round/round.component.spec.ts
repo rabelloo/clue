@@ -1,13 +1,16 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatExpansionModule, MatIconModule, MatFormFieldModule, MatSelectModule } from '@angular/material';
-
+import {
+  MatExpansionModule,
+  MatFormFieldModule,
+  MatIconModule,
+  MatSelectModule,
+} from '@angular/material';
+import { ErrorMessagesDirective } from '../../error-messages/error-messages.directive';
 import { DisproveFormComponent } from '../turn-form/disprove-form/disprove-form.component';
-import { ErrorMessagesDirective } from '../../shared/error-messages/error-messages.directive';
-import { RoundComponent } from './round.component';
 import { SuggestionFormComponent } from '../turn-form/suggestion-form/suggestion-form.component';
 import { TurnFormComponent } from '../turn-form/turn-form.component';
-import { combineAll } from 'rxjs/operators/combineAll';
+import { RoundComponent } from './round.component';
 
 describe('RoundComponent', () => {
   let component: RoundComponent;

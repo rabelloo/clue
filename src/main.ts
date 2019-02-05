@@ -1,23 +1,22 @@
-﻿import { enableProdMode, NgModuleRef } from '@angular/core';
+﻿import { enableProdMode } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-import { bootloader, hmrModule } from '@angularclass/hmr';
-
 import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
+import { hmrBootstrap } from './hmr';
 
 if (environment.production) {
   enableProdMode();
 }
 
-const bootstrap = () => platformBrowserDynamic().bootstrapModule(AppModule).catch(err => console.log(err));
+const bootstrap = () => platformBrowserDynamic().bootstrapModule(AppModule);
 
-if (module['hot']) {
-  bootloader(() =>
-    bootstrap()
-      .then((ngModuleRef: NgModuleRef<AppModule>) =>
-        hmrModule(ngModuleRef, module)
-      )
-  );
+if (!environment.production) {
+  if (module['hot']) {
+    hmrBootstrap(module, bootstrap);
+  } else {
+    console.error('HMR is not enabled for webpack-dev-server!');
+    console.log('Are you using the --hmr flag for ng serve?');
+  }
 } else {
-  bootstrap();
+  bootstrap().catch(err => console.log(err));
 }

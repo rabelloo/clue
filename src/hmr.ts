@@ -1,51 +1,24 @@
-import { ApplicationRef } from '@angular/core';
+import { ApplicationRef, NgModuleRef } from '@angular/core';
+import { createNewHosts } from '@angularclass/hmr';
 import { ActionReducer } from '@ngrx/store';
-import { createNewHosts, createInputTransfer, removeNgStyles } from '@angularclass/hmr';
 
-import { ClueState } from './app/core/store/state';
-
-export function logger(reducer: ActionReducer<ClueState>): ActionReducer<ClueState> {
-  return (state: ClueState, action: any): ClueState =>
-    console.log('state', state, '\naction', action)
-      || reducer(state, action);
-}
-
-export function stateSetter(reducer: ActionReducer<any>) {
+export function hmrMetaReducer(reducer: ActionReducer<any>) {
   return (state: any, action: any) =>
-    action.type === 'SET_ROOT_STATE'
-        ? action.payload
-        : reducer(state, action);
+    action.type === 'SET_ROOT_STATE' ? action.payload : reducer(state, action);
 }
 
-export abstract class HotModuleReplacementModule {
-
-  constructor(private appRef: ApplicationRef) { }
-
-  hmrOnInit(store) {
-    if (!store || !store.state) {
-      return;
-    }
-
-    if ('restoreInputValues' in store) {
-      store.restoreInputValues();
-    }
-
-    this.appRef.tick();
-    delete store.state;
-    delete store.restoreInputValues;
-  }
-
-  hmrOnDestroy(store) {
-    const cmpLocation = this.appRef.components.map(cmp => cmp.location.nativeElement);
-
-    store.disposeOldHosts = createNewHosts(cmpLocation);
-    store.restoreInputValues = createInputTransfer();
-    removeNgStyles();
-  }
-
-  hmrAfterDestroy(store) {
-    store.disposeOldHosts();
-    delete store.disposeOldHosts;
-  }
-
-}
+export const hmrBootstrap = (
+  module: any,
+  bootstrap: () => Promise<NgModuleRef<any>>
+) => {
+  let ngModule: NgModuleRef<any>;
+  module.hot.accept();
+  bootstrap().then(mod => (ngModule = mod));
+  module.hot.dispose(() => {
+    const appRef: ApplicationRef = ngModule.injector.get(ApplicationRef);
+    const elements = appRef.components.map(c => c.location.nativeElement);
+    const makeVisible = createNewHosts(elements);
+    ngModule.destroy();
+    makeVisible();
+  });
+};

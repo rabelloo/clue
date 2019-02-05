@@ -1,11 +1,10 @@
-import { TestBed, inject } from '@angular/core/testing';
-
+import { inject, TestBed } from '@angular/core/testing';
 import { WeaponService } from './weapon.service';
 
 describe('WeaponService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [WeaponService]
+      providers: [WeaponService],
     });
   });
 

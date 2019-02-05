@@ -1,15 +1,17 @@
-import { TestBed, inject } from '@angular/core/testing';
-
+import { inject, TestBed } from '@angular/core/testing';
 import { LocalForageService } from './local-forage.service';
 
 describe('LocalForageService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [LocalForageService]
+      providers: [LocalForageService],
     });
   });
 
-  it('should be created', inject([LocalForageService], (service: LocalForageService) => {
-    expect(service).toBeTruthy();
-  }));
+  it('should be created', inject(
+    [LocalForageService],
+    (service: LocalForageService) => {
+      expect(service).toBeTruthy();
+    }
+  ));
 });

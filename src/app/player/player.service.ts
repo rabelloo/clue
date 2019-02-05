@@ -1,16 +1,13 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Observable, of } from 'rxjs';
-
 import { FirestoreCollection } from '../core/firestore/firestore-collection';
 import { Notifier } from '../core/notifier/notifier.service';
 import { Player } from './player';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class PlayerService extends FirestoreCollection<Player> {
-
-  constructor(db: AngularFirestore,
-              private notifier: Notifier) {
+  constructor(db: AngularFirestore, private notifier: Notifier) {
     super(db, 'players');
   }
 
@@ -20,7 +17,8 @@ export class PlayerService extends FirestoreCollection<Player> {
   }
 
   delete(player: Player): Observable<Player> {
-    const message = `Are you sure you want to delete player ${player.name || '"Unnamed"'}?`;
+    const name = player.name || '"Unnamed"';
+    const message = `Are you sure you want to delete player ${name}?`;
 
     if (this.notifier.confirm(message)) {
       return super.delete(player);
@@ -28,5 +26,4 @@ export class PlayerService extends FirestoreCollection<Player> {
 
     return of(undefined);
   }
-
 }

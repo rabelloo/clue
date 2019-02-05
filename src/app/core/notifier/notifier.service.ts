@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class Notifier {
-
-  constructor() { }
+  constructor() {}
 
   alert(message: string): void {
     window.alert(message);
@@ -16,5 +15,4 @@ export class Notifier {
   prompt(message: string): string {
     return window.prompt(message);
   }
-
 }

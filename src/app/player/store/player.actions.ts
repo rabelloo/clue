@@ -1,57 +1,73 @@
 import { Action } from '@ngrx/store';
-
 import { Player } from '../player';
 
-export const addPlayer     = '[Players] add';
-export const deletePlayer  = '[Players] delete';
-export const deletedPlayer = '[Players] deleted';
-export const savePlayer    = '[Players] save';
-export const savedPlayer   = '[Players] saved';
-export const syncPlayers   = '[Players] sync';
-export const unsyncPlayers = '[Players] unsync';
+export enum PlayerActionTypes {
+  create = '[Player list] create new player',
+  delete = '[Player form] delete player',
+  deleted = '[Player effects] deleted player',
+  deleteError = '[Player effects] failed to delete player',
+  save = '[Player form] save player',
+  saved = '[Player effects] saved player',
+  saveError = '[Player effects] failed to save player',
+  sync = '[Player list] sync players',
+  unsync = '[Player list] unsync players',
+}
 
-export class AddPlayer implements Action {
-    readonly type = addPlayer;
+export class CreatePlayer implements Action {
+  readonly type = PlayerActionTypes.create;
 }
 
 export class DeletePlayer implements Action {
-    readonly type = deletePlayer;
+  readonly type = PlayerActionTypes.delete;
 
-    constructor(public player: Player) { }
+  constructor(public player: Player) {}
 }
 
 export class DeletedPlayer implements Action {
-    readonly type = deletedPlayer;
+  readonly type = PlayerActionTypes.deleted;
 
-    constructor(public player: Player) { }
+  constructor(public player: Player) {}
+}
+
+export class DeletePlayerError implements Action {
+  readonly type = PlayerActionTypes.deleteError;
+
+  constructor(public player: Player) {}
 }
 
 export class SavePlayer implements Action {
-    readonly type = savePlayer;
+  readonly type = PlayerActionTypes.save;
 
-    constructor(public player: Player) { }
+  constructor(public player: Player) {}
 }
 
 export class SavedPlayer implements Action {
-    readonly type = savedPlayer;
+  readonly type = PlayerActionTypes.saved;
 
-    constructor(public player: Player) { }
+  constructor(public player: Player) {}
+}
+
+export class SavePlayerError implements Action {
+  readonly type = PlayerActionTypes.saveError;
+
+  constructor(public player: Player) {}
 }
 
 export class SyncPlayers implements Action {
-    readonly type = syncPlayers;
+  readonly type = PlayerActionTypes.sync;
 }
 
 export class UnsyncPlayers implements Action {
-    readonly type = unsyncPlayers;
+  readonly type = PlayerActionTypes.unsync;
 }
 
-export type PlayerAction
-    = AddPlayer
-    | DeletePlayer
-    | DeletedPlayer
-    | SavePlayer
-    | SavedPlayer
-    | SyncPlayers
-    | UnsyncPlayers
-    ;
+export type PlayerAction =
+  | CreatePlayer
+  | DeletePlayer
+  | DeletedPlayer
+  | DeletePlayerError
+  | SavePlayer
+  | SavedPlayer
+  | SavePlayerError
+  | SyncPlayers
+  | UnsyncPlayers;

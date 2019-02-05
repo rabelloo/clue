@@ -1,4 +1,8 @@
-clue-player-form {
-    display: block;
-    margin-bottom: 1rem;
+:host {
+  display: block;
+}
+
+mat-card {
+  display: inline-block;
+  margin-bottom: 1rem;
 }

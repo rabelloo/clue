@@ -1,8 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatFormFieldModule, MatIconModule, MatSelectModule, MatInputModule } from '@angular/material';
+import {
+  MatFormFieldModule,
+  MatIconModule,
+  MatInputModule,
+  MatSelectModule,
+} from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-
 import { Player } from '../player';
 import { PlayerFormComponent } from './player-form.component';
 
@@ -12,7 +16,7 @@ describe('PlayerFormComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PlayerFormComponent ],
+      declarations: [PlayerFormComponent],
       imports: [
         MatIconModule,
         MatInputModule,
@@ -20,7 +24,7 @@ describe('PlayerFormComponent', () => {
         MatSelectModule,
         ReactiveFormsModule,
         NoopAnimationsModule,
-      ]
+      ],
     });
   }));
 

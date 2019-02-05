@@ -1,34 +1,35 @@
 import { Weapon } from './weapon';
 
-export const weapons = <Weapon[]>[ // TODO: fetch from somewhere else
+// TODO: fetch from somewhere else
+export const weapons = <Weapon[]>[
   {
     id: 7,
     type: 'weapon',
-    name: 'Candlestick'
+    name: 'Candlestick',
   },
   {
     id: 8,
     type: 'weapon',
-    name: 'Knife'
+    name: 'Knife',
   },
   {
     id: 9,
     type: 'weapon',
-    name: 'Lead pipe'
+    name: 'Lead pipe',
   },
   {
     id: 10,
     type: 'weapon',
-    name: 'Revolver'
+    name: 'Revolver',
   },
   {
     id: 11,
     type: 'weapon',
-    name: 'Rope'
+    name: 'Rope',
   },
   {
     id: 12,
     type: 'weapon',
-    name: 'Wrench'
-  }
+    name: 'Wrench',
+  },
 ];

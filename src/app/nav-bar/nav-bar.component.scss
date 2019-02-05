@@ -1,18 +1,18 @@
 @import '~@angular/material/theming';
 
 mat-toolbar {
-    padding: 0 2.5rem;
+  padding: 0 2.5rem;
 
-    .spacer {
-        flex: 1 0 auto;
+  .spacer {
+    flex: 1 0 auto;
+  }
+
+  a[routerLink] {
+    line-height: 4rem;
+    text-transform: uppercase;
+
+    &.active {
+      background-color: $black-12-opacity;
     }
-
-    a[routerLink] {
-        line-height: 4rem;
-        text-transform: uppercase;
-
-        &.active {
-            background-color: $black-12-opacity;
-        }
-    }
+  }
 }

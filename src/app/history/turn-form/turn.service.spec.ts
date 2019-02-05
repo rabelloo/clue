@@ -1,12 +1,11 @@
-import { TestBed, inject } from '@angular/core/testing';
-
+import { inject, TestBed } from '@angular/core/testing';
 import { LocalForageService } from '../../core/local-forage/local-forage.service';
 import { Notifier } from '../../core/notifier/notifier.service';
 import { TurnService } from './turn.service';
 
 describe('TurnService', () => {
   const localForageStub = {
-    getIdTable() {}
+    getIdTable() {},
   };
 
   beforeEach(() => {
@@ -15,7 +14,7 @@ describe('TurnService', () => {
         TurnService,
         { provide: LocalForageService, useValue: localForageStub },
         { provide: Notifier, useValue: {} },
-      ]
+      ],
     });
   });
 

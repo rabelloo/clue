@@ -1,22 +1,22 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
-
-import { Disprove } from './disprove-form/disprove';
 import { LocalForageIdTable } from '../../core/local-forage/local-forage-id-table';
 import { LocalForageService } from '../../core/local-forage/local-forage.service';
 import { Notifier } from '../../core/notifier/notifier.service';
+import { Disprove } from './disprove-form/disprove';
 import { Suggestion } from './suggestion-form/suggestion';
 import { Turn } from './turn';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class TurnService {
-
   private readonly tableName = 'Turns';
   turns: LocalForageIdTable<Turn>;
 
-  constructor(localForageService: LocalForageService,
-              private notifier: Notifier) {
+  constructor(
+    localForageService: LocalForageService,
+    private notifier: Notifier
+  ) {
     this.turns = localForageService.getIdTable<Turn>(this.tableName);
   }
 
@@ -30,13 +30,12 @@ export class TurnService {
 
   delete(turn: Turn): Observable<boolean> {
     const player = turn.player.name || `Player #${turn.playerId}`;
-    const message = `Are you sure you want to delete ${player}'s turn in round ${turn.round}?`;
+    const message = `Are you sure you want to delete ${player}'s turn in round ${
+      turn.round
+    }?`;
 
     if (this.notifier.confirm(message)) {
-      return this.turns.delete(turn)
-                 .pipe(
-                   map(() => true)
-                 );
+      return this.turns.delete(turn).pipe(map(() => true));
     }
 
     return of(false);
@@ -47,13 +46,13 @@ export class TurnService {
     return <Turn>{
       ...rest,
       disprove: this.getSavableDisprove(disprove),
-      suggestion: this.getSavableSuggestion(suggestion)
+      suggestion: this.getSavableSuggestion(suggestion),
     };
   }
 
   private getSavableDisprove(disprove: Disprove): Disprove {
     if (!disprove) {
-    return;
+      return;
     }
 
     const { card, player, ...rest } = disprove;
@@ -68,5 +67,4 @@ export class TurnService {
     const { room, suspect, weapon, ...rest } = suggestion;
     return rest;
   }
-
 }

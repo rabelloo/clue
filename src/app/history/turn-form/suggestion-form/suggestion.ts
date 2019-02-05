@@ -3,12 +3,12 @@ import { Suspect } from '../../../card/suspect/suspect';
 import { Weapon } from '../../../card/weapon/weapon';
 
 export class Suggestion {
-    roomId: number;
-    room?: Room;
+  roomId: number;
+  room?: Room;
 
-    suspectId: number;
-    suspect?: Suspect;
+  suspectId: number;
+  suspect?: Suspect;
 
-    weaponId: number;
-    weapon?: Weapon;
+  weaponId: number;
+  weapon?: Weapon;
 }

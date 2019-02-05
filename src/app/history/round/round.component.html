@@ -5,17 +5,24 @@
       <mat-panel-description>{{ descriptionFor(turn) }}</mat-panel-description>
     </mat-expansion-panel-header>
 
-    <clue-turn-form [turn]="turn"
-                    [players]="players"
-                    [rooms]="rooms"
-                    [suspects]="suspects"
-                    [weapons]="weapons"
-                    (save)="save.emit($event)"
-                    (remove)="remove.emit($event)">
+    <clue-turn-form
+      [turn]="turn"
+      [players]="players"
+      [rooms]="rooms"
+      [suspects]="suspects"
+      [weapons]="weapons"
+      (save)="save.emit($event)"
+      (remove)="remove.emit($event)"
+    >
     </clue-turn-form>
   </mat-expansion-panel>
 </mat-accordion>
 
-<button mat-raised-button color="primary" (click)="add.emit($event)" *ngIf="canAdd">
+<button
+  mat-raised-button
+  color="primary"
+  (click)="add.emit($event)"
+  *ngIf="canAdd"
+>
   <mat-icon>add</mat-icon> Turn
 </button>

@@ -1,26 +1,28 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, RouterStateSnapshot, CanActivate } from '@angular/router';
+import {
+  ActivatedRouteSnapshot,
+  CanActivate,
+  RouterStateSnapshot,
+} from '@angular/router';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import { Store } from '@ngrx/store';
-
 import { ClueState } from '../core/store/state';
 import { LoadHistory } from './store/history.actions';
 import { historyLoadedSelector } from './store/history.selectors';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class HistoryGuard implements CanActivate {
+  constructor(private store: Store<ClueState>) {}
 
-    constructor(private store: Store<ClueState>) { }
+  canActivate(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): Observable<boolean> {
+    this.store.dispatch(new LoadHistory());
 
-    canActivate(route: ActivatedRouteSnapshot,
-                state: RouterStateSnapshot): Observable<boolean> {
-      this.store.dispatch(new LoadHistory());
-
-      return this.store.select(historyLoadedSelector)
-                    .pipe(
-                        filter(loaded => loaded)
-                    );
-    }
-
+    return this.store
+      .select(historyLoadedSelector)
+      .pipe(filter(loaded => loaded));
+  }
 }

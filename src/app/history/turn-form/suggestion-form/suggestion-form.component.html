@@ -3,37 +3,64 @@
 
   <!-- TODO: remove class and styles when mat-form-field supports mat-selects -->
   <mat-form-field class="mat-form-field-type-mat-select">
-    <mat-select formControlName="suspectId" placeholder="Suspect" [value]="suggestion.suspectId">
-      <mat-option *ngFor="let suspect of suspects" [value]="suspect.id">{{ suspect.name }}</mat-option>
+    <mat-select
+      formControlName="suspectId"
+      placeholder="Suspect"
+      [value]="suggestion.suspectId"
+    >
+      <mat-option *ngFor="let suspect of suspects" [value]="suspect.id">{{
+        suspect.name
+      }}</mat-option>
     </mat-select>
 
     <!-- TODO: remove input when mat-form-field supports mat-selects -->
     <input matInput formControlName="suspectId" hidden id="temporary fix" />
-    
-    <mat-error clueErrorMessages="suspectId" [clueReplacements]="{ container: 'the suspects' }"></mat-error>
+
+    <mat-error
+      clueErrorMessages="suspectId"
+      [clueReplacements]="{ container: 'the suspects' }"
+    ></mat-error>
   </mat-form-field>
 
   <!-- TODO: remove class and styles when mat-form-field supports mat-selects -->
   <mat-form-field class="mat-form-field-type-mat-select">
-    <mat-select formControlName="weaponId" placeholder="Weapon" [value]="suggestion.weaponId">
-      <mat-option *ngFor="let weapon of weapons" [value]="weapon.id">{{ weapon.name }}</mat-option>
+    <mat-select
+      formControlName="weaponId"
+      placeholder="Weapon"
+      [value]="suggestion.weaponId"
+    >
+      <mat-option *ngFor="let weapon of weapons" [value]="weapon.id">{{
+        weapon.name
+      }}</mat-option>
     </mat-select>
 
     <!-- TODO: remove input when mat-form-field supports mat-selects -->
     <input matInput formControlName="weaponId" hidden id="temporary fix" />
-    
-    <mat-error clueErrorMessages="weaponId" [clueReplacements]="{ container: 'the weapons' }"></mat-error>
+
+    <mat-error
+      clueErrorMessages="weaponId"
+      [clueReplacements]="{ container: 'the weapons' }"
+    ></mat-error>
   </mat-form-field>
 
   <!-- TODO: remove class and styles when mat-form-field supports mat-selects -->
   <mat-form-field class="mat-form-field-type-mat-select">
-    <mat-select formControlName="roomId" placeholder="Room" [value]="suggestion.roomId">
-      <mat-option *ngFor="let room of rooms" [value]="room.id">{{ room.name }}</mat-option>
+    <mat-select
+      formControlName="roomId"
+      placeholder="Room"
+      [value]="suggestion.roomId"
+    >
+      <mat-option *ngFor="let room of rooms" [value]="room.id">{{
+        room.name
+      }}</mat-option>
     </mat-select>
 
     <!-- TODO: remove input when mat-form-field supports mat-selects -->
     <input matInput formControlName="roomId" hidden id="temporary fix" />
-    
-    <mat-error clueErrorMessages="roomId" [clueReplacements]="{ container: 'the rooms' }"></mat-error>
+
+    <mat-error
+      clueErrorMessages="roomId"
+      [clueReplacements]="{ container: 'the rooms' }"
+    ></mat-error>
   </mat-form-field>
 </form>

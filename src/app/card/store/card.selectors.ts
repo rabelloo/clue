@@ -1,7 +1,7 @@
-import { Card } from '../card';
 import { ClueState } from '../../core/store/state';
 import { Player } from '../../player/player';
 import { PlayerSelectors } from '../../player/store/player.selectors';
+import { Card } from '../card';
 import { Room } from '../room/room';
 import { Suspect } from '../suspect/suspect';
 import { Weapon } from '../weapon/weapon';
@@ -40,68 +40,59 @@ export function maxCardsSelector(state: ClueState): number {
 }
 
 export function roomsSelector(state: ClueState): Room[] {
-  return cardsSelector(state)
-            .filter((c: Card) => c.type === 'room');
+  return cardsSelector(state).filter((c: Card) => c.type === 'room');
 }
 
 export function suspectsSelector(state: ClueState): Suspect[] {
   return cardsSelector(state)
-            .filter((c: Card) => c.type === 'suspect')
-            .map(c => c as Suspect);
+    .filter((c: Card) => c.type === 'suspect')
+    .map(c => c as Suspect);
 }
 
 export function weaponsSelector(state: ClueState): Weapon[] {
-  return cardsSelector(state)
-            .filter((c: Card) => c.type === 'weapon');
+  return cardsSelector(state).filter((c: Card) => c.type === 'weapon');
 }
 
 export function validCharactersForSelector(player: Player) {
-  return function (state: ClueState): Suspect[] {
+  return function(state: ClueState): Suspect[] {
     const invalidCharacterIds = otherPlayersCharacterIds(player, state);
-    return suspectsSelector(state)
-            .filter(r => !invalidCharacterIds.includes(r.id));
+    return suspectsSelector(state).filter(
+      r => !invalidCharacterIds.includes(r.id)
+    );
   };
 }
 
 export function validRoomsForSelector(player: Player) {
-  return function (state: ClueState): Room[] {
+  return function(state: ClueState): Room[] {
     const invalidCardIds = otherPlayersCardIds(player, state);
-    return roomsSelector(state)
-            .filter(r => !invalidCardIds.includes(r.id));
+    return roomsSelector(state).filter(r => !invalidCardIds.includes(r.id));
   };
 }
 
 export function validSuspectsForSelector(player: Player) {
-  return function (state: ClueState): Suspect[] {
+  return function(state: ClueState): Suspect[] {
     const invalidCardIds = otherPlayersCardIds(player, state);
-    return suspectsSelector(state)
-            .filter(r => !invalidCardIds.includes(r.id));
+    return suspectsSelector(state).filter(r => !invalidCardIds.includes(r.id));
   };
 }
 
 export function validWeaponsForSelector(player: Player) {
-  return function (state: ClueState): Weapon[] {
+  return function(state: ClueState): Weapon[] {
     const invalidCardIds = otherPlayersCardIds(player, state);
-    return weaponsSelector(state)
-            .filter(r => !invalidCardIds.includes(r.id));
+    return weaponsSelector(state).filter(r => !invalidCardIds.includes(r.id));
   };
 }
 
-
 ////////////
 
-
 function otherPlayersCharacterIds(player: Player, state: ClueState): number[] {
-  return otherPlayers(player, state)
-              .map((p: Player) => p.characterId);
+  return otherPlayers(player, state).map((p: Player) => p.characterId);
 }
 
 function otherPlayersCardIds(player: Player, state: ClueState): number[] {
-  return otherPlayers(player, state)
-              .flatMap((p: Player) => p.cardIds);
+  return otherPlayers(player, state).flatMap((p: Player) => p.cardIds);
 }
 
 function otherPlayers(player: Player, state: ClueState): Player[] {
-  return Object.values(state.players)
-              .filter(p => p.id !== player.id);
+  return Object.values(state.players).filter(p => p.id !== player.id);
 }
