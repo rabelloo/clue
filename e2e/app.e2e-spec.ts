@@ -1,7 +1,7 @@
 import { browser } from 'protractor';
 import { AppPage } from './app.po';
 
-describe('clue App', () => {
+xdescribe('clue App', () => {
   let page: AppPage;
 
   // Protractor does not currently support websockets,
@@ -16,7 +16,6 @@ describe('clue App', () => {
   });
 
   describe('nav-bar', () => {
-
     it('should exist', () => {
       page.navigateTo();
       expect(page.getNavBar().isDisplayed()).toBe(true);
@@ -30,33 +29,37 @@ describe('clue App', () => {
     });
 
     it('should be colored #2196f3', () => {
-      const color = page.getFooter().$('.mat-toolbar').getCssValue('background-color');
+      const color = page
+        .getFooter()
+        .$('.mat-toolbar')
+        .getCssValue('background-color');
       expect(color).toBe('rgba(35, 31, 32, 1)');
     });
-
   });
 
   describe('footer', () => {
-
     it('should exist', () => {
       expect(page.getFooter().isDisplayed()).toBe(true);
     });
 
     it('should be colored #231f20', () => {
-      const color = page.getFooter().$('.mat-toolbar').getCssValue('background-color');
+      const color = page
+        .getFooter()
+        .$('.mat-toolbar')
+        .getCssValue('background-color');
       expect(color).toBe('rgba(35, 31, 32, 1)');
     });
 
     it('should have a link to GitHub', () => {
       const link = page.getFooter().$('a[alt="GitHub"]');
       expect(link.isDisplayed()).toBe(true);
-      expect(link.getAttribute('href')).toContain('https://github.com/rabelloo');
+      expect(link.getAttribute('href')).toContain(
+        'https://github.com/rabelloo'
+      );
 
       const img = link.$('img');
       expect(img.isDisplayed()).toBe(true);
       expect(img.getAttribute('src')).toContain('assets/github.svg');
     });
-
   });
-
 });
