@@ -1,5 +1,5 @@
-import { AppPage } from './app.po';
 import { browser } from 'protractor';
+import { AppPage } from './app.po';
 
 describe('clue App', () => {
   let page: AppPage;

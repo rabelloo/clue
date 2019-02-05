@@ -21,7 +21,7 @@
     "lint": "ng lint --format stylish --fix",
     "lint:ci": "ng lint --format stylish",
     "test": "ng test --code-coverage",
-    "test:ci": "ng test --browsers ChromeHeadless --single-run --code-coverage",
+    "test:ci": "ng test --browsers ChromeHeadless --watch false --code-coverage",
     "e2e": "ng e2e"
   },
   "dependencies": {
