@@ -2,11 +2,8 @@
   <label>Disproved</label>
 
   <mat-form-field>
-    <mat-select
-      formControlName="playerId"
-      placeholder="By"
-      [value]="disprove.playerId"
-    >
+    <mat-label>By</mat-label>
+    <mat-select formControlName="playerId">
       <mat-option *ngFor="let player of players" [value]="player.id">
         {{ player.name }}
       </mat-option>
@@ -19,11 +16,8 @@
   </mat-form-field>
 
   <mat-form-field>
-    <mat-select
-      formControlName="cardId"
-      placeholder="With"
-      [value]="disprove.cardId"
-    >
+    <mat-label>With</mat-label>
+    <mat-select formControlName="cardId">
       <mat-optgroup label="Suspect">
         <mat-option [value]="suspect?.id">
           {{ suspect?.name }}

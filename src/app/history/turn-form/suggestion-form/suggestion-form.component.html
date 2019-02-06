@@ -3,14 +3,11 @@
 
   <!-- TODO: remove class and styles when mat-form-field supports mat-selects -->
   <mat-form-field class="mat-form-field-type-mat-select">
-    <mat-select
-      formControlName="suspectId"
-      placeholder="Suspect"
-      [value]="suggestion.suspectId"
-    >
-      <mat-option *ngFor="let suspect of suspects" [value]="suspect.id">{{
-        suspect.name
-      }}</mat-option>
+    <mat-label>Suspect</mat-label>
+    <mat-select formControlName="suspectId">
+      <mat-option *ngFor="let suspect of suspects" [value]="suspect.id">
+        {{ suspect.name }}
+      </mat-option>
     </mat-select>
 
     <!-- TODO: remove input when mat-form-field supports mat-selects -->
@@ -24,14 +21,11 @@
 
   <!-- TODO: remove class and styles when mat-form-field supports mat-selects -->
   <mat-form-field class="mat-form-field-type-mat-select">
-    <mat-select
-      formControlName="weaponId"
-      placeholder="Weapon"
-      [value]="suggestion.weaponId"
-    >
-      <mat-option *ngFor="let weapon of weapons" [value]="weapon.id">{{
-        weapon.name
-      }}</mat-option>
+    <mat-label>Weapon</mat-label>
+    <mat-select formControlName="weaponId">
+      <mat-option *ngFor="let weapon of weapons" [value]="weapon.id">
+        {{ weapon.name }}
+      </mat-option>
     </mat-select>
 
     <!-- TODO: remove input when mat-form-field supports mat-selects -->
@@ -45,14 +39,11 @@
 
   <!-- TODO: remove class and styles when mat-form-field supports mat-selects -->
   <mat-form-field class="mat-form-field-type-mat-select">
-    <mat-select
-      formControlName="roomId"
-      placeholder="Room"
-      [value]="suggestion.roomId"
-    >
-      <mat-option *ngFor="let room of rooms" [value]="room.id">{{
-        room.name
-      }}</mat-option>
+    <mat-label>Room</mat-label>
+    <mat-select formControlName="roomId">
+      <mat-option *ngFor="let room of rooms" [value]="room.id">
+        {{ room.name }}
+      </mat-option>
     </mat-select>
 
     <!-- TODO: remove input when mat-form-field supports mat-selects -->

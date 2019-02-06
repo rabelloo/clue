@@ -3,7 +3,7 @@ import { ILocalForageEntity } from './ilocal-forage-entity';
 import { LocalForageIdTable } from './local-forage-id-table';
 import { LocalForageTable } from './local-forage-table';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class LocalForageService {
   constructor() {}
 

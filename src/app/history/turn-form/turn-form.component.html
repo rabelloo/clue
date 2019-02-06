@@ -1,14 +1,13 @@
 <form [formGroup]="form">
   <!-- TODO: remove style when mat-form-field supports mat-selects -->
   <mat-form-field style="max-width: 40px">
+    <mat-label>Order</mat-label>
     <input
       matInput
       formControlName="order"
       type="number"
       min="1"
       [max]="players.length"
-      placeholder="Order"
-      [value]="turn.order"
     />
     <mat-error
       clueErrorMessages="order"
@@ -18,11 +17,8 @@
 
   <!-- TODO: remove class and styles when mat-form-field supports mat-selects -->
   <mat-form-field class="mat-form-field-type-mat-select">
-    <mat-select
-      formControlName="playerId"
-      placeholder="Player"
-      [value]="turn.playerId"
-    >
+    <mat-label>Player</mat-label>
+    <mat-select formControlName="playerId">
       <mat-option *ngFor="let player of players" [value]="player.id">
         {{ player.name }}
       </mat-option>
@@ -39,8 +35,7 @@
     [rooms]="rooms"
     [suspects]="suspects"
     [weapons]="weapons"
-  >
-  </clue-suggestion-form>
+  ></clue-suggestion-form>
 
   <clue-disprove-form
     [disprove]="turn.disprove"
@@ -48,8 +43,7 @@
     [room]="turn.suggestion.room"
     [suspect]="turn.suggestion.suspect"
     [weapon]="turn.suggestion.weapon"
-  >
-  </clue-disprove-form>
+  ></clue-disprove-form>
 
   <button
     mat-icon-button

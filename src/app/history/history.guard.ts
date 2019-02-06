@@ -8,6 +8,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { ClueState } from '../core/store/state';
+import { SyncPlayers } from '../player/store/player.actions';
 import { LoadHistory } from './store/history.actions';
 import { historyLoadedSelector } from './store/history.selectors';
 
@@ -20,6 +21,7 @@ export class HistoryGuard implements CanActivate {
     state: RouterStateSnapshot
   ): Observable<boolean> {
     this.store.dispatch(new LoadHistory());
+    this.store.dispatch(new SyncPlayers());
 
     return this.store
       .select(historyLoadedSelector)
